@@ -1,0 +1,1147 @@
+ERROR - 2026-04-29 07:00:52 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#13 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#14 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/spark(87): CodeIgniter\Boot::bootSpark()
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#13 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/spark(87): CodeIgniter\Boot::bootSpark()
+#14 {main}
+ERROR - 2026-04-29 07:01:38 --> Error connecting to the database: mysqli_sql_exception: Connection refused in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#13 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#14 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/spark(87): CodeIgniter\Boot::bootSpark()
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Connection refused in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#13 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/spark(87): CodeIgniter\Boot::bootSpark()
+#14 {main}
+ERROR - 2026-04-29 07:03:11 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'notes_itu' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#13 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#14 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/spark(87): CodeIgniter\Boot::bootSpark()
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'notes_itu' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#13 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/spark(87): CodeIgniter\Boot::bootSpark()
+#14 {main}
+ERROR - 2026-04-29 07:04:32 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'notes_itu' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#13 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#14 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/spark(87): CodeIgniter\Boot::bootSpark()
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'notes_itu' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#13 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/spark(87): CodeIgniter\Boot::bootSpark()
+#14 {main}
+ERROR - 2026-04-29 07:49:40 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 07:49:40 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: list]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 07:49:40 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 07:49:40 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: list]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 07:49:49 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 07:49:49 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: list]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 07:50:59 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 07:50:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: etudiants]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 07:51:04 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 07:51:04 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: etudiants]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 07:51:26 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 07:51:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: list]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:00:13 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 08:00:13 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: list]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:00:14 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 08:00:14 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: list]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:03:21 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 08:03:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: list]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:03:22 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 08:03:22 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: list]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(16): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:33:29 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(615): CodeIgniter\Model->doFind()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(32): CodeIgniter\BaseModel->find()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->notes()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(615): CodeIgniter\Model->doFind()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(32): CodeIgniter\BaseModel->find()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->notes()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 08:33:29 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: etudiants/5/notes]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(615): CodeIgniter\Model->doFind()
+ 5 APPPATH/Controllers/Etudiant.php(32): CodeIgniter\BaseModel->find()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->notes()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:33:29 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(615): CodeIgniter\Model->doFind()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(32): CodeIgniter\BaseModel->find()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->notes()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(615): CodeIgniter\Model->doFind()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(32): CodeIgniter\BaseModel->find()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->notes()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 08:33:29 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: etudiants/5/notes]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(615): CodeIgniter\Model->doFind()
+ 5 APPPATH/Controllers/Etudiant.php(32): CodeIgniter\BaseModel->find()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->notes()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:33:31 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(17): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(17): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 08:33:31 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: list]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(17): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:36:43 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(17): CodeIgniter\BaseModel->findAll()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/Etudiant.php(17): CodeIgniter\BaseModel->findAll()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 08:36:43 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: list]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Etudiant.php(17): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Etudiant->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:36:58 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+CRITICAL - 2026-04-29 08:36:58 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: POST, Route: login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:37:06 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+CRITICAL - 2026-04-29 08:37:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: POST, Route: login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:37:21 --> Table 'notes_itu.users' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 7 APPPATH/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+ 8 APPPATH/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+ 9 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+10 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2026-04-29 08:37:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'notes_itu.users' doesn't exist
+[Method: POST, Route: login]
+in SYSTEMPATH/Database/BaseConnection.php on line 865.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 4 APPPATH/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+ 5 APPPATH/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2026-04-29 08:37:21 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'notes_itu.users' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+ 7 APPPATH/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+ 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+ 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2026-04-29 08:37:21 --> [Caused by] mysqli_sql_exception: Table 'notes_itu.users' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 7 APPPATH/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+ 8 APPPATH/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+ 9 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+10 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:59:08 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(615): CodeIgniter\Model->doFind()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/EtudiantController.php(32): CodeIgniter\BaseModel->find()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\EtudiantController->notes()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(615): CodeIgniter\Model->doFind()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/EtudiantController.php(32): CodeIgniter\BaseModel->find()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\EtudiantController->notes()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 08:59:08 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: etudiants/4/notes]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(615): CodeIgniter\Model->doFind()
+ 5 APPPATH/Controllers/EtudiantController.php(32): CodeIgniter\BaseModel->find()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\EtudiantController->notes()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 08:59:09 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(615): CodeIgniter\Model->doFind()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/EtudiantController.php(32): CodeIgniter\BaseModel->find()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\EtudiantController->notes()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(615): CodeIgniter\Model->doFind()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/EtudiantController.php(32): CodeIgniter\BaseModel->find()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\EtudiantController->notes()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#12 {main}
+CRITICAL - 2026-04-29 08:59:09 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: GET, Route: etudiants/4/notes]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(615): CodeIgniter\Model->doFind()
+ 5 APPPATH/Controllers/EtudiantController.php(32): CodeIgniter\BaseModel->find()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\EtudiantController->notes()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2026-04-29 09:10:55 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' in /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+#6 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/app/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+#7 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+#8 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/mickaella/Projet/2026/s4/nouveau/INF205_Systeme_Information/tp_note_itu/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+CRITICAL - 2026-04-29 09:10:55 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost'
+[Method: POST, Route: login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/UserModel.php(31): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Controllers/AuthController.php(23): App\Models\UserModel->getUserByEmail()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\AuthController->doLogin()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2026-04-29 09:23:05 --> ErrorException: Cannot declare class App\Controllers\EtudiantsController, because the name is already in use
+[Method: GET, Route: list]
+in APPPATH/Controllers/EtudiantController.php on line 9.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-04-29 09:23:11 --> ErrorException: Cannot declare class App\Controllers\EtudiantsController, because the name is already in use
+[Method: GET, Route: list]
+in APPPATH/Controllers/EtudiantController.php on line 9.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-04-29 09:23:34 --> ErrorException: Cannot declare class App\Controllers\EtudiantsController, because the name is already in use
+[Method: GET, Route: list]
+in APPPATH/Controllers/EtudiantController.php on line 9.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-04-29 09:23:35 --> ErrorException: Cannot declare class App\Controllers\EtudiantsController, because the name is already in use
+[Method: GET, Route: list]
+in APPPATH/Controllers/EtudiantController.php on line 9.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-04-29 09:23:35 --> ErrorException: Cannot declare class App\Controllers\EtudiantsController, because the name is already in use
+[Method: GET, Route: list]
+in APPPATH/Controllers/EtudiantController.php on line 9.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-04-29 09:23:38 --> ErrorException: Cannot declare class App\Controllers\EtudiantsController, because the name is already in use
+[Method: GET, Route: list]
+in APPPATH/Controllers/EtudiantController.php on line 9.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-04-29 09:23:50 --> ErrorException: Cannot declare class App\Controllers\EtudiantsController, because the name is already in use
+[Method: GET, Route: list]
+in APPPATH/Controllers/EtudiantController.php on line 9.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-04-29 09:23:52 --> ErrorException: Cannot declare class App\Controllers\EtudiantsController, because the name is already in use
+[Method: GET, Route: etudiants]
+in APPPATH/Controllers/EtudiantController.php on line 9.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-04-29 09:26:52 --> ErrorException: Cannot declare class App\Controllers\EtudiantsController, because the name is already in use
+[Method: GET, Route: etudiants]
+in APPPATH/Controllers/EtudiantController.php on line 9.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-04-29 09:26:54 --> ErrorException: Cannot declare class App\Controllers\EtudiantsController, because the name is already in use
+[Method: GET, Route: etudiants]
+in APPPATH/Controllers/EtudiantController.php on line 9.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
