@@ -11,4 +11,6 @@ $routes->get('/acceuil', 'Home::index');
 $routes->get('/login', 'UserController::login');
 $routes->post('/validationLogin', 'UserController::validationLogin');
 $routes->get('/logout', 'UserController::logout');
-$routes->get('/inscription','UserController::inscription');
+$routes->get('/inscription','UserController::inscriptionPage1');
+$routes->get('/step2' , 'UserController::inscriptionPage2');
+$routes->post('/savePage2', 'UserController::savePage2');
