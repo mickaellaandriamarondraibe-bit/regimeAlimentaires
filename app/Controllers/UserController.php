@@ -195,6 +195,46 @@ class UserController extends BaseController
     ]);
 }
     
+    
+    public function modifierProfil()
+{
+    $userId = session()->get('user_id');
+
+    if (!$userId) {
+        return redirect()->to('/login');
+    }
+
+    $userData = [
+        'email'    => trim((string) $this->request->getPost('email')),
+        'username' => trim((string) $this->request->getPost('name')),
+    ];
+
+    $password = (string) $this->request->getPost('pwd');
+
+    if ($password !== '') {
+        $userData['password'] = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    $this->userModel->update($userId, $userData);
+
+    $this->infoClientModel
+        ->where('user_id', $userId)
+        ->set([
+            'phone'  => trim((string) $this->request->getPost('phone')),
+            'genre'  => $this->request->getPost('genre'),
+            'taille' => $this->request->getPost('taille'),
+            'poids'  => $this->request->getPost('poids'),
+        ])
+        ->update();
+
+    session()->set([
+        'email'    => $userData['email'],
+        'username' => $userData['username'],
+    ]);
+
+    return redirect()->to('/profil')
+        ->with('success', 'Profil modifié avec succès.');
+}
 }
 
 
