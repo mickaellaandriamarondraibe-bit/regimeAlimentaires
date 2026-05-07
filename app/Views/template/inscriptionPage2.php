@@ -1,120 +1,162 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inscription - Étape 2</title>
 </head>
 <body>
-    <legend>Inscription - Etape 2</legend>
-    <form action="/register/step1" method="post">
-        <label> phone </label>
-        <input type = "text" name="phone" id ="phone" value="<?php echo session('phone') ?? ''; ?>">
-        <span id="erreur_phone" style="color : red ; display : none; "> phone requis</span>
-        <label> Genre </label>
-        <select name="genre" id="genre" value="<?php echo session('genre') ?? ''; ?>">
-            <option value="">Sélectionnez votre genre</option>
-            <option value="H">Homme</option>
-            <option value="F">Femme</option>
-        </select>
-        <span id="erreur_genre" style="color : red ; display : none; "> Genre requis</span>
-        <label for="taille">Taille</label>
 
-        <input type="number" name="taille" id="taille" value="<?php echo session('taille') ?? ''; ?>">
-        <label for="poids">Poids</label>
-        
-        <input type="number" name="poids" id="poids" value="<?php echo session('poids') ?? ''; ?>">
+    <fieldset>
+        <legend>Inscription - Étape 2</legend>
 
-        <input type="button" onclick="validateForm()" value="Enregistrer les informations">
-        <input type="button" onclick="retour()" value="Retour">
-    </form>
-</body>
+        <?php if (session()->getFlashdata('error')): ?>
+            <p style="color:red;">
+                <?= esc(session()->getFlashdata('error')) ?>
+            </p>
+        <?php endif; ?>
+
+        <form id="formStep2" action="/register" method="post">
+            <?= csrf_field() ?>
+
+            <div>
+                <label for="phone">Téléphone</label>
+                <input
+                    type="text"
+                    name="phone"
+                    id="phone"
+                    value="<?= esc(session('phone') ?? '') ?>"
+                >
+                <span id="erreur_phone" style="color:red; display:none;">
+                    Téléphone requis
+                </span>
+            </div>
+
+            <div>
+                <label for="genre">Genre</label>
+                <select name="genre" id="genre">
+                    <option value="">Sélectionnez votre genre</option>
+                    <option value="H" <?= session('genre') === 'H' ? 'selected' : '' ?>>Homme</option>
+                    <option value="F" <?= session('genre') === 'F' ? 'selected' : '' ?>>Femme</option>
+                </select>
+                <span id="erreur_genre" style="color:red; display:none;">
+                    Genre requis
+                </span>
+            </div>
+
+            <div>
+                <label for="taille">Taille en cm</label>
+                <input
+                    type="number"
+                    name="taille"
+                    id="taille"
+                    min="50"
+                    max="250"
+                    step="0.01"
+                    value="<?= esc(session('taille') ?? '') ?>"
+                >
+                <span id="erreur_taille" style="color:red; display:none;">
+                    Taille requise et valide
+                </span>
+            </div>
+
+            <div>
+                <label for="poids">Poids en kg</label>
+                <input
+                    type="number"
+                    name="poids"
+                    id="poids"
+                    min="10"
+                    max="300"
+                    step="0.01"
+                    value="<?= esc(session('poids') ?? '') ?>"
+                >
+                <span id="erreur_poids" style="color:red; display:none;">
+                    Poids requis et valide
+                </span>
+            </div>
+
+            <button type="submit">Enregistrer les informations</button>
+            <button type="button" onclick="retour()">Retour</button>
+        </form>
+    </fieldset>
+
 <script>
-    function retour (){
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '/savePage2';
-        
-        const phone = document.createElement('input');
-        phone.type = 'hidden';
-        phone.name = 'phone';
-        phone.value = document.getElementById('phone').value;
-        form.appendChild(phone);
-        
-        const genre = document.createElement('input');
-        genre.type = 'hidden';
-        genre.name = 'genre';
-        genre.value = document.getElementById('genre').value;
-        form.appendChild(genre);
-        
-        const taille = document.createElement('input');
-        taille.type = 'hidden';
-        taille.name = 'taille';
-        taille.value = document.getElementById('taille').value;
-        form.appendChild(taille);
-        
-        const poids = document.createElement('input');
-        poids.type = 'hidden';
-        poids.name = 'poids';
-        poids.value = document.getElementById('poids').value;
-        form.appendChild(poids);
-        
+    function showError(id, show) {
+        document.getElementById(id).style.display = show ? "block" : "none";
+    }
+
+    document.getElementById("formStep2").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const phone = document.getElementById("phone").value.trim();
+        const genre = document.getElementById("genre").value.trim();
+        const taille = document.getElementById("taille").value.trim();
+        const poids = document.getElementById("poids").value.trim();
+
+        let isValid = true;
+
+        if (phone === "") {
+            showError("erreur_phone", true);
+            isValid = false;
+        } else {
+            showError("erreur_phone", false);
+        }
+
+        if (genre === "") {
+            showError("erreur_genre", true);
+            isValid = false;
+        } else {
+            showError("erreur_genre", false);
+        }
+
+        if (taille === "" || Number(taille) <= 0) {
+            showError("erreur_taille", true);
+            isValid = false;
+        } else {
+            showError("erreur_taille", false);
+        }
+
+        if (poids === "" || Number(poids) <= 0) {
+            showError("erreur_poids", true);
+            isValid = false;
+        } else {
+            showError("erreur_poids", false);
+        }
+
+        if (isValid) {
+            this.submit();
+        }
+    });
+
+    function retour() {
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/savePage2";
+
+        const csrfName = "<?= csrf_token() ?>";
+        const csrfHash = "<?= csrf_hash() ?>";
+
+        const csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = csrfName;
+        csrfInput.value = csrfHash;
+        form.appendChild(csrfInput);
+
+        const fields = ["phone", "genre", "taille", "poids"];
+
+        fields.forEach(function (fieldName) {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = fieldName;
+            input.value = document.getElementById(fieldName).value;
+            form.appendChild(input);
+        });
+
         document.body.appendChild(form);
         form.submit();
-    }   
-    function validateForm(){
-        const phone = document.getElementById('phone').value; 
-            const poids = document.getElementById('poids').value;
-            const genre = document.getElementById('genre').value;  
-            const taille = document.getElementById('taille').value;
-            let erreur_phone= document.getElementById('erreur_phone');
-            let erreur_poids= document.getElementById('erreur_poids');
-            let erreur_genre= document.getElementById('erreur_genre');
-            let erreur_taille= document.getElementById('erreur_taille');
-
-        if(phone.trim()=== ""){
-            erreur_phone.style.display = "block ";
-                   }
-        else{
-            erreur_phone.style.display = "none";
-           
-        }
-        if(genre.trim() ===""){
-            erreur_genre.style.display = "block ";
-           
-        }
-        else {
-            erreur_genre.style.display = "none";
-           
-        }
-        if(poids.trim() ===""){
-            erreur_poids.style.display = "block ";
-           
-        }
-        else {
-            erreur_poids.style.display = "none";
-            
-        }
-        if(taille.trim() ===""){
-            erreur_taille.style.display = "block ";
-           
-        }
-        else {
-            erreur_taille.style.display = "none";
-        }
-
-        if(phone.trim() != '' && genre.trim() != '' && poids.trim() != '' && taille.trim() != ''){
-            const save =
-            window.location.href ="/step2"; 
-        }
-        
-        return false ; 
-}
-
+    }
 </script>
-    
 
+</body>
 </html>
-
-
