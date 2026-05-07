@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Models\UserModele;
+use App\Models\InfoClientsModel;
 
 class UserController extends BaseController
 {
@@ -9,122 +12,149 @@ class UserController extends BaseController
         if (session()->get('user_id')) {
             return redirect()->to('/acceuil');
         }
+
         return view('template/login');
     }
 
-    public function inscriptionPage1(){
+    public function inscriptionPage1()
+    {
         return view('template/inscriptionPage1');
     }
 
-    public function inscriptionPage2(){
+    public function inscriptionPage2()
+    {
         $session = session();
-        $newData = [
-            'email' => $this->request->getGet('email') ?: $session->get('email'),
-            'name' => $this->request->getGet('name') ?: $session->get('name'),
-            'pwd' => $this->request->getGet('pwd') ?: $session->get('pwd'),
-            'genre' => $this->request->getGet('genre') ?: $session->get('genre'),
-            'taille' => $this->request->getGet('taille') ?: $session->get('taille'),
-            'poids' => $this->request->getGet('poids') ?: $session->get('poids'),
-        ];
-        $session->set($newData);
-        
+
+        $session->set([
+            'email' => $this->request->getPost('email') ?: $session->get('email'),
+            'name'  => $this->request->getPost('name') ?: $session->get('name'),
+            'pwd'   => $this->request->getPost('pwd') ?: $session->get('pwd'),
+        ]);
+
         return view('template/inscriptionPage2');
     }
 
-    public function savePage2(){
-        $session = session();
-        $session->set([
-            'phone' => $this->request->getPost('phone'),
-            'genre' => $this->request->getPost('genre'),
+    public function savePage2()
+    {
+        session()->set([
+            'phone'  => $this->request->getPost('phone'),
+            'genre'  => $this->request->getPost('genre'),
             'taille' => $this->request->getPost('taille'),
-            'poids' => $this->request->getPost('poids'),
+            'poids'  => $this->request->getPost('poids'),
         ]);
-        
+
         return redirect()->to('/inscription');
     }
 
-    public function verifierPasswordAndEmail(){
-        $userModel = new UserModele();
-        $email = trim((string) $this->request->getPost('email'));
-        $pwd = (string) $this->request->getPost('pwd'); 
-        $userBase = $userModel->getUserByEmail($email);
-        $emailBase = $userBase['email'];
-        $pwdBase = $userBase['password'];
+    public function enregistrementUser()
+    {
+        $session = session();
 
-        if($email === $emailBase &&  $pwd === $pwdBase){
-            return false; 
+        $email = trim((string) $session->get('email'));
+        $username = trim((string) $session->get('name'));
+        $password = (string) $session->get('pwd');
+
+        $phone = trim((string) $this->request->getPost('phone'));
+        $genre = (string) $this->request->getPost('genre');
+        $taille = (float) $this->request->getPost('taille');
+        $poids = (float) $this->request->getPost('poids');
+
+        if ($email === '' || $username === '' || $password === '') {
+            return redirect()->to('/inscription')
+                ->with('error', 'Les informations de l’étape 1 sont manquantes.');
         }
-        return true ;
-    }
 
-    
-    public function enregistrementUser(){
+        if ($phone === '' || $genre === '' || $taille <= 0 || $poids <= 0) {
+            return redirect()->to('/step2')
+                ->with('error', 'Veuillez remplir correctement toutes les informations.');
+        }
+
         $userModel = new UserModele();
         $infoClientModel = new InfoClientsModel();
-        $email = trim((string) $this->request->getPost('email'));
-        $username = (string) $this->request->getPost('name');
-        $pwd = (string) $this->request->getPost('pwd'); 
-        $phone = (integer) $this->request->getPost('number');
-        $genre = $_SESSION['genre'];
-        $taille = $_SESSION['taille'];
-        $poids = $_SESSION['poids'];
-        $is_gold = (boolean) $this->request->getPost('is_gold');
-        $wallet = (double) $this->request->getPost('wallet');
-     
-        $userModel->save([
-            'email' => $email,
+
+        if ($userModel->where('email', $email)->first()) {
+            return redirect()->to('/inscription')
+                ->with('error', 'Cet email existe déjà.');
+        }
+
+        if ($userModel->where('username', $username)->first()) {
+            return redirect()->to('/inscription')
+                ->with('error', 'Ce nom d’utilisateur existe déjà.');
+        }
+
+        $db = \Config\Database::connect();
+        $db->transStart();
+
+        $userModel->insert([
+            'email'    => $email,
             'username' => $username,
-            'password' => $pwd,
-            'role' => 'client',
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'role'     => 'client',
         ]);
 
-        $infoClientModel->save([
-            'user_id' => $userModel->getInsertID(),
-            'phone' => $phone,
-            'genre' => $genre,
-            'taille' => $taille,
-            'poids' => $poids,
-            'is_gold' => $is_gold,
-            'wallet' => $wallet,
+        $userId = $userModel->getInsertID();
+
+        $infoClientModel->insert([
+            'user_id' => $userId,
+            'phone'   => $phone,
+            'genre'   => $genre,
+            'taille'  => $taille,
+            'poids'   => $poids,
+            'is_gold' => 0,
+            'wallet'  => 0,
         ]);
-        return redirect()->to('/login')->with('success', 'Inscription réussie. Veuillez vous connecter.');
+
+        $db->transComplete();
+
+        if ($db->transStatus() === false) {
+            return redirect()->to('/step2')
+                ->with('error', 'Erreur lors de l’inscription. Veuillez réessayer.');
+        }
+
+        $session->remove([
+            'email',
+            'name',
+            'pwd',
+            'phone',
+            'genre',
+            'taille',
+            'poids',
+        ]);
+
+        return redirect()->to('/login')
+            ->with('success', 'Inscription réussie. Veuillez vous connecter.');
     }
 
     public function validationLogin()
     {
-        $user = new UserModele();
+        $userModel = new UserModele();
+
         $email = trim((string) $this->request->getPost('email'));
         $pwd = (string) $this->request->getPost('pwd');
-        $userBase = $user->getUserByEmail($email);
+
+        $userBase = $userModel->getUserByEmail($email);
 
         if (!$userBase) {
-            return redirect()->to('/login')->with('error', 'Email ou mot de passe incorrect.');
+            return redirect()->to('/login')
+                ->with('error', 'Email ou mot de passe incorrect.');
         }
 
         $pwdBase = $userBase['password'] ?? '';
-        $estValid = false;
 
-        if ($pwdBase === $pwd) {
-            $estValid = true;
-            $newhash = password_hash($pwd, PASSWORD_DEFAULT);
-            $user->update($userBase['id'], ['password' => $newhash]);
-        }
-        elseif (password_verify($pwd, $pwdBase)) {
-            $estValid = true;
-        }
-
-        if (!$estValid) {
-            return redirect()->to('/erreur')->with('error', 'Email ou mot de passe incorrect.');
+        if (!password_verify($pwd, $pwdBase)) {
+            return redirect()->to('/login')
+                ->with('error', 'Email ou mot de passe incorrect.');
         }
 
         session()->set([
-            'user_id' => $userBase['id'],
+            'user_id'  => $userBase['id'],
             'username' => $userBase['username'],
-            'email' => $userBase['email'],
-            'role' => $userBase['role'] ?? null,
+            'email'    => $userBase['email'],
+            'role'     => $userBase['role'] ?? null,
         ]);
 
-        return redirect()->to('/erreur')->with('success', 'Connexion réussie.');
+        return redirect()->to('/acceuil')
+            ->with('success', 'Connexion réussie.');
     }
 
     public function logout()
