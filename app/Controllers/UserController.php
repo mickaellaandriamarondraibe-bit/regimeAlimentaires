@@ -29,20 +29,35 @@ class UserController extends BaseController
     
     public function enregistrementUser(){
         $userModel = new UserModele();
+        $infoClientModel = new InfoClientsModel();
         $email = trim((string) $this->request->getPost('email'));
         $username = (string) $this->request->getPost('name');
         $pwd = (string) $this->request->getPost('pwd'); 
         $phone = (integer) $this->request->getPost('number');
-        $genre = (string) $this->request->getPost('genre');
-        $taille = (double) $this->request->getPost('taille');
-        $poids = (double) $this->request->getPost('poids');
+        $genre = $_SESSION['genre'];
+        $taille = $_SESSION['taille'];
+        $poids = $_SESSION['poids'];
+        
         $is_gold = (boolean) $this->request->getPost('is_gold');
         $wallet = (double) $this->request->getPost('wallet');
+     
+        $userModel->save([
+            'email' => $email,
+            'username' => $username,
+            'password' => $pwd,
+            'role' => 'client',
+        ]);
 
-        
-
-        
-        
+        $infoClientModel->save([
+            'user_id' => $userModel->getInsertID(),
+            'phone' => $phone,
+            'genre' => $genre,
+            'taille' => $taille,
+            'poids' => $poids,
+            'is_gold' => $is_gold,
+            'wallet' => $wallet,
+        ]);
+        return redirect()->to('/login')->with('success', 'Inscription réussie. Veuillez vous connecter.');
     }
 
     public function validationLogin()
