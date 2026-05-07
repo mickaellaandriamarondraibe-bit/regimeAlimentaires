@@ -1,4 +1,4 @@
-CREATE OR ALTER VIEW v_composition_regimes AS
+CREATE OR REPLACE VIEW v_composition_regimes AS
 SELECT 
     r.id AS regime_id,
     r.name AS regime_name,
