@@ -4,7 +4,7 @@ COLLATE utf8mb4_unicode_ci;
 
 USE regime_app;
 
-CREATE TABLE user (
+CREATE TABLE IF NOT EXISTS user(
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(150) NOT NULL UNIQUE,
     username VARCHAR(100) NOT NULL UNIQUE,
@@ -12,7 +12,7 @@ CREATE TABLE user (
     password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE infos_clients (
+CREATE TABLE IF NOT EXISTS infos_clients (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL UNIQUE,
     name VARCHAR(150) NOT NULL,
@@ -28,46 +28,46 @@ CREATE TABLE infos_clients (
         ON DELETE CASCADE
 );
 
-CREATE TABLE objectif (
+CREATE TABLE IF NOT EXISTS objectif (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE
 );
 
-CREATE TABLE regimes (
+CREATE TABLE IF NOT EXISTS regimes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
     type_variation ENUM('gain', 'perte') NOT NULL,
     variation_poids_jour DECIMAL(6,3) NOT NULL,
-    prix_jour DECIMAL(10,2) NOT NULL,
+    prix_jour DECIMAL(10,2) NOT NULL
 );
 
-CREATE TABLE ingredients (
+CREATE TABLE IF NOT EXISTS ingredients (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE composition_regimes (
+CREATE TABLE IF NOT EXISTS composition_regimes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     regime_id INT NOT NULL,
     ingredient_id INT NOT NULL,
-    pourcentage DECIMAL(5,2) NOT NULL DEFAULT 0.0
+    pourcentage DECIMAL(5,2) NOT NULL DEFAULT 0.0,
     
     CONSTRAINT fk_composition_regime_id
         FOREIGN KEY (regime_id) REFERENCES regimes(id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
     
     CONSTRAINT fk_regime_ingredient_id
         FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
         ON DELETE CASCADE
 );
 
-CREATE TABLE sport (
+CREATE TABLE IF NOT EXISTS sport (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
     variation_poids_jour DECIMAL(6,3) NOT NULL
 );
 
-CREATE TABLE transactions (
+CREATE TABLE IF NOT EXISTS transactions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     type ENUM('D', 'C') NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE transactions (
         ON DELETE CASCADE
 );
 
-CREATE TABLE programme (
+CREATE TABLE IF NOT EXISTS programme (
     id INT AUTO_INCREMENT PRIMARY KEY,
     objectif_id INT NOT NULL,
     objectif_kg DECIMAL(6,2) NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE programme (
         FOREIGN KEY (regime_id) REFERENCES regimes(id)
 );
 
-CREATE TABLE programme_sport (
+CREATE TABLE IF NOT EXISTS programme_sport (
     id INT AUTO_INCREMENT PRIMARY KEY,
     programme_id INT NOT NULL,
     sport_id INT NOT NULL,
@@ -119,13 +119,13 @@ CREATE TABLE programme_sport (
         UNIQUE (programme_id, sport_id)
 );
 
-CREATE TABLE code (
+CREATE TABLE IF NOT EXISTS code (
     id INT AUTO_INCREMENT PRIMARY KEY,
     code VARCHAR(100) NOT NULL UNIQUE,
     montant DECIMAL(10,2) NOT NULL
 );
 
-CREATE TABLE demande_code (
+CREATE TABLE IF NOT EXISTS demande_code (
     id INT AUTO_INCREMENT PRIMARY KEY,
     code_id INT NOT NULL,
     statut ENUM('en_attente', 'valide', 'refuse') NOT NULL DEFAULT 'en_attente',
