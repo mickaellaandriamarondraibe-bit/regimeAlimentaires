@@ -7,7 +7,8 @@
 </head>
 <body>
     <legend>Inscription - Etape 1</legend>
-    <form action="/step2" method="get" id="form">
+    <form action="/step2" method="post" id="form">
+    <?= csrf_field() ?>
         <label> Email </label>
         <input type="text" name="email" id="email" value="<?php echo session('email') ?? ''; ?>">
         <span id="erreur_email" style="color: red; display: none;"> Email requis</span>
@@ -26,7 +27,7 @@
         <input type="hidden" name="taille" value="<?php echo session('taille') ?? ''; ?>">
         <input type="hidden" name="poids" value="<?php echo session('poids') ?? ''; ?>">
 
-        <input type="button" onclick="validateForm()" value="Suivant">
+        <input type="submit" value="Suivant">
     </form>
 </body>
 

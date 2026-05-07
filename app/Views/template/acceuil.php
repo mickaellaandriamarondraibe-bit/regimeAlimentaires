@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,5 +10,7 @@
 </head>
 <body>
     hello
+
+    <a href="/logout">Se déconnecter</a>
 </body>
 </html>
