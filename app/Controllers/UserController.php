@@ -7,6 +7,15 @@ use App\Models\InfoClientsModel;
 
 class UserController extends BaseController
 {
+    private $userModel;
+    private $infoClientModel;
+
+    public function __construct()
+    {
+        $this->userModel = new UserModele();
+        $this->infoClientModel = new InfoClientsModel();
+    }
+
     public function login()
     {
         if (session()->get('user_id')) {
@@ -14,6 +23,40 @@ class UserController extends BaseController
         }
 
         return view('template/login');
+    }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('/login');
+    }
+
+     public function validationLogin()
+    {
+        $email = trim((string) $this->request->getPost('email'));
+        $pwd = (string) $this->request->getPost('pwd');
+
+        $userBase = $this->userModel->getUserByEmail($email);
+
+        if (!$userBase) {
+            return redirect()->to('/login')
+                ->with('error', 'Email ou mot de passe incorrect.');
+        }
+
+        $pwdBase = $userBase['password'] ?? '';
+
+        if (!password_verify($pwd, $pwdBase)) {
+            return redirect()->to('/login')->with('error', 'Email ou mot de passe incorrect.');
+        }
+
+        session()->set([
+            'user_id'  => $userBase['id'],
+            'username' => $userBase['username'],
+            'email'    => $userBase['email'],
+            'role'     => $userBase['role'] ?? null,
+        ]);
+
+        return redirect()->to('/acceuil')->with('success', 'Connexion réussie.');
     }
 
     public function inscriptionPage1()
@@ -33,6 +76,7 @@ class UserController extends BaseController
 
         return view('template/inscriptionPage2');
     }
+
 
     public function savePage2()
     {
@@ -60,43 +104,40 @@ class UserController extends BaseController
         $poids = (float) $this->request->getPost('poids');
 
         if ($email === '' || $username === '' || $password === '') {
-            return redirect()->to('/inscription')
+            return redirect()->to('/step2')
                 ->with('error', 'Les informations de l’étape 1 sont manquantes.');
         }
 
-        if ($phone === '' || $genre === '' || $taille <= 0 || $poids <= 0) {
+        if ($genre === '' || $taille <= 0 || $poids <= 0) {
             return redirect()->to('/step2')
                 ->with('error', 'Veuillez remplir correctement toutes les informations.');
         }
 
-        $userModel = new UserModele();
-        $infoClientModel = new InfoClientsModel();
-
-        if ($userModel->where('email', $email)->first()) {
-            return redirect()->to('/inscription')
+        if ($this->userModel->where('email', $email)->first()) {
+            return redirect()->to('/step2')
                 ->with('error', 'Cet email existe déjà.');
         }
 
-        if ($userModel->where('username', $username)->first()) {
-            return redirect()->to('/inscription')
+        if ($this->userModel->where('username', $username)->first()) {
+            return redirect()->to('/step2')
                 ->with('error', 'Ce nom d’utilisateur existe déjà.');
         }
 
         $db = \Config\Database::connect();
         $db->transStart();
 
-        $userModel->insert([
+        $this->userModel->insert([
             'email'    => $email,
             'username' => $username,
             'password' => password_hash($password, PASSWORD_DEFAULT),
             'role'     => 'client',
         ]);
 
-        $userId = $userModel->getInsertID();
+        $userId = $this->userModel->getInsertID();
 
-        $infoClientModel->insert([
+        $this->infoClientModel->insert([
             'user_id' => $userId,
-            'phone'   => $phone,
+            'phone'   => $phone ?? null,
             'genre'   => $genre,
             'taille'  => $taille,
             'poids'   => $poids,
@@ -124,35 +165,7 @@ class UserController extends BaseController
         return redirect()->to('/login')->with('success', 'Inscription réussie. Veuillez vous connecter.');
     }
 
-    public function validationLogin()
-    {
-        $userModel = new UserModele();
-
-        $email = trim((string) $this->request->getPost('email'));
-        $pwd = (string) $this->request->getPost('pwd');
-
-        $userBase = $userModel->getUserByEmail($email);
-
-        if (!$userBase) {
-            return redirect()->to('/login')
-                ->with('error', 'Email ou mot de passe incorrect.');
-        }
-
-        $pwdBase = $userBase['password'] ?? '';
-
-        if (!password_verify($pwd, $pwdBase)) {
-            return redirect()->to('/login')->with('error', 'Email ou mot de passe incorrect.');
-        }
-
-        session()->set([
-            'user_id'  => $userBase['id'],
-            'username' => $userBase['username'],
-            'email'    => $userBase['email'],
-            'role'     => $userBase['role'] ?? null,
-        ]);
-
-        return redirect()->to('/acceuil')->with('success', 'Connexion réussie.');
-    }
+   
 
     public function acceuil()
     {   if(!session()->get('user_id')) {
@@ -160,9 +173,36 @@ class UserController extends BaseController
         }
         return view('template/acceuil');
     }
-    public function logout()
+    
+    public function modificationProfil()
     {
-        session()->destroy();
-        return redirect()->to('/login');
+        return view('template/modificationProfil');
+    }
+
+    public function modifierProfil(){
+        $email = trim((string) $session->get('email'));
+        $username = trim((string) $session->get('name'));
+        $password = (string) $session->get('pwd');
+        $phone = trim((string) $this->request->getPost('phone'));
+        $genre = (string) $this->request->getPost('genre');
+        $taille = (float) $this->request->getPost('taille');
+        $poids = (float) $this->request->getPost('poids');
+     
+        $userId = session()->get('user_id');
+
+        $this->userModel->update($userId, [
+            'email'    => $email,
+            'username' => $username,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+        ]);
+
+        $this->infoClientModel->update($userId, [
+            'phone'   => $phone,
+            'genre'   => $genre,
+            'taille'  => $taille,
+            'poids'   => $poids,
+        ]);
+
+
     }
 }
