@@ -52,6 +52,6 @@ class UserController extends BaseController
     public function logout()
     {
         session()->destroy();
-        return view('template/login');
+        return redirect()->to('/login');
     }
 }
