@@ -53,7 +53,7 @@ class InfoClientsModel extends Model
         ],
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
         'taille' => 'float',
