@@ -42,5 +42,7 @@ class UserController extends BaseController {
         return redirect()->to('/acceuil');
     }
 
-   
+    public function logout(){
+        return view('template/login');
+    }
 }
