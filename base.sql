@@ -100,7 +100,7 @@ CREATE TABLE programme (
         ON DELETE CASCADE,
 
     CONSTRAINT fk_programme_regime
-        FOREIGN KEY (regime_id) REFERENCES regime(id)
+        FOREIGN KEY (regime_id) REFERENCES regimes(id)
 );
 
 CREATE TABLE programme_sport (
