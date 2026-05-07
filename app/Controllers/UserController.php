@@ -12,6 +12,39 @@ class UserController extends BaseController
         return view('template/login');
     }
 
+    public function verifierPasswordAndEmail(){
+        $userModel = new UserModele();
+        $email = trim((string) $this->request->getPost('email'));
+        $pwd = (string) $this->request->getPost('pwd'); 
+        $userBase = $userModel->getUserByEmail($email);
+        $emailBase = $userBase['email'];
+        $pwdBase = $userBase['password'];
+
+        if($email === $emailBase &&  $pwd === $pwdBase){
+            return false; 
+        }
+        return true ;
+    }
+
+    
+    public function enregistrementUser(){
+        $userModel = new UserModele();
+        $email = trim((string) $this->request->getPost('email'));
+        $username = (string) $this->request->getPost('name');
+        $pwd = (string) $this->request->getPost('pwd'); 
+        $phone = (integer) $this->request->getPost('number');
+        $genre = (string) $this->request->getPost('genre');
+        $taille = (double) $this->request->getPost('taille');
+        $poids = (double) $this->request->getPost('poids');
+        $is_gold = (boolean) $this->request->getPost('is_gold');
+        $wallet = (double) $this->request->getPost('wallet');
+
+        
+
+        
+        
+    }
+
     public function validationLogin()
     {
         $user = new UserModele();
@@ -36,7 +69,7 @@ class UserController extends BaseController
         }
 
         if (!$estValid) {
-            return redirect()->to('/login')->with('error', 'Email ou mot de passe incorrect.');
+            return redirect()->to('/erreur')->with('error', 'Email ou mot de passe incorrect.');
         }
 
         session()->set([
@@ -46,7 +79,7 @@ class UserController extends BaseController
             'role' => $userBase['role'] ?? null,
         ]);
 
-        return redirect()->to('/acceuil');
+        return redirect()->to('/erreur')->with('success', 'Connexion réussie.');
     }
 
     public function logout()
