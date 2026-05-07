@@ -1,83 +1,87 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SysInfo - Connexion</title>
-  <link rel="stylesheet" href="<?= base_url('assets/template/style.css') ?>" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .card {
+            width: 100%;
+            max-width: 360px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 24px;
+        }
+        h1 {
+            margin: 0 0 16px 0;
+            font-size: 22px;
+            color: #222;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 6px;
+            font-size: 14px;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #ccd3dc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            margin-top: 16px;
+            border: 0;
+            background: #0d6efd;
+            color: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .error {
+            background: #fdecec;
+            color: #b42318;
+            border: 1px solid #f3b7b7;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-<div class="login-page">
-  <div class="login-card">
-    <div class="login-logo">
-      <div class="logo-icon">
-        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      </div>
-      <div>
-        <h1>SysInfo</h1>
-        <span>Systeme d'Information</span>
-      </div>
+    <div class="card">
+        <h1>Connexion</h1>
+
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="error"><?= esc(session()->getFlashdata('error')) ?></div>
+        <?php endif; ?>
+
+        <form method="post" action="<?= site_url('/validationLogin') ?>">
+            <?= csrf_field() ?>
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" required>
+
+            <label for="pwd">Mot de passe</label>
+            <input id="pwd" type="password" name="pwd" required>
+
+            <button type="submit">Se connecter</button>
+        </form>
     </div>
-
-    <h2>Connexion</h2>
-    <p class="subtitle">Connectez-vous a votre espace de travail</p>
-
-    <?php if (session()->getFlashdata('error')): ?>
-      <div class="alert alert-danger">
-        <?= esc(session()->getFlashdata('error')) ?>
-      </div>
-    <?php endif; ?>
-
-    <?php if (session()->getFlashdata('success')): ?>
-      <div class="alert alert-info">
-        <?= esc(session()->getFlashdata('success')) ?>
-      </div>
-    <?php endif; ?>
-
-    <form action="<?= site_url('login') ?>" method="post" novalidate>
-      <?= csrf_field() ?>
-
-      <div class="field-group">
-        <label for="email">Adresse e-mail</label>
-        <div class="input-wrap">
-          <div class="icon">
-            <svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          </div>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            placeholder="vous@exemple.com"
-            value="<?= esc(old('email')) ?>"
-            required
-            autocomplete="email"
-          />
-        </div>
-      </div>
-
-      <div class="field-group">
-        <label for="mot_de_passe">Mot de passe</label>
-        <div class="input-wrap">
-          <div class="icon">
-            <svg viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </div>
-          <input
-            id="mot_de_passe"
-            type="password"
-            name="mot_de_passe"
-            placeholder="********"
-            required
-            autocomplete="current-password"
-          />
-        </div>
-      </div>
-
-      <button type="submit" class="btn btn-primary btn-full">
-        <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        Se connecter
-      </button>
-    </form>
-  </div>
-</div>
 </body>
 </html>
