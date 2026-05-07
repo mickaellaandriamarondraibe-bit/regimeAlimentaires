@@ -1,0 +1,1 @@
+__ci_last_regenerate|i:1778171384;_ci_previous_url|s:43:"http://localhost:8080/index.php/inscription";email|s:15:"alice@gmail.com";name|s:5:"micka";pwd|s:5:"micka";phone|s:10:"0348110710";genre|s:1:"H";taille|s:2:"63";poids|s:2:"66";error|s:37:"Ce nom d’utilisateur existe déjà.";__ci_vars|a:1:{s:5:"error";s:3:"old";}
