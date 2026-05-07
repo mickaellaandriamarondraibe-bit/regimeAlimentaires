@@ -96,13 +96,6 @@
 
         let isValid = true;
 
-        if (phone === "") {
-            showError("erreur_phone", true);
-            isValid = false;
-        } else {
-            showError("erreur_phone", false);
-        }
-
         if (genre === "") {
             showError("erreur_genre", true);
             isValid = false;

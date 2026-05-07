@@ -19,4 +19,21 @@ class UserModele extends Model
     {
         return $this->where('email', $email)->first();
     }
+
+    
+    public function getUserById(int $id): ?array
+    {
+        return $this->find($id);
+    }
+    public function updateUser(int $id, array $data): bool
+    {
+        return $this->update($id, $data);
+    }
+
+    public function deleteUser($id){
+        return $this->delete($id);
+    }
+
+    
+
 }

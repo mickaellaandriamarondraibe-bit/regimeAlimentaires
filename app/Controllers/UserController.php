@@ -174,35 +174,28 @@ class UserController extends BaseController
         return view('template/acceuil');
     }
     
-    public function modificationProfil()
-    {
-        return view('template/modificationProfil');
+
+    public function profil()
+{
+    $userId = session()->get('user_id');
+
+    if (!$userId) {
+        return redirect()->to('/login');
     }
 
-    public function modifierProfil(){
-        $email = trim((string) $session->get('email'));
-        $username = trim((string) $session->get('name'));
-        $password = (string) $session->get('pwd');
-        $phone = trim((string) $this->request->getPost('phone'));
-        $genre = (string) $this->request->getPost('genre');
-        $taille = (float) $this->request->getPost('taille');
-        $poids = (float) $this->request->getPost('poids');
-     
-        $userId = session()->get('user_id');
+    $user = $this->userModel->find($userId);
 
-        $this->userModel->update($userId, [
-            'email'    => $email,
-            'username' => $username,
-            'password' => password_hash($password, PASSWORD_DEFAULT),
-        ]);
+    $client = $this->infoClientModel
+        ->where('user_id', $userId)
+        ->first();
 
-        $this->infoClientModel->update($userId, [
-            'phone'   => $phone,
-            'genre'   => $genre,
-            'taille'  => $taille,
-            'poids'   => $poids,
-        ]);
-
-
-    }
+    return view('template/profil', [
+        'user' => $user,
+        'client' => $client,
+    ]);
 }
+    
+}
+
+
+
