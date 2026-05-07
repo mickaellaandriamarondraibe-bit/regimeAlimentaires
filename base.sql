@@ -1,3 +1,4 @@
+drop database if exists regime_app;
 CREATE DATABASE IF NOT EXISTS regime_app
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
@@ -14,7 +15,7 @@ CREATE TABLE user (
 
 CREATE TABLE infos_clients (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL UNIQUE,9
+    user_id INT NOT NULL UNIQUE,
     phone VARCHAR(30),
     genre ENUM('H', 'F') NOT NULL,
     taille DECIMAL(5,2) NOT NULL,
@@ -37,7 +38,7 @@ CREATE TABLE regimes (
     name VARCHAR(150) NOT NULL,
     type_variation ENUM('gain', 'perte') NOT NULL,
     variation_poids_jour DECIMAL(6,3) NOT NULL,
-    prix_jour DECIMAL(10,2) NOT NULL,
+    prix_jour DECIMAL(10,2) NOT NULL
 );
 
 CREATE TABLE ingredients (
@@ -49,7 +50,7 @@ CREATE TABLE composition_regimes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     regime_id INT NOT NULL,
     ingredient_id INT NOT NULL,
-    pourcentage DECIMAL(5,2) NOT NULL DEFAULT 0.0
+    pourcentage DECIMAL(5,2) NOT NULL DEFAULT 0.0,
     
     CONSTRAINT fk_composition_regime_id
         FOREIGN KEY (regime_id) REFERENCES regimes(id)
@@ -99,7 +100,7 @@ CREATE TABLE programme (
         ON DELETE CASCADE,
 
     CONSTRAINT fk_programme_regime
-        FOREIGN KEY (regime_id) REFERENCES regime(id)
+        FOREIGN KEY (regime_id) REFERENCES regimes(id)
 );
 
 CREATE TABLE programme_sport (
