@@ -20,3 +20,5 @@ $routes->get('/logout', 'UserController::logout');
 $routes->post('/validationLogin','UserController::validationLogin');
 
 $routes->get('/acceuil', 'UserController::acceuil');
+$routes->get('/profil', 'UserController::profil');
+$routes->post('/profil/update', 'UserController::modifierProfil');
