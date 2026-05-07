@@ -12,6 +12,10 @@ class UserController extends BaseController
         return view('template/login');
     }
 
+    public function inscription(){
+        return view('template/inscriptionPage1');
+    }
+
     public function verifierPasswordAndEmail(){
         $userModel = new UserModele();
         $email = trim((string) $this->request->getPost('email'));
@@ -37,7 +41,6 @@ class UserController extends BaseController
         $genre = $_SESSION['genre'];
         $taille = $_SESSION['taille'];
         $poids = $_SESSION['poids'];
-        
         $is_gold = (boolean) $this->request->getPost('is_gold');
         $wallet = (double) $this->request->getPost('wallet');
      
