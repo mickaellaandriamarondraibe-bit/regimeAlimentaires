@@ -14,8 +14,7 @@ CREATE TABLE user (
 
 CREATE TABLE infos_clients (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL UNIQUE,
-    name VARCHAR(150) NOT NULL,
+    user_id INT NOT NULL UNIQUE,9
     phone VARCHAR(30),
     genre ENUM('H', 'F') NOT NULL,
     taille DECIMAL(5,2) NOT NULL,
