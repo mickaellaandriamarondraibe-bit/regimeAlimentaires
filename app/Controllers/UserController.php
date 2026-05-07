@@ -13,13 +13,6 @@ class UserController extends BaseController
     }
 
     public function inscriptionPage1(){
-        $session = session();
-        $session->set([
-            'number' => request()->getGet('number') ,
-            'genre' => request()->getGet('genre') ,
-            'taille' => $this->request->getGet('taille'),
-            'poids' => $this->request->getGet('poids'),
-        ]);
         return view('template/inscriptionPage1');
     }
 
