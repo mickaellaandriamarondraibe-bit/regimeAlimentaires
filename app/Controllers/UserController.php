@@ -195,7 +195,6 @@ class UserController extends BaseController
     ]);
 }
     
-    
     public function modifierProfil()
 {
     $userId = session()->get('user_id');
@@ -217,15 +216,12 @@ class UserController extends BaseController
 
     $this->userModel->update($userId, $userData);
 
-    $this->infoClientModel
-        ->where('user_id', $userId)
-        ->set([
-            'phone'  => trim((string) $this->request->getPost('phone')),
-            'genre'  => $this->request->getPost('genre'),
-            'taille' => $this->request->getPost('taille'),
-            'poids'  => $this->request->getPost('poids'),
-        ])
-        ->update();
+    $this->infoClientModel->updateProfilByUserId($userId, [
+        'phone'  => trim((string) $this->request->getPost('phone')),
+        'genre'  => $this->request->getPost('genre'),
+        'taille' => $this->request->getPost('taille'),
+        'poids'  => $this->request->getPost('poids'),
+    ]);
 
     session()->set([
         'email'    => $userData['email'],
