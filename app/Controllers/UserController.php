@@ -12,8 +12,42 @@ class UserController extends BaseController
         return view('template/login');
     }
 
-    public function inscription(){
+    public function inscriptionPage1(){
+        $session = session();
+        $session->set([
+            'number' => request()->getGet('number') ,
+            'genre' => request()->getGet('genre') ,
+            'taille' => $this->request->getGet('taille'),
+            'poids' => $this->request->getGet('poids'),
+        ]);
         return view('template/inscriptionPage1');
+    }
+
+    public function inscriptionPage2(){
+        $session = session();
+        $newData = [
+            'email' => $this->request->getGet('email') ?: $session->get('email'),
+            'name' => $this->request->getGet('name') ?: $session->get('name'),
+            'pwd' => $this->request->getGet('pwd') ?: $session->get('pwd'),
+            'genre' => $this->request->getGet('genre') ?: $session->get('genre'),
+            'taille' => $this->request->getGet('taille') ?: $session->get('taille'),
+            'poids' => $this->request->getGet('poids') ?: $session->get('poids'),
+        ];
+        $session->set($newData);
+        
+        return view('template/inscriptionPage2');
+    }
+
+    public function savePage2(){
+        $session = session();
+        $session->set([
+            'phone' => $this->request->getPost('phone'),
+            'genre' => $this->request->getPost('genre'),
+            'taille' => $this->request->getPost('taille'),
+            'poids' => $this->request->getPost('poids'),
+        ]);
+        
+        return redirect()->to('/inscription');
     }
 
     public function verifierPasswordAndEmail(){
