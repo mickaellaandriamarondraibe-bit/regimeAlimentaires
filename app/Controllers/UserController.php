@@ -121,8 +121,7 @@ class UserController extends BaseController
             'poids',
         ]);
 
-        return redirect()->to('/login')
-            ->with('success', 'Inscription réussie. Veuillez vous connecter.');
+        return redirect()->to('/login')->with('success', 'Inscription réussie. Veuillez vous connecter.');
     }
 
     public function validationLogin()
@@ -142,8 +141,7 @@ class UserController extends BaseController
         $pwdBase = $userBase['password'] ?? '';
 
         if (!password_verify($pwd, $pwdBase)) {
-            return redirect()->to('/login')
-                ->with('error', 'Email ou mot de passe incorrect.');
+            return redirect()->to('/login')->with('error', 'Email ou mot de passe incorrect.');
         }
 
         session()->set([
@@ -153,10 +151,15 @@ class UserController extends BaseController
             'role'     => $userBase['role'] ?? null,
         ]);
 
-        return redirect()->to('/acceuil')
-            ->with('success', 'Connexion réussie.');
+        return redirect()->to('/acceuil')->with('success', 'Connexion réussie.');
     }
 
+    public function acceuil()
+    {   if(!session()->get('user_id')) {
+            return redirect()->to('/login');
+        }
+        return view('template/acceuil');
+    }
     public function logout()
     {
         session()->destroy();
