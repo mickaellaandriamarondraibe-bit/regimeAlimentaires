@@ -67,8 +67,8 @@ class RegimeController extends BaseController
                 $db->transRollback();
                 return redirect()->back()->withInput()->with('errors', ['Erreur lors de la transaction']);
             } else {
-                //$db->transCommit();
-                //return redirect()->to('/regime/list')->with('message', 'Régime et composition enregistrés !');
+                $db->transCommit();
+                return redirect()->to('/regime/list')->with('message', 'Régime et composition enregistrés !');
             }
         } catch (\Exception $e) {
             $db->transRollback();
@@ -81,8 +81,13 @@ class RegimeController extends BaseController
 
     public function list()
     {
-        $vcompositionRegimeModel = new VCompositionRegime();
-        $regimes = $vcompositionRegimeModel->getAllCompositionRegimes();
+        $regimeModel = new Regime();
+        $regimes = $regimeModel->findAll();
+
+        foreach ($regimes as &$regime) {
+            $compositionModel = new VCompositionRegime();
+            $regime['compositions'] = $compositionModel->getCompositionRegimeByRegimeId($regime['id']);
+        }
 
         return $this->render('regime_list', [
             'regimes' => $regimes
