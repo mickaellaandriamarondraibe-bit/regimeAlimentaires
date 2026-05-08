@@ -1,3 +1,4 @@
+-- Active: 1771262478225@@127.0.0.1@3306@regime_app
 CREATE DATABASE IF NOT EXISTS regime_app
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
@@ -17,6 +18,7 @@ CREATE TABLE IF NOT EXISTS infos_clients (
     user_id INT NOT NULL UNIQUE,
     name VARCHAR(150) NOT NULL,
     phone VARCHAR(30),
+    date_naissance DATE, 
     genre ENUM('H', 'F') NOT NULL,
     taille DECIMAL(5,2) NOT NULL,
     poids DECIMAL(5,2) NOT NULL,
@@ -36,9 +38,13 @@ CREATE TABLE IF NOT EXISTS objectif (
 CREATE TABLE IF NOT EXISTS regimes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
-    type_variation ENUM('gain', 'perte') NOT NULL,
-    variation_poids_jour DECIMAL(6,3) NOT NULL,
-    prix_jour DECIMAL(10,2) NOT NULL
+    description TEXT,
+    variation_poids_semaine DECIMAL(6,3) NOT NULL,
+    objectif_id INT NOT NULL,
+
+    CONSTRAINT fk_objectif_regime
+        FOREIGN KEY (objectif_id) REFERENCES objectif(id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS ingredients (
@@ -58,13 +64,45 @@ CREATE TABLE IF NOT EXISTS composition_regimes (
     
     CONSTRAINT fk_regime_ingredient_id
         FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT uq_composition UNIQUE(regime_id, ingredient_id)
+);
+
+CREATE TABLE IF NOT EXISTS prix_regimes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    regime_id INT NOT NULL,
+    duree_semaine INT NOT NULL,
+    prix DECIMAL(10, 2),
+
+    CONSTRAINT fk_prix_regime
+        FOREIGN KEY (regime_id) REFERENCES regimes(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT uq_prix_regime UNIQUE(regime_id, duree_semaine)
 );
 
 CREATE TABLE IF NOT EXISTS sport (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
-    variation_poids_jour DECIMAL(6,3) NOT NULL
+    description TEXT,
+    variation_poids_semaine DECIMAL(6,3) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS regime_sports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    regime_id INT NOT NULL,
+    sport_id INT NOT NULL,
+
+    CONSTRAINT fk_regime_sport
+        FOREIGN KEY (regime_id) REFERENCES regimes(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_sport_regime
+        FOREIGN KEY (sport_id) REFERENCES sport(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT uq_regime_sport UNIQUE(regime_id, sport_id)
 );
 
 CREATE TABLE IF NOT EXISTS transactions (
@@ -83,7 +121,7 @@ CREATE TABLE IF NOT EXISTS programme (
     id INT AUTO_INCREMENT PRIMARY KEY,
     objectif_id INT NOT NULL,
     objectif_kg DECIMAL(6,2) NOT NULL,
-    duree INT NOT NULL,
+    duree_semaine INT NOT NULL,
     transaction_id INT,
     client_id INT NOT NULL,
     regime_id INT NOT NULL,
@@ -113,9 +151,10 @@ CREATE TABLE IF NOT EXISTS programme_sport (
         ON DELETE CASCADE,
 
     CONSTRAINT fk_programme_sport_sport
-        FOREIGN KEY (sport_id) REFERENCES sport(id),
+        FOREIGN KEY (sport_id) REFERENCES sport(id)
+        ON DELETE CASCADE,
 
-    CONSTRAINT uq_programme_sport
+    CONSTRAINT uq_programme_sport   
         UNIQUE (programme_id, sport_id)
 );
 
