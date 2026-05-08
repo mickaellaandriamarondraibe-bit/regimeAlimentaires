@@ -24,9 +24,10 @@
         <?= csrf_field() ?>
 
         <div>
-            <label>Email</label>
+            <label for="email">Email</label>
             <input
                 type="email"
+                id="email"
                 name="email"
                 value="<?= esc($user['email'] ?? '') ?>"
                 required
@@ -34,36 +35,39 @@
         </div>
 
         <div>
-            <label>Nom d'utilisateur</label>
+            <label for="username">Nom d'utilisateur</label>
             <input
                 type="text"
-                name="name"
+                id="username"
+                name="username"
                 value="<?= esc($user['username'] ?? '') ?>"
                 required
             >
         </div>
 
         <div>
-            <label>Nouveau mot de passe</label>
+            <label for="pwd">Nouveau mot de passe</label>
             <input
                 type="password"
+                id="pwd"
                 name="pwd"
                 placeholder="Laisser vide pour ne pas changer"
             >
         </div>
 
         <div>
-            <label>Téléphone</label>
+            <label for="phone">Téléphone</label>
             <input
                 type="text"
+                id="phone"
                 name="phone"
                 value="<?= esc(($client['phone'] ?? '') === '0' ? '' : ($client['phone'] ?? '')) ?>"
             >
         </div>
 
         <div>
-            <label>Genre</label>
-            <select name="genre" required>
+            <label for="genre">Genre</label>
+            <select id="genre" name="genre" required>
                 <option value="">Sélectionner</option>
                 <option value="H" <?= ($client['genre'] ?? '') === 'H' ? 'selected' : '' ?>>
                     Homme
@@ -75,26 +79,39 @@
         </div>
 
         <div>
-            <label>Taille en cm</label>
+            <label for="taille">Taille en cm</label>
             <input
                 type="number"
+                id="taille"
                 name="taille"
                 step="0.01"
+                min="50"
+                max="250"
                 value="<?= esc($client['taille'] ?? '') ?>"
                 required
             >
         </div>
 
         <div>
-            <label>Poids en kg</label>
+            <label for="poids">Poids en kg</label>
             <input
                 type="number"
+                id="poids"
                 name="poids"
                 step="0.01"
+                min="10"
+                max="300"
                 value="<?= esc($client['poids'] ?? '') ?>"
                 required
             >
         </div>
+
+        <?php 
+        if (isset($client['is_gold']) && $client['is_gold'] == 1): ?>
+            <p style="color: gold;">Vous êtes un membre Gold !</p>
+        <?php endif; ?>
+
+
 
         <button type="submit">Enregistrer</button>
     </form>
