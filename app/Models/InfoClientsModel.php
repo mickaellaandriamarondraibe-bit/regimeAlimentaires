@@ -66,4 +66,9 @@ class InfoClientsModel extends Model
     {
         return $this->where('user_id', $userId)->first();
     }
+
+    public function updateProfilByUserId(int $userId, array $data): bool
+{
+    return $this->builder()->where('user_id', $userId)->update($data);
+}
 }

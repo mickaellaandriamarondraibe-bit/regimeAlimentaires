@@ -7,7 +7,11 @@
 </head>
 <body>
     <legend>Inscription - Etape 1</legend>
-    <form action="/step2" method="post" id="form">
+    <?php if (session()->getFlashdata('error')): ?>
+        <p style="color:red;"><?= esc(session()->getFlashdata('error')) ?></p>
+    <?php endif; ?>
+
+    <form action="/step2" method="post" id="form" onsubmit="return validateForm()">
     <?= csrf_field() ?>
         <label> Email </label>
         <input type="text" name="email" id="email" value="<?php echo session('email') ?? ''; ?>">
@@ -21,7 +25,6 @@
         <input type="password" name="pwd" id="pwd">
         <span id="erreur_mdp" style="color: red; display: none;">Mot de passe requis </span>
 
-        <!-- Champs cachés pour transmettre les données de page 2 -->
         <input type="hidden" name="phone" value="<?php echo session('phone') ?? ''; ?>">
         <input type="hidden" name="genre" value="<?php echo session('genre') ?? ''; ?>">
         <input type="hidden" name="taille" value="<?php echo session('taille') ?? ''; ?>">
@@ -70,11 +73,7 @@
             count++;
         }
 
-        if (count === 3) {
-            document.getElementById("form").submit();
-        }
-
-        return true;
+        return count === 3;
     }
 </script>
 </html>

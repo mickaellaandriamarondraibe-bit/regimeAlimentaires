@@ -39,8 +39,7 @@ class UserController extends BaseController
         $userBase = $this->userModel->getUserByEmail($email);
 
         if (!$userBase) {
-            return redirect()->to('/login')
-                ->with('error', 'Email ou mot de passe incorrect.');
+            return redirect()->to('/login')->with('error', 'Email ou mot de passe incorrect.');
         }
 
         $pwdBase = $userBase['password'] ?? '';
@@ -104,23 +103,19 @@ class UserController extends BaseController
         $poids = (float) $this->request->getPost('poids');
 
         if ($email === '' || $username === '' || $password === '') {
-            return redirect()->to('/step2')
-                ->with('error', 'Les informations de l’étape 1 sont manquantes.');
+            return redirect()->to('/step2')->with('error', 'Les informations de l’étape 1 sont manquantes.');
         }
 
         if ($genre === '' || $taille <= 0 || $poids <= 0) {
-            return redirect()->to('/step2')
-                ->with('error', 'Veuillez remplir correctement toutes les informations.');
+            return redirect()->to('/step2')->with('error', 'Veuillez remplir correctement toutes les informations.');
         }
 
         if ($this->userModel->where('email', $email)->first()) {
-            return redirect()->to('/step2')
-                ->with('error', 'Cet email existe déjà.');
+            return redirect()->to('/step2')->with('error', 'Cet email existe déjà.');
         }
 
         if ($this->userModel->where('username', $username)->first()) {
-            return redirect()->to('/step2')
-                ->with('error', 'Ce nom d’utilisateur existe déjà.');
+            return redirect()->to('/step2')->with('error', 'Ce nom d’utilisateur existe déjà.');
         }
 
         $db = \Config\Database::connect();
@@ -148,8 +143,7 @@ class UserController extends BaseController
         $db->transComplete();
 
         if ($db->transStatus() === false) {
-            return redirect()->to('/step2')
-                ->with('error', 'Erreur lors de l’inscription. Veuillez réessayer.');
+            return redirect()->to('/step2')->with('error', 'Erreur lors de l’inscription. Veuillez réessayer.');
         }
 
         $session->remove([
@@ -185,9 +179,7 @@ class UserController extends BaseController
 
     $user = $this->userModel->find($userId);
 
-    $client = $this->infoClientModel
-        ->where('user_id', $userId)
-        ->first();
+    $client = $this->infoClientModel->where('user_id', $userId)->first();
 
     return view('template/profil', [
         'user' => $user,
@@ -195,7 +187,36 @@ class UserController extends BaseController
     ]);
 }
     
+   public function modifierProfil()
+{
+    $userId = session()->get('user_id');
+
+    if (!$userId) {
+        return redirect()->to('/login');
+    }
+
+    $this->infoClientModel->updateProfilByUserId($userId, [
+        'phone'  => trim((string) $this->request->getPost('phone')),
+        'genre'  => $this->request->getPost('genre'),
+        'taille' => $this->request->getPost('taille'),
+        'poids'  => $this->request->getPost('poids'),
+    ]);
+
+    $this->userModel->updateProfilById($userId, [
+        'email'    => trim((string) $this->request->getPost('email')),
+        'username' => trim((string) $this->request->getPost('username')),
+    ]);
+
+    session()->set([
+        'email'    => trim((string) $this->request->getPost('email')),
+        'username' => trim((string) $this->request->getPost('username')),
+    ]);
+
+    return redirect()->to('/profil')
+        ->with('success', 'Profil modifié avec succès.');
 }
 
+
+}
 
 
