@@ -35,14 +35,13 @@ class codeController extends BaseController
     $demandeData = [
         'code_id'   => $codeId,
         'statut'    => 'en_attente',
-        'client_id' => session()->get('client_id'),
+        'client_id' => session()->get('user_id'),
+       
     ];
-    try {
         $this->demandeCode->createDemande($demandeData);
-    } catch (\Throwable $e) {
-        return redirect()->to('/code')->with('error', 'Erreur lors de l\'envoi du code : ' . $e->getMessage());
-    }
-
+        if(!$this->demandeCode->createDemande($demandeData)){
+            return redirect()->to('/code')->with('error', 'Erreur lors de la création de la demande.' + e.getMessage());
+        }
     return redirect()->to('/code')->with('success', 'Code soumis pour validation.');
 }
 
