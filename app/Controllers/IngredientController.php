@@ -16,4 +16,19 @@ class IngredientController extends BaseController
         ]);
     }
 
+    public function create()
+    {
+        $ingredientModel = new Ingredient();
+
+        $data = [
+            'name' => $this->request->getPost('name')
+        ];
+
+        if ($ingredientModel->insert($data)) {
+            return redirect()->to('/ingredient')->with('success', 'Ingrédient ajouté avec succès');
+        } else {
+            return redirect()->to('/ingredient')->with('error', 'Erreur lors de l\'ajout de l\'ingrédient');
+        }
+    }
+
 }

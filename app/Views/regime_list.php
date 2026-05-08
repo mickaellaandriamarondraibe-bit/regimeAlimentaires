@@ -12,5 +12,6 @@
         <li><?= $regime['name'] ?></li>
     <?php endforeach;?>
     </ul>
+    <a href="/regime/create">Add new regime</a>
 </body>
 </html>
