@@ -13,5 +13,6 @@
 
     <a href="/logout">Se déconnecter</a>
     <a href="/profil">Mon profil</a>
+    <a href="/code">Tenter un code</a>
 </body>
 </html>
