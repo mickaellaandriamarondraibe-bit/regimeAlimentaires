@@ -20,3 +20,9 @@ $routes->get('/logout', 'UserController::logout');
 $routes->post('/validationLogin','UserController::validationLogin');
 
 $routes->get('/acceuil', 'UserController::acceuil');
+
+$routes->get('/ingredient', 'IngredientController::listAll');
+
+$routes->get('/regime/create', 'RegimeController::showForm');
+$routes->post('/regime/create', 'RegimeController::saveRegime');
+$routes->get('/regime/list', 'RegimeController::list');
