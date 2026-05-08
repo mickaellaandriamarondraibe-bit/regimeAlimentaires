@@ -1,14 +1,16 @@
 <?php
 namespace App\Controllers;
 use App\Models\codeModel;
+use App\Models\demandeCode;
 
 class codeController extends BaseController
 {
     private $codeModel;
-
+    private $demandeCode;
     public function __construct()
     {
         $this->codeModel = new codeModel();
+        $this->demandeCode = new demandeCode();
     }
 
     public function code(){
@@ -16,15 +18,33 @@ class codeController extends BaseController
     }
 
     public function validationCode()
-    {
-        $code = trim((string) $this->request->getPost('code'));
+{
+    $code = trim((string) $this->request->getPost('code'));
+    $codeBase = $this->codeModel->verifCode($code);
 
-        $codeBase = $this->codeModel->verifCode($code);
-
-        if (!$codeBase) {
-            return redirect()->to('/code')->with('error', 'Code incorrect.');
-        }
-        return redirect()->to('/code')->with('success', 'Code valide , vous allez recevoir des notification plutard.');
+    if (empty($codeBase)) {
+        return redirect()->to('/code')->with('error', 'Code incorrect.');
     }
+
+    $codeId = is_array($codeBase) ? ($codeBase['id'] ?? null) : ($codeBase->id ?? null);
+
+    if (!$codeId) {
+        return redirect()->to('/code')->with('error', 'Code invalide (id introuvable).');
+    }
+
+    $demandeData = [
+        'code_id'   => $codeId,
+        'statut'    => 'en_attente',
+        'client_id' => session()->get('client_id'),
+    ];
+    try {
+        $this->demandeCode->createDemande($demandeData);
+    } catch (\Throwable $e) {
+        return redirect()->to('/code')->with('error', 'Erreur lors de l\'envoi du code : ' . $e->getMessage());
+    }
+
+    return redirect()->to('/code')->with('success', 'Code soumis pour validation.');
+}
+
     
 }
