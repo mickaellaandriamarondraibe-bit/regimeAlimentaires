@@ -25,7 +25,6 @@
         <input type="password" name="pwd" id="pwd">
         <span id="erreur_mdp" style="color: red; display: none;">Mot de passe requis </span>
 
-        <!-- Champs cachés pour transmettre les données de page 2 -->
         <input type="hidden" name="phone" value="<?php echo session('phone') ?? ''; ?>">
         <input type="hidden" name="genre" value="<?php echo session('genre') ?? ''; ?>">
         <input type="hidden" name="taille" value="<?php echo session('taille') ?? ''; ?>">

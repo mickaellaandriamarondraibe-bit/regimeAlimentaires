@@ -29,6 +29,9 @@
     </span>
 
     <input type="submit" value="Envoyer" onclick="return validationCode()">
+    <a href="/acceuil">Retour à l'accueil</a>
+
+    
 </form>
     <script>
 
