@@ -33,7 +33,11 @@ class UserModele extends Model
     public function deleteUser($id){
         return $this->delete($id);
     }
-
-    
+    public function updateProfilById(int $userId, array $data): bool
+    {
+        return $this->builder()
+            ->where('id', $userId)
+            ->update($data);
+    }
 
 }
