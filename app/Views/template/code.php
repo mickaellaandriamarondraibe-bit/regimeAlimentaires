@@ -6,6 +6,14 @@
     <title>Document</title>
 </head>
 <body>
+    <?php if (session()->getFlashdata('error')): ?>
+        <p style="color:red;"><?= esc(session()->getFlashdata('error')) ?></p>
+    <?php endif; ?>
+
+    <?php if (session()->getFlashdata('success')): ?>
+        <p style="color:green;"><?= esc(session()->getFlashdata('success')) ?></p>
+    <?php endif; ?>
+
     <form action="/envoyerCode" method="post">
     <?= csrf_field() ?>
 
@@ -30,19 +38,16 @@
 
     function validationCode(){
         const code = document.getElementById('code').value; 
-        const erreur = document.getElementById('erreu_code');
-        const attente = document.getElementById('attente_code');
-        const codeBase = verifierCode(code);
-        if(code.trim() === codeBase){
-            showError('erreu_code', false);
-            showError('attente_code', true);
-            return true;
-        } else {
-            erreur.textContent = "Code incorrect.";
-            showError('erreu_code', true);
+
+        if (code.trim() === "") {
+            showError('erreur_code', true);
             showError('attente_code', false);
             return false;
         }
+
+        showError('erreur_code', false);
+        showError('attente_code', true);
+        return true;
      }
     </script>
 </body>
