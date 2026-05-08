@@ -79,7 +79,7 @@
 
         <div class="btn-group">
             <input type="submit" value="Insérer le régime">
-            <input type="button" value="Abandonner l'insertion">
+            <a href="/regime/list"><input type="button" value="Abandonner l'insertion"></a>
         </div>
     </form>
 </body>
