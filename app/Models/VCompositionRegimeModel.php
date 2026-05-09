@@ -4,7 +4,7 @@ namespace App\Models;
 
 Use CodeIgniter\Model;
 
-class VCompositionRegime extends Model
+class VCompositionRegimeModel extends Model
 {
     protected $table = 'v_composition_regimes';
     protected $primaryKey = 'id';
