@@ -26,6 +26,6 @@
             <button type="submit">Enregistrer l'ingrédient</button>
         </form>
     </div>
-    <script src="/js/ingredient.js"></script>
+    <script src="/assets/js/ingredient.js"></script>
 </body>
 </html>
