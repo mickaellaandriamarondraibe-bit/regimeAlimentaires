@@ -5,7 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-
+$routes->get('/', 'DashboardController::index');
 $routes->get('/login', 'UserController::login');
 
 $routes->get('/inscription', 'UserController::inscriptionPage1');
