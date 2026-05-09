@@ -5,7 +5,7 @@
         <div class="logo-header" data-background-color="dark">
             <a href="/" class="logo">
                 <img
-                    src="/assets/img/logo.png"
+                    src="<?= base_url('admin/assets/img/logo.png') ?>"
                     alt="navbar brand"
                     class="navbar-brand"
                     height="40" />

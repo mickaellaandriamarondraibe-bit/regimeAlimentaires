@@ -14,7 +14,7 @@
     />
 
     <!-- Fonts and icons -->
-    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script src="<?= base_url('admin/assets/js/plugin/webfont/webfont.min.js') ?>"></script>
     <script>
       WebFont.load({
         google: { families: ["Public Sans:300,400,500,600,700"] },
@@ -25,7 +25,7 @@
             "Font Awesome 5 Brands",
             "simple-line-icons",
           ],
-          urls: ["/assets/css/fonts.min.css"],
+          urls: ["<?= base_url('admin/assets/css/fonts.min.css') ?>"],
         },
         active: function () {
           sessionStorage.fonts = true;
@@ -34,12 +34,12 @@
     </script>
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/assets/css/plugins.min.css" />
-    <link rel="stylesheet" href="/assets/css/kaiadmin.min.css" />
+    <link rel="stylesheet" href="<?= base_url('admin/assets/css/bootstrap.min.css') ?>" />
+    <link rel="stylesheet" href="<?= base_url('admin/assets/css/plugins.min.css') ?>" />
+    <link rel="stylesheet" href="<?= base_url('admin/assets/css/kaiadmin.min.css') ?>" />
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="/assets/css/demo.css" />
+    <link rel="stylesheet" href="<?= base_url('admin/assets/css/demo.css') ?>" />
   </head>
   <body>
     <div class="wrapper">
