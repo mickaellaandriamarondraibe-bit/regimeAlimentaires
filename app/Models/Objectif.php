@@ -24,6 +24,14 @@ class Objectif extends Model
         return $this->find($id);
     }
 
+    public function getBaseObjectifs()
+    {
+        return $this->select('id, name')
+            ->where('name NOT LIKE', '%IMC idéal%')
+            ->orderBy('id', 'ASC')
+            ->findAll();
+    }
+
     public function getAllObjectifs()
     {
         return $this->findAll();
