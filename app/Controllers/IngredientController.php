@@ -2,13 +2,13 @@
 
 namespace App\Controllers;
 
-use \App\Models\Ingredient;
+use \App\Models\IngredientModel;
 
 class IngredientController extends BaseController
 {
     public function listAll()
     {
-        $ingredientModel = new Ingredient();
+        $ingredientModel = new IngredientModel();
         $ingredients = $ingredientModel->getAllIngredients();
 
         return $this->render('ingredient', [
@@ -18,7 +18,7 @@ class IngredientController extends BaseController
 
     public function create()
     {
-        $ingredientModel = new Ingredient();
+        $ingredientModel = new IngredientModel();
 
         $data = [
             'name' => $this->request->getPost('name')

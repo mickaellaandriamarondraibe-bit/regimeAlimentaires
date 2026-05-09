@@ -17,11 +17,6 @@
         <span><?= esc($regime['variation_poids_semaine']) ?> kg</span>
     </div>
 
-    <div>
-        <strong>Objectif :</strong>
-        <span><?= esc($regime['objectif_name']) ?></span>
-    </div>
-
     <hr>
 
     <h2>Compositions (%)</h2>

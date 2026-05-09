@@ -37,32 +37,11 @@
                 <?php endif ?>
             </div>
 
-            <!-- Champ Objectif -->
-            <div class="field-group">
-                <label>Objectif</label><br>
-
-                <?php foreach ($objectifs as $key => $obj) : ?>
-                    <input type="radio"
-                        name="objectif_id"
-                        id="obj_<?= $obj['id'] ?>"
-                        value="<?= $obj['id'] ?>"
-                        <?= set_radio('objectif_id', $obj['id'], ($key === 0)); ?>>
-
-                    <label for="obj_<?= $obj['id'] ?>">
-                        <?= esc($obj['name']) ?>
-                    </label>
-                    <br>
-                <?php endforeach; ?>
-
-                <?php if (isset($errors['objectif_id'])) : ?>
-                    <span class="error-message"><?= esc($errors['objectif_id']) ?></span>
-                <?php endif ?>
-            </div>
 
             <!-- Champ Variation Poids -->
             <div class="field-group">
                 <label for="variation_poids_semaine">Variation du poids par semaine</label><br>
-                <input type="number" name="variation_poids_semaine" id="variation_poids_semaine" step="any" value="<?= old('variation_poids_semaine') ?>">
+                <input type="number" name="variation_poids_semaine" id="variation_poids_semaine" step="any" value="<?= old('variation_poids_semaine') ?>" placeholder="négative pour perte de poids et positive pour prise de poids">
                 <?php if (isset($errors['variation_poids_semaine'])) : ?>
                     <span class="error-message"><?= esc($errors['variation_poids_semaine']) ?></span>
                 <?php endif ?>

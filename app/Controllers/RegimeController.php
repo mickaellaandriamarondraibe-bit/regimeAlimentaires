@@ -40,8 +40,7 @@ class RegimeController extends BaseController
             $regimedata = [
                 'name'                 => $this->request->getPost('regime_name'),
                 'description'          => $this->request->getPost('description'),
-                'variation_poids_semaine' => $this->request->getPost('variation_poids_semaine'),
-                'objectif_id'         => $this->request->getPost('objectif_id')
+                'variation_poids_semaine' => $this->request->getPost('variation_poids_semaine')
             ];
 
             if (!$regimeModel->insert($regimedata)) {

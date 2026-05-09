@@ -54,12 +54,7 @@ CREATE TABLE IF NOT EXISTS regimes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
     description TEXT,
-    variation_poids_semaine DECIMAL(6,3) NOT NULL,
-    objectif_id INT NOT NULL,
-
-    CONSTRAINT fk_objectif_regime
-        FOREIGN KEY (objectif_id) REFERENCES objectif(id)
-        ON DELETE CASCADE
+    variation_poids_semaine DECIMAL(6,3) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS ingredients (
@@ -214,4 +209,11 @@ CREATE TABLE IF NOT EXISTS demande_code (
     CONSTRAINT fk_demande_code_admin
         FOREIGN KEY (validated_by) REFERENCES user(id)
         ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS parametres(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cle VARCHAR(100) NOT NULL UNIQUE,
+    valeur VARCHAR(100) NOT NULL,
+    description TEXT
 );
