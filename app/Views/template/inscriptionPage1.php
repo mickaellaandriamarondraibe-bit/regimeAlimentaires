@@ -27,6 +27,8 @@
 
         <input type="hidden" name="phone" value="<?php echo session('phone') ?? ''; ?>">
         <input type="hidden" name="genre" value="<?php echo session('genre') ?? ''; ?>">
+        <input type="hidden" name="date_naissance" value="<?php echo session('date_naissance') ?? ''; ?>">
+        <input type="hidden" name="age" value="<?php echo session('age') ?? ''; ?>">
         <input type="hidden" name="taille" value="<?php echo session('taille') ?? ''; ?>">
         <input type="hidden" name="poids" value="<?php echo session('poids') ?? ''; ?>">
 

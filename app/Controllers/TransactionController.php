@@ -59,4 +59,8 @@ class TransactionController extends BaseController
             'transactions' => $transactions
         ]);
     }
+
+    public function transaction(){
+        return view('template/transaction');
+    }
 }

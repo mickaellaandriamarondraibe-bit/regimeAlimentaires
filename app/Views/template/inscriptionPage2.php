@@ -45,6 +45,35 @@
             </div>
 
             <div>
+                <label for="date_naissance">Date de naissance</label>
+                <input
+                    type="date"
+                    name="date_naissance"
+                    id="date_naissance"
+                    value="<?= esc(session('date_naissance') ?? '') ?>"
+                >
+                <span id="erreur_date_naissance" style="color:red; display:none;">
+                    Date de naissance requise
+                </span>
+            </div>
+
+            <div>
+                <label for="age">Age</label>
+                <input
+                    type="number"
+                    name="age"
+                    id="age"
+                    min="1"
+                    max="120"
+                    step="1"
+                    value="<?= esc(session('age') ?? '') ?>"
+                >
+                <span id="erreur_age" style="color:red; display:none;">
+                    Age requis et valide
+                </span>
+            </div>
+
+            <div>
                 <label for="taille">Taille en cm</label>
                 <input
                     type="number"
@@ -91,6 +120,8 @@
 
         const phone = document.getElementById("phone").value.trim();
         const genre = document.getElementById("genre").value.trim();
+        const dateNaissance = document.getElementById("date_naissance").value.trim();
+        const age = document.getElementById("age").value.trim();
         const taille = document.getElementById("taille").value.trim();
         const poids = document.getElementById("poids").value.trim();
 
@@ -101,6 +132,20 @@
             isValid = false;
         } else {
             showError("erreur_genre", false);
+        }
+
+        if (dateNaissance === "") {
+            showError("erreur_date_naissance", true);
+            isValid = false;
+        } else {
+            showError("erreur_date_naissance", false);
+        }
+
+        if (age === "" || Number(age) <= 0 || !Number.isInteger(Number(age))) {
+            showError("erreur_age", true);
+            isValid = false;
+        } else {
+            showError("erreur_age", false);
         }
 
         if (taille === "" || Number(taille) <= 0) {
@@ -136,7 +181,7 @@
         csrfInput.value = csrfHash;
         form.appendChild(csrfInput);
 
-        const fields = ["phone", "genre", "taille", "poids"];
+        const fields = ["phone", "genre", "date_naissance", "age", "taille", "poids"];
 
         fields.forEach(function (fieldName) {
             const input = document.createElement("input");

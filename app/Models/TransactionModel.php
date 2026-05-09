@@ -102,4 +102,15 @@ class TransactionModel extends Model
 
         return $this->getInsertID();
     }
+    
+    function createTransaction(array $data): int
+    {
+        $this->insert($data);
+        return $this->getInsertID();
+    }
+
+    function getTransactionById(int $id): ?array
+    {
+        return $this->find($id);
+    }
 }

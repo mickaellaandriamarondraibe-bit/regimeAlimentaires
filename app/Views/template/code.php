@@ -31,6 +31,15 @@
     <input type="submit" value="Envoyer" onclick="return validationCode()">
     <a href="/acceuil">Retour à l'accueil</a>
 
+    <?php   
+    echo session()->get('user_id');
+     if (session()->get('user_id')): ?>
+        <p>Bienvenue, <?= esc(session()->get('username')) ?>!</p>
+    <?php else: ?>
+        
+    <?php endif; ?>
+
+
     
 </form>
     <script>

@@ -80,10 +80,12 @@ class UserController extends BaseController
     public function savePage2()
     {
         session()->set([
-            'phone'  => $this->request->getPost('phone'),
-            'genre'  => $this->request->getPost('genre'),
-            'taille' => $this->request->getPost('taille'),
-            'poids'  => $this->request->getPost('poids'),
+            'phone'          => $this->request->getPost('phone'),
+            'genre'          => $this->request->getPost('genre'),
+            'date_naissance' => $this->request->getPost('date_naissance'),
+            'age'            => $this->request->getPost('age'),
+            'taille'         => $this->request->getPost('taille'),
+            'poids'          => $this->request->getPost('poids'),
         ]);
 
         return redirect()->to('/inscription');
@@ -99,6 +101,8 @@ class UserController extends BaseController
 
         $phone = trim((string) $this->request->getPost('phone'));
         $genre = (string) $this->request->getPost('genre');
+        $dateNaissance = (string) $this->request->getPost('date_naissance');
+        $age = (int) $this->request->getPost('age');
         $taille = (float) $this->request->getPost('taille');
         $poids = (float) $this->request->getPost('poids');
 
@@ -106,7 +110,7 @@ class UserController extends BaseController
             return redirect()->to('/step2')->with('error', 'Les informations de l’étape 1 sont manquantes.');
         }
 
-        if ($genre === '' || $taille <= 0 || $poids <= 0) {
+        if ($genre === '' || $dateNaissance === '' || $age <= 0 || $taille <= 0 || $poids <= 0) {
             return redirect()->to('/step2')->with('error', 'Veuillez remplir correctement toutes les informations.');
         }
 
@@ -131,13 +135,15 @@ class UserController extends BaseController
         $userId = $this->userModel->getInsertID();
 
         $this->infoClientModel->insert([
-            'user_id' => $userId,
-            'phone'   => $phone ?? null,
-            'genre'   => $genre,
-            'taille'  => $taille,
-            'poids'   => $poids,
-            'is_gold' => 0,
-            'wallet'  => 0,
+            'user_id'         => $userId,
+            'phone'           => $phone ?? null,
+            'genre'           => $genre,
+            'date_naissance'  => $dateNaissance,
+            'age'             => $age,
+            'taille'          => $taille,
+            'poids'           => $poids,
+            'is_gold'         => 0,
+            'wallet'          => 0,
         ]);
 
         $db->transComplete();
@@ -152,6 +158,8 @@ class UserController extends BaseController
             'pwd',
             'phone',
             'genre',
+            'date_naissance',
+            'age',
             'taille',
             'poids',
         ]);
@@ -218,5 +226,4 @@ class UserController extends BaseController
 
 
 }
-
 
