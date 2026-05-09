@@ -115,7 +115,7 @@
                                                     <button
                                                         type="button"
                                                         class="close"
-                                                        data-dismiss="modal"
+                                                        data-bs-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -148,8 +148,8 @@
                                                         <button
                                                             type="button"
                                                             class="btn btn-danger"
-                                                            data-dismiss="modal">
-                                                            Femer
+                                                            data-bs-dismiss="modal">
+                                                            Fermer
                                                         </button>
                                                     </div>
                                                 </form>
