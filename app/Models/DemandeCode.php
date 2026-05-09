@@ -3,7 +3,7 @@
 namespace App\Models;
 use CodeIgniter\Model;
 
-class demandeCode extends Model
+class DemandeCode extends Model
 {
     protected $table = 'demande_code';
     protected $primaryKey = 'id';

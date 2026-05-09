@@ -20,6 +20,8 @@ CREATE TABLE infos_clients (
     genre ENUM('H', 'F') NOT NULL,
     taille DECIMAL(5,2) NOT NULL,
     poids DECIMAL(5,2) NOT NULL,
+    data_naissance DATE NOT NULL,
+    age INT NOT NULL,
     is_gold BOOLEAN NOT NULL DEFAULT FALSE,
     wallet DECIMAL(10,2) NOT NULL DEFAULT 0,
 

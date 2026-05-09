@@ -23,5 +23,9 @@ $routes->get('/acceuil', 'UserController::acceuil');
 $routes->get('/profil', 'UserController::profil');
 $routes->post('/profil/update', 'UserController::modifierProfil');
 
-$routes->get('/code', 'codeController::code');
-$routes->post('/envoyerCode', 'codeController::validationCode');
+$routes->get('/code', 'CodeController::code');
+$routes->post('/envoyerCode', 'CodeController::validationCode');
+
+$routes->get('/test', 'InfoClientController::test');
+$routes->post('/achat', 'InfoClientController::validationDepense');
+
