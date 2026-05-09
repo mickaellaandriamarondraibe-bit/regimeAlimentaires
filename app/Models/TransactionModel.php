@@ -62,14 +62,14 @@ class TransactionModel extends Model
 
     public function getClientSolde(int $clientId): float
     {
-        $creditResult = (float) $this->where([
+        $creditResult = $this->where([
             'client_id' => $clientId,
             'type' => 'C'
         ])
             ->selectSum('montant')
             ->first();
 
-        $debitResult = (float) $this->where([
+        $debitResult = $this->where([
             'client_id' => $clientId,
             'type' => 'D'
         ])

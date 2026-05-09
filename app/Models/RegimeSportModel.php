@@ -43,14 +43,14 @@ class RegimeSportModel extends Model
         return $this->select('regimes.*')
                     ->join('regimes', 'regimes.id = regime_sports.regime_id')
                     ->where('regime_sports.sport_id', $sportId)
-                    ->regime();
+                    ->findAll();
     }
 
     public function verifyAssociation(int $regimeId, int $sportId)
     {
         return $this->where([
-            'regime_id', $regimeId,
-            'sport_id', $sportId
+            'regime_id'=> $regimeId,
+            'sport_id'=> $sportId
         ])->countAllResults() > 0;
     }
 }
