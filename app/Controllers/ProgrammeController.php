@@ -301,7 +301,7 @@ class ProgrammeController extends BaseController
                 ->with('error', 'Durée calculée invalide.');
         }
 
-        $prix = $this->prixRegimeModel->getPrixPourDuree($regimeId, $dureeCalculee);
+        $prix = $this->prixRegimeModel->getPrixSelonDuree($regimeId, $dureeCalculee);
 
         if (!$prix) {
             return redirect()->back()

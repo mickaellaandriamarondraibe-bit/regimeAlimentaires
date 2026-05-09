@@ -6,7 +6,7 @@ class CodeModel extends Model
 {
     protected $table = 'code';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['code','motant'];
+    protected $allowedFields = ['code','montant'];
 
     protected $validationRules = [
         'code' => 'required|max_length[100]',
