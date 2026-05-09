@@ -12,7 +12,7 @@ class VCompositionRegime extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['regime_id', 'regime_name', 'type_variation', 'variation_poids_jour', 'prix_jour', 'ingredient_id', 'ingredient_name', 'poucentage'];
+    protected $allowedFields = ['regime_id', 'regime_name', 'variation_poids_semaine', 'ingredient_id', 'ingredient_name', 'poucentage', 'objectif_id', 'objectif_name'];
 
     public function getCompositionRegimeByRegimeId(int $regimeId)
     {

@@ -9,6 +9,6 @@ class CompositionRegime extends Model
     protected $table = 'composition_regime';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['regime_id', 'composition_id', 'poucentage'];
+    protected $allowedFields = ['id', 'regime_id', 'ingredient_id', 'poucentage'];
 
 }

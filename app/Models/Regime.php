@@ -15,11 +15,19 @@ class Regime extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = false;
 
+    protected $allowedFields = [
+        'id',
+        'name',
+        'description',
+        'variation_poids_semaine',
+        'objectif_id'
+    ];
+    
     protected $validationRules = [
         'name'                 => 'required|min_length[2]|max_length[100]',
         'type_variation'       => 'required',
-        'variation_poids_jour' => 'required|numeric',
-        'prix_jour'            => 'required|numeric'
+        'variation_poids_semaine' => 'required|numeric',
+        'objectif_id'         => 'required|integer'
     ];
 
     protected $validationMessages = [
@@ -31,17 +39,16 @@ class Regime extends Model
         'type_variation' => [
             'required' => 'Le type de la variation est requis'
         ],
-        'variation_poids_jour' => [
+        'variation_poids_semaine' => [
             'required' => 'La variation du poids est requise',
             'numeric'  => 'La variation doit être un nombre'
         ],
-        'prix_jour' => [
-            'required' => 'Le prix journalier est nécessaire',
-            'numeric'  => 'Le prix doit être un nombre'
+        'objectif_id' => [
+            'required' => 'L\'objectif est requis',
+            'integer'  => 'L\'objectif doit être un nombre entier'
         ]
     ];
 
-    protected $allowedFields = ['id', 'name', 'type_variation', 'variation_poids_jour', 'prix_jour', 'prix_mois', 'prix_3mois', 'prix_6mois', 'prix_12mois'];
 
     public function getRegimeById(int $id)
     {
