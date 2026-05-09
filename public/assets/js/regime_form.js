@@ -4,17 +4,28 @@ const addWeekButton = document.getElementById('add-week');
 addWeekButton.addEventListener('click', () => {
     const newField = document.createElement('div');
     newField.classList.add('prix-week');
-    
+
     newField.innerHTML = `
-        <label>Numéro de la semaine</label>
-        <input type="number" name="semaine[]" value="">
-        <label>Prix (Ar)</label>
-        <input type="number" name="prix[]" step="any" value="">
-        <button type="button" class="remove-week">Effacer</button>
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="form-group">
+                    <label>Numéro de la semaine</label>
+                    <input type="number" name="semaine[]" id="semaine" value="" class="form-control">
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="form-group">
+                    <label>Prix (Ar)</label>
+                    <input type="number" name="prix[]" id="prix" step="any" value="" class="form-control">                </div>
+            </div>
+            <div class="col-lg-2 d-flex align-items-center">
+                <button type="button" class="remove-week btn btn-danger" style="margin-top: 10%; width: 100%;"><i class="fas fa-trash mr-6"></i> Effacer</button>
+            </div>
+        </div>
     `;
-    
-    // Insérer le nouveau champ juste avant le bouton "Ajouter"
-    prixFieldSet.insertBefore(newField, addWeekButton);
+
+    // Insérer le nouveau champ à la fin du fieldset
+    prixFieldSet.appendChild(newField);
 });
 
 prixFieldSet.addEventListener('click', (e) => {
