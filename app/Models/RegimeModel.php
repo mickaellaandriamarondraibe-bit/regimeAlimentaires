@@ -62,7 +62,7 @@ class RegimeModel extends Model
             return null;
         }
 
-        $regime['compositions'] = (new CompositionRegimeModel())->getCompositionRegimeByRegimeId($id);
+        $regime['compositions'] = (new VCompositionRegimeModel())->getCompositionRegimeByRegimeId($id);
         $regime['prix'] = (new PrixRegimeModel())->getPrixByRegimeId($id);
 
         return $regime;
