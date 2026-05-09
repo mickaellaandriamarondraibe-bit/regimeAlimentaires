@@ -36,4 +36,12 @@ class PrixRegimeModel extends Model
     {
         return $this->where('regime_id', $regimeId)->findAll();
     }
+
+    public function getPrixSelonDuree(int $regimeId, int $dureeSemaine)
+    {
+        return $this->where('regime_id', $regimeId)
+                    ->where('duree_semaine >=', $dureeSemaine)
+                    ->orderBy('duree_semaine', 'ASC')
+                    ->first();
+    }
 }
