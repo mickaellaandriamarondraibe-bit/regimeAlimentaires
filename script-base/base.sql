@@ -214,3 +214,10 @@ CREATE TABLE IF NOT EXISTS demande_code (
         FOREIGN KEY (validated_by) REFERENCES user(id)
         ON DELETE SET NULL
 );
+
+CREATE TABLE IF NOT EXISTS parametres(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cle VARCHAR(100) NOT NULL UNIQUE,
+    valeur VARCHAR(100) NOT NULL,
+    description TEXT
+);
