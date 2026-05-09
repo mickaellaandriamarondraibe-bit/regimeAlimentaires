@@ -92,7 +92,7 @@
                                     <a href="#">
                                         <div class="notif-img">
                                             <img
-                                                src="/assets/img/jm_denis.jpg"
+                                                src="<?= base_url() ?>assets/img/jm_denis.jpg"
                                                 alt="Img Profile" />
                                         </div>
                                         <div class="notif-content">
