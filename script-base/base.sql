@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS regime_sports;
 DROP TABLE IF EXISTS sport;
 DROP TABLE IF EXISTS composition_regimes;
 DROP TABLE IF EXISTS ingredients;
+DROP TABLE IF EXISTS prix_regimes;
 DROP TABLE IF EXISTS regimes;
 DROP TABLE IF EXISTS objectif;
 DROP TABLE IF EXISTS infos_clients;
