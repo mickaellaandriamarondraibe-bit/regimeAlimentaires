@@ -80,7 +80,10 @@ CREATE TABLE IF NOT EXISTS composition_regimes (
         FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
         ON DELETE CASCADE,
 
-    CONSTRAINT uq_composition UNIQUE(regime_id, ingredient_id)
+    CONSTRAINT uq_composition UNIQUE(regime_id, ingredient_id),
+
+    CONSTRAINT chk_pourcentage_valide
+        CHECK (pourcentage >= 0 AND pourcentage <= 100)
 );
 
 CREATE TABLE IF NOT EXISTS prix_regimes (
@@ -93,7 +96,10 @@ CREATE TABLE IF NOT EXISTS prix_regimes (
         FOREIGN KEY (regime_id) REFERENCES regimes(id)
         ON DELETE CASCADE,
 
-    CONSTRAINT uq_prix_regime UNIQUE(regime_id, duree_semaine)
+    CONSTRAINT uq_prix_regime UNIQUE(regime_id, duree_semaine),
+
+    CONSTRAINT chk_prix_positif
+        CHECK (prix >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS sport (
@@ -128,7 +134,10 @@ CREATE TABLE IF NOT EXISTS transactions (
 
     CONSTRAINT fk_transaction_client
         FOREIGN KEY (client_id) REFERENCES infos_clients(id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT chk_montant_positif
+        CHECK (montant > 0)
 );
 
 CREATE TABLE IF NOT EXISTS programme (
@@ -136,6 +145,11 @@ CREATE TABLE IF NOT EXISTS programme (
     objectif_id INT NOT NULL,
     objectif_kg DECIMAL(6,2) NOT NULL,
     duree_semaine INT NOT NULL,
+    prix_total DECIMAL(10,2) NOT NULL DEFAULT 0.0,
+    poids_initial DECIMAL(6,2) NULL,
+    poids_cible DECIMAL(6,2) NULL,
+    imc_initial DECIMAL(5,2) NULL,
+    date_programme DATETIME DEFAULT CURRENT_TIMESTAMP,
     transaction_id INT,
     client_id INT NOT NULL,
     regime_id INT NOT NULL,
@@ -152,7 +166,10 @@ CREATE TABLE IF NOT EXISTS programme (
         ON DELETE CASCADE,
 
     CONSTRAINT fk_programme_regime
-        FOREIGN KEY (regime_id) REFERENCES regimes(id)
+        FOREIGN KEY (regime_id) REFERENCES regimes(id),
+
+    CONSTRAINT chk_prix_positif
+        CHECK (prix_total >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS programme_sport (
