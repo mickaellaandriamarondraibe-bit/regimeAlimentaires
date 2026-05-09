@@ -9,7 +9,10 @@
     <h1>Liste des régimes</h1>
     <ul>
     <?php foreach ($regimes as $regime):?>
-        <li><?= $regime['name'] ?></li>
+        <li>
+            <?= esc($regime['name']) ?> - 
+            <a href="<?= base_url('regime/detail/' . $regime['id']) ?>">Voir le détail</a>
+        </li>
     <?php endforeach;?>
     </ul>
     <a href="/regime/create">Add new regime</a>

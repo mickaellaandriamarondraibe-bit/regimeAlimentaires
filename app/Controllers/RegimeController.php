@@ -120,4 +120,18 @@ class RegimeController extends BaseController
             'regimes' => $regimes
         ]);
     }
+
+    public function detail($id)
+    {
+        $regimeModel = new RegimeModel();
+        $regime = $regimeModel->getRegimeComplet($id);
+
+        if (!$regime) {
+            return redirect()->to('/regime/list')->with('errors', ['Régime introuvable.']);
+        }
+
+        return $this->render('regime_detail', [
+            'regime' => $regime
+        ]);
+    }
 }

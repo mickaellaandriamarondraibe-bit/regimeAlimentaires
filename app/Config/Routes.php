@@ -31,4 +31,5 @@ $routes->get('/ingredient', 'IngredientController::listAll');
 $routes->get('/regime/create', 'RegimeController::showForm');
 $routes->post('/regime/create', 'RegimeController::saveRegime');
 $routes->get('/regime/list', 'RegimeController::list');
+$routes->get('/regime/detail/(:num)', 'RegimeController::detail/$1');
 $routes->post('/ingredient/create', 'IngredientController::create');
