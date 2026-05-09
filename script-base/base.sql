@@ -5,6 +5,20 @@ COLLATE utf8mb4_unicode_ci;
 
 USE regime_app;
 
+DROP TABLE IF EXISTS demande_code;
+DROP TABLE IF EXISTS code;
+DROP TABLE IF EXISTS programme_sport;
+DROP TABLE IF EXISTS programme;
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS regime_sports;
+DROP TABLE IF EXISTS sport;
+DROP TABLE IF EXISTS composition_regimes;
+DROP TABLE IF EXISTS ingredients;
+DROP TABLE IF EXISTS regimes;
+DROP TABLE IF EXISTS objectif;
+DROP TABLE IF EXISTS infos_clients;
+DROP TABLE IF EXISTS user;
+
 CREATE TABLE IF NOT EXISTS user(
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(150) NOT NULL UNIQUE,
