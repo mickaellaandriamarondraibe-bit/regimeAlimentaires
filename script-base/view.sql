@@ -6,7 +6,6 @@ SELECT
     r.name AS regime_name,
     r.description AS regime_description,
     r.variation_poids_semaine AS variation_poids_semaine,
-    r.objectif_id AS objectif_id,
 
     i.id AS ingredient_id,
     i.name AS ingredient_name,
