@@ -3,7 +3,7 @@ SELECT
     r.id AS regime_id,
     r.name AS regime_name,
     r.description AS regime_description,
-    r.variation_poids_semaine AS variation_poids_semaine,
+    r.variation_poids_jour AS variation_poids_jour,
     
     o.id AS objectif_id,
     o.name AS objectif_name
@@ -15,7 +15,7 @@ SELECT
     r.regime_id AS regime_id,
     r.regime_name AS regime_name,
     r.regime_description AS regime_description,
-    r.variation_poids_semaine AS variation_poids_semaine,
+    r.variation_poids_jour AS variation_poids_jour,
     r.objectif_id AS objectif_id,
     r.objectif_name AS objectif_name,
 
