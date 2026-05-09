@@ -1,6 +1,7 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 TRUNCATE TABLE composition_regimes;
+TRUNCATE TABLE prix_regimes;
 TRUNCATE TABLE regimes;
 
 SET FOREIGN_KEY_CHECKS = 1;
