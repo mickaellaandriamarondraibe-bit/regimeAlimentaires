@@ -6,7 +6,8 @@ use \App\Models\Ingredient;
 use \App\Models\Regime;
 use \App\Models\VCompositionRegime;
 use \App\Models\CompositionRegime;
-
+use \App\Models\Objectif;
+use \App\Models\PrixRegime;
 
 class RegimeController extends BaseController
 {
@@ -15,10 +16,14 @@ class RegimeController extends BaseController
         $ingredientModel = new Ingredient();
         $ingredients = $ingredientModel->getAllIngredients();
 
+        $objectifModel = new Objectif();
+        $objectifs = $objectifModel->getBaseObjectifs();
+
         helper(['form']);
 
         return $this->render('regime_form', [
-            'ingredients' => $ingredients
+            'ingredients' => $ingredients,
+            'objectifs' => $objectifs
         ]);
     }
 
@@ -34,9 +39,9 @@ class RegimeController extends BaseController
         try {
             $regimedata = [
                 'name'                 => $this->request->getPost('regime_name'),
-                'type_variation'       => $this->request->getPost('type_variation'),
-                'variation_poids_jour' => $this->request->getPost('variation_poids_jour'),
-                'prix_jour'            => $this->request->getPost('prix_jour')
+                'description'          => $this->request->getPost('description'),
+                'variation_poids_semaine' => $this->request->getPost('variation_poids_semaine'),
+                'objectif_id'         => $this->request->getPost('objectif_id')
             ];
 
             if (!$regimeModel->insert($regimedata)) {
@@ -48,7 +53,7 @@ class RegimeController extends BaseController
             $ingredients = $ingredientModel->findAll();
 
             foreach ($ingredients as $item) {
-                $pourcentage = $this->request->getPost('poucentage_' . $item['name']);
+                $pourcentage = $this->request->getPost('pourcentage_' . $item['name']);
 
                 if (!empty($pourcentage) && $pourcentage > 0) {
                     $compositionEntry = [
@@ -61,6 +66,29 @@ class RegimeController extends BaseController
                         throw new \Exception('Erreur lors de l\'insertion d\'un ingrédient');
                     }
                 }
+            }
+
+            $semaines = $this->request->getPost('semaine');
+            $prix = $this->request->getPost('prix');
+
+            if (is_array($semaines) && is_array($prix) && count($semaines) === count($prix)) {
+                $prixModel = new PrixRegime();
+
+                for ($i = 0; $i < count($semaines); $i++) {
+                    if ($semaines[$i] !== '' && $prix[$i] !== '') {
+                        $prixEntry = [
+                            'regime_id'     => $regimeId,
+                            'duree_semaine' => $semaines[$i],
+                            'prix'          => $prix[$i]
+                        ];
+
+                        if (!$prixModel->insert($prixEntry)) {
+                            throw new \Exception('Erreur lors de l\'insertion du prix pour la semaine ' . $semaines[$i]);
+                        }
+                    }
+                }
+            } else {
+                throw new \Exception('Les données de prix sont invalides');
             }
 
             if ($db->transStatus() === false) {
@@ -87,6 +115,8 @@ class RegimeController extends BaseController
         foreach ($regimes as &$regime) {
             $compositionModel = new VCompositionRegime();
             $regime['compositions'] = $compositionModel->getCompositionRegimeByRegimeId($regime['id']);
+            $prixModel = new PrixRegime();
+            $regime['prix'] = $prixModel->getPrixByRegimeId($regime['id']);
         }
 
         return $this->render('regime_list', [
