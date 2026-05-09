@@ -113,10 +113,7 @@ class RegimeController extends BaseController
         $regimes = $regimeModel->findAll();
 
         foreach ($regimes as &$regime) {
-            $compositionModel = new CompositionRegimeModel();
-            $regime['compositions'] = $compositionModel->getCompositionRegimeByRegimeId($regime['id']);
-            $prixModel = new PrixRegimeModel();
-            $regime['prix'] = $prixModel->getPrixByRegimeId($regime['id']);
+            $regime = $regimeModel->getRegimeComplet($regime['id']);
         }
 
         return $this->render('regime_list', [
