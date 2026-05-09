@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-use \App\Models\VCompositionRegime;
 
 class Regime extends Model
 {
@@ -25,7 +24,6 @@ class Regime extends Model
     
     protected $validationRules = [
         'name'                 => 'required|min_length[2]|max_length[100]',
-        'type_variation'       => 'required',
         'variation_poids_semaine' => 'required|numeric',
         'objectif_id'         => 'required|integer'
     ];
@@ -35,9 +33,6 @@ class Regime extends Model
             'required'   => 'Le nom du régime est requis',
             'min_length' => 'Le nom doit contenir au moins 2 caractères',
             'max_length' => 'Le nom ne peut pas dépasser 100 caractères'
-        ],
-        'type_variation' => [
-            'required' => 'Le type de la variation est requis'
         ],
         'variation_poids_semaine' => [
             'required' => 'La variation du poids est requise',
@@ -67,9 +62,8 @@ class Regime extends Model
             return null;
         }
 
-        $compositionModel = new VCompositionRegime();
-
-        $regime['compositions'] = $compositionModel->getCompositionRegimeByRegimeId($id);
+        $regime['compositions'] = (new VCompositionRegime())->getCompositionRegimeByRegimeId($id);
+        $regime['prix'] = (new PrixRegime())->getPrixByRegimeId($id);
 
         return $regime;
     }
