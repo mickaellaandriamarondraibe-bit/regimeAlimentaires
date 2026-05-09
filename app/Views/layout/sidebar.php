@@ -5,10 +5,11 @@
         <div class="logo-header" data-background-color="dark">
             <a href="/" class="logo">
                 <img
-                    src="/assets/img/logo.png"
+                    src="<?= base_url('admin/assets/img/logo.png') ?>"
                     alt="navbar brand"
                     class="navbar-brand"
                     height="40" />
+                    <strong class="text-white text-bold">Admin</strong>
             </a>
             <div class="nav-toggle">
                 <button class="btn btn-toggle toggle-sidebar">
@@ -28,7 +29,7 @@
         <div class="sidebar-content">
             <ul class="nav nav-secondary">
                 <li class="nav-item">
-                    <a href="/"
+                    <a href="<?= base_url() ?>"
                         class="collapsed"
                         aria-expanded="false">
                         <i class="fas fa-home"></i>
@@ -50,17 +51,17 @@
                     <div class="collapse" id="regimes">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="/ingredient">
+                                <a href="<?= base_url('ingredient') ?>">
                                     <span class="sub-item">Ingrédients</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/regime/create">
+                                <a href="<?= base_url('regime/create') ?>">
                                     <span class="sub-item">Création de régime</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/regime/list">
+                                <a href="<?= base_url('regime/list') ?>">
                                     <span class="sub-item">Liste des régimes</span>
                                 </a>
                             </li>

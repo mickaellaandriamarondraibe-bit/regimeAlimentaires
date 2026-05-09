@@ -4,7 +4,7 @@
         <div class="logo-header" data-background-color="dark">
             <a href="/" class="logo">
                 <img
-                    src="/assets/img/logo.png"
+                    src="<?= base_url('admin/assets/img/logo.png') ?>"
                     alt="navbar brand"
                     class="navbar-brand"
                     height="40" />
@@ -92,7 +92,7 @@
                                     <a href="#">
                                         <div class="notif-img">
                                             <img
-                                                src="/assets/img/jm_denis.jpg"
+                                                src="<?= base_url('admin/assets/img/jm_denis.jpg') ?>"
                                                 alt="Img Profile" />
                                         </div>
                                         <div class="notif-content">
@@ -104,7 +104,7 @@
                                     <a href="#">
                                         <div class="notif-img">
                                             <img
-                                                src="/assets/img/chadengle.jpg"
+                                                src="<?= base_url('admin/assets/img/chadengle.jpg') ?>"
                                                 alt="Img Profile" />
                                         </div>
                                         <div class="notif-content">
@@ -116,7 +116,7 @@
                                     <a href="#">
                                         <div class="notif-img">
                                             <img
-                                                src="/assets/img/mlane.jpg"
+                                                src="<?= base_url('admin/assets/img/mlane.jpg') ?>"
                                                 alt="Img Profile" />
                                         </div>
                                         <div class="notif-content">
@@ -130,7 +130,7 @@
                                     <a href="#">
                                         <div class="notif-img">
                                             <img
-                                                src="/assets/img/talha.jpg"
+                                                src="<?= base_url('admin/assets/img/talha.jpg') ?>"
                                                 alt="Img Profile" />
                                         </div>
                                         <div class="notif-content">
@@ -194,7 +194,7 @@
                                     <a href="#">
                                         <div class="notif-img">
                                             <img
-                                                src="/assets/img/profile2.jpg"
+                                                src="<?= base_url('admin/assets/img/profile2.jpg') ?>"
                                                 alt="Img Profile" />
                                         </div>
                                         <div class="notif-content">
@@ -304,7 +304,7 @@
                         aria-expanded="false">
                         <div class="avatar-sm">
                             <img
-                                src="/assets/img/profile.png"
+                                src="<?= base_url('admin/assets/img/profile.png') ?>"
                                 alt="..."
                                 class="avatar-img rounded-circle" />
                         </div>
@@ -319,7 +319,7 @@
                                 <div class="user-box">
                                     <div class="avatar-lg">
                                         <img
-                                            src="/assets/img/profile.png"
+                                            src="<?= base_url('admin/assets/img/profile.png') ?>"
                                             alt="image profile"
                                             class="avatar-img rounded" />
                                     </div>
