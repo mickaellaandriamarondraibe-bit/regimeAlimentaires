@@ -6,7 +6,7 @@ Use CodeIgniter\Model;
 
 class CompositionRegime extends Model
 {
-    protected $table = 'composition_regime';
+    protected $table = 'composition_regimes';
     protected $primaryKey = 'id';
 
     protected $allowedFields = ['id', 'regime_id', 'ingredient_id', 'poucentage'];
