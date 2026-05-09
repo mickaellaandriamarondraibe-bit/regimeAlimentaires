@@ -9,6 +9,7 @@
                     alt="navbar brand"
                     class="navbar-brand"
                     height="40" />
+                    <strong class="text-white text-bold">Admin</strong>
             </a>
             <div class="nav-toggle">
                 <button class="btn btn-toggle toggle-sidebar">
