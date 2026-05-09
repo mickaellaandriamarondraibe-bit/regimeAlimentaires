@@ -68,6 +68,8 @@ class RegimeModel extends Model
         $objectif = (new ObjectifModel())->getObjectifById($regime['objectif_id']);
         $regime['objectif_name'] = $objectif ? $objectif['name'] : 'Inconnu';
 
+        $regime['sport_associe'] = (new SportModel())->getSportsByRegimeId($id);
+
         return $regime;
     }
 }
