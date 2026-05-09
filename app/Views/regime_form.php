@@ -54,7 +54,28 @@
 
             <div class="container">
                 <div class="page-inner">
-                    <h3 class="fw-bold mb-3">Création de Régime</h3>
+                    <div class="page-header">
+                        <h3 class="fw-bold mb-3">Création de Régime</h3>
+                        <ul class="breadcrumbs mb-3">
+                            <li class="nav-home">
+                                <a href="<?= base_url('') ?>">
+                                    <i class="icon-home"></i>
+                                </a>
+                            </li>
+                            <li class="separator">
+                                <i class="icon-arrow-right"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="">Régime</a>
+                            </li>
+                            <li class="separator">
+                                <i class="icon-arrow-right"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="">Création de Régime</a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="page-category">
                         Remplissez le formulaire ci-dessous pour créer un nouveau régime alimentaire. Vous pouvez voir la liste des regimes déjà créés en cliquant
                         <a href="<?= base_url('regime/list') ?>">ici</a>.
@@ -140,8 +161,8 @@
                                         </div>
                                     </div>
                                     <div class="card-action">
-                                        <input type="submit" value="Insérer le régime" class="btn btn-success mr-6">
-                                        <a href="/regime/list"><button class="btn btn-danger ml-6">Abandonner l'insertion</button></a>
+                                        <input type="submit" value="Insérer le régime" class="btn btn-success mr-6 mt-6" style="width: 250px; margin-right: 24px; margin-top: 20px;">
+                                        <a href="/regime/list"><input type="button" value="Abandonner l'insertion" class="btn btn-danger ml-6 mt-6" style="width: 250px; margin-right: 24px; margin-top: 20px;"></a>
                                     </div>
                                 </form>
                             </div>
