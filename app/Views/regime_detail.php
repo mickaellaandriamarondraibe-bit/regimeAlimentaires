@@ -18,8 +18,8 @@
     </div>
 
     <div>
-        <strong>Objectif ID :</strong>
-        <span><?= esc($regime['objectif_id']) ?></span>
+        <strong>Objectif :</strong>
+        <span><?= esc($regime['objectif_name']) ?></span>
     </div>
 
     <hr>
