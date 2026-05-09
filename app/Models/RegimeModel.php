@@ -18,14 +18,12 @@ class RegimeModel extends Model
         'id',
         'name',
         'description',
-        'variation_poids_semaine',
-        'objectif_id'
+        'variation_poids_semaine'
     ];
     
     protected $validationRules = [
         'name'                 => 'required|min_length[2]|max_length[100]',
-        'variation_poids_semaine' => 'required|numeric',
-        'objectif_id'         => 'required|integer'
+        'variation_poids_semaine' => 'required|numeric'
     ];
 
     protected $validationMessages = [
@@ -37,10 +35,6 @@ class RegimeModel extends Model
         'variation_poids_semaine' => [
             'required' => 'La variation du poids est requise',
             'numeric'  => 'La variation doit être un nombre'
-        ],
-        'objectif_id' => [
-            'required' => 'L\'objectif est requis',
-            'integer'  => 'L\'objectif doit être un nombre entier'
         ]
     ];
 
@@ -53,6 +47,16 @@ class RegimeModel extends Model
     public function getAllRegimes()
     {
         return $this->findAll();
+    }
+
+    public function getPoitiveRegimes()
+    {
+        return $this->where('variation_poids_semaine >', 0)->findAll();
+    }
+
+    public function getNegativeRegimes()
+    {
+        return $this->where('variation_poids_semaine <', 0)->findAll();
     }
 
     public function getRegimeComplet(int $id)
@@ -68,7 +72,7 @@ class RegimeModel extends Model
         $objectif = (new ObjectifModel())->getObjectifById($regime['objectif_id']);
         $regime['objectif_name'] = $objectif ? $objectif['name'] : 'Inconnu';
 
-        $regime['sport_associe'] = (new SportModel())->getSportsByRegimeId($id);
+        $regime['sport_associe'] = (new RegimeSportModel())->getSportsByRegimeId($id);
 
         return $regime;
     }
