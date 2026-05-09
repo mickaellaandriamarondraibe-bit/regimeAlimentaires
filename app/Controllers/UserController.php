@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModele;
+use App\Models\UserModel;
 use App\Models\InfoClientsModel;
 
 class UserController extends BaseController
@@ -12,7 +12,7 @@ class UserController extends BaseController
 
     public function __construct()
     {
-        $this->userModel = new UserModele();
+        $this->userModel = new UserModel();
         $this->infoClientModel = new InfoClientsModel();
     }
 

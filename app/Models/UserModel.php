@@ -1,8 +1,10 @@
 <?php
-namespace App\Models; 
+
+namespace App\Models;
+
 use CodeIgniter\Model;
 
-class UserModele extends Model
+class UserModel extends Model
 {
     protected $table = 'user';
     protected $primaryKey = 'id';
@@ -20,7 +22,7 @@ class UserModele extends Model
         return $this->where('email', $email)->first();
     }
 
-    
+
     public function getUserById(int $id): ?array
     {
         return $this->find($id);
@@ -30,7 +32,8 @@ class UserModele extends Model
         return $this->update($id, $data);
     }
 
-    public function deleteUser($id){
+    public function deleteUser($id)
+    {
         return $this->delete($id);
     }
     public function updateProfilById(int $userId, array $data): bool
@@ -40,4 +43,14 @@ class UserModele extends Model
             ->update($data);
     }
 
+    public function isAdmin(int $userId): bool
+    {
+        $user = $this->find($userId);
+
+        if (!$user) {
+            return false;
+        }
+
+        return $user['role'] === 'admin';
+    }
 }
