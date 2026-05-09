@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /writable/logs/*
 !/writable/logs/index.html
 /writable/session/*
@@ -7,3 +8,7 @@
 writable/session/*
 writable/logs/*
 >>>>>>> 71d0010 (chore: ignore writable session files)
+=======
+writable/session/*
+writable/logs/*
+>>>>>>> validationCode-et-transaction

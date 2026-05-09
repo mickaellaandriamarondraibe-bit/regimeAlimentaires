@@ -2,7 +2,7 @@
 namespace App\Models;
 use CodeIgniter\Model;
 
-class codeModel extends Model
+class CodeModel extends Model
 {
     protected $table = 'code';
     protected $primaryKey = 'id';

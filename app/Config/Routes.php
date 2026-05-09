@@ -23,8 +23,11 @@ $routes->get('/acceuil', 'UserController::acceuil');
 $routes->get('/profil', 'UserController::profil');
 $routes->post('/profil/update', 'UserController::modifierProfil');
 
-$routes->get('code', 'codeController::code');
-$routes->post('envoyerCode', 'codeController::validationCode');
+$routes->get('/code', 'CodeController::code');
+$routes->post('/envoyerCode', 'CodeController::validationCode');
+
+$routes->get('/test', 'InfoClientController::test');
+$routes->post('/achat', 'InfoClientController::validationDepense');
 
 $routes->get('/ingredient', 'IngredientController::listAll');
 
@@ -38,7 +41,7 @@ $routes->get('/sport', 'SportController::listSport');
 $routes->get('/sport/create', 'SportController::edit');
 $routes->post('/sport/create', 'SportController::saveSport');
 $routes->get('/sport/edit/(:num)', 'SportController::edit/$1');
-$routes->post('/sport/update/(:num', 'SportController::update/$1');
+$routes->post('/sport/update/(:num)', 'SportController::update/$1');
 $routes->post('/sport/delete/(:num)', 'SportController::delete/$1');
 $routes->get('/sport/detail/(:num)', 'SportController::detail/$1');
 $routes->get('/sport/(:num)/regimes', 'SportController::regimesAssocies/$1');

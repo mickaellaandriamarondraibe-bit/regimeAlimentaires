@@ -67,8 +67,19 @@ class InfoClientsModel extends Model
         return $this->where('user_id', $userId)->first();
     }
 
+    public function updateSolde(int $userId, float $montant): bool
+    {
+        $infoClient = $this->getByUserId($userId);
+        if (!$infoClient) {
+            return false;
+        }
+        $nouveauSolde = $infoClient['wallet'] + $montant;
+        return $this->updateProfilByUserId($userId, ['wallet' => $nouveauSolde]);
+    }
+
     public function updateProfilByUserId(int $userId, array $data): bool
-{
-    return $this->builder()->where('user_id', $userId)->update($data);
-}
+    {
+        return $this->builder()->where('user_id', $userId)->update($data);
+    }
+    
 }
