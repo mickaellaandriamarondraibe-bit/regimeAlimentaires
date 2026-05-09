@@ -33,3 +33,13 @@ $routes->post('/regime/create', 'RegimeController::saveRegime');
 $routes->get('/regime/list', 'RegimeController::list');
 $routes->get('/regime/detail/(:num)', 'RegimeController::detail/$1');
 $routes->post('/ingredient/create', 'IngredientController::create');
+
+$routes->get('/sport', 'SportController::listSport');
+$routes->get('/sport/create', 'SportController::edit');
+$routes->post('/sport/create', 'SportController::saveSport');
+$routes->get('/sport/edit/(:num)', 'SportController::edit/$1');
+$routes->post('/sport/update/(:num', 'SportController::update/$1');
+$routes->post('/sport/delete/(:num)', 'SportController::delete/$1');
+$routes->get('/sport/detail/(:num)', 'SportController::detail/$1');
+$routes->get('/sport/(:num)/regimes', 'SportController::regimesAssocies/$1');
+$routes->post('/sport/(:num)/regimes/save', 'SportController::saveRegime/$1');
