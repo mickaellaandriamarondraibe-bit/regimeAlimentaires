@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Ingredient extends Model
+class IngredientModel extends Model
 {
     protected $table = 'ingredients';
     protected $primaryKey = 'id';

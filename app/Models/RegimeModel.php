@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Regime extends Model
+class RegimeModel extends Model
 {
     protected $table = 'regimes';
     protected $primaryKey = 'id';
@@ -62,8 +62,8 @@ class Regime extends Model
             return null;
         }
 
-        $regime['compositions'] = (new VCompositionRegime())->getCompositionRegimeByRegimeId($id);
-        $regime['prix'] = (new PrixRegime())->getPrixByRegimeId($id);
+        $regime['compositions'] = (new CompositionRegimeModel())->getCompositionRegimeByRegimeId($id);
+        $regime['prix'] = (new PrixRegimeModel())->getPrixByRegimeId($id);
 
         return $regime;
     }

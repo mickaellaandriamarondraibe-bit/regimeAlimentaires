@@ -2,21 +2,21 @@
 
 namespace App\Controllers;
 
-use \App\Models\Ingredient;
-use \App\Models\Regime;
-use \App\Models\VCompositionRegime;
-use \App\Models\CompositionRegime;
-use \App\Models\Objectif;
-use \App\Models\PrixRegime;
+use \App\Models\IngredientModel;
+use \App\Models\RegimeModel;
+use \App\Models\VCompositionRegimeModel;
+use \App\Models\CompositionRegimeModel;
+use \App\Models\ObjectifModel;
+use \App\Models\PrixRegimeModel;
 
 class RegimeController extends BaseController
 {
     public function showForm()
     {
-        $ingredientModel = new Ingredient();
+        $ingredientModel = new IngredientModel();
         $ingredients = $ingredientModel->getAllIngredients();
 
-        $objectifModel = new Objectif();
+        $objectifModel = new ObjectifModel();
         $objectifs = $objectifModel->getBaseObjectifs();
 
         helper(['form']);
@@ -30,9 +30,9 @@ class RegimeController extends BaseController
     public function saveRegime()
     {
         $db = \Config\Database::connect();
-        $regimeModel = new Regime();
-        $regimeComposition = new CompositionRegime();
-        $ingredientModel = new Ingredient();
+        $regimeModel = new RegimeModel();
+        $regimeComposition = new CompositionRegimeModel();
+        $ingredientModel = new IngredientModel();
 
         $db->transBegin();
 
@@ -72,7 +72,7 @@ class RegimeController extends BaseController
             $prix = $this->request->getPost('prix');
 
             if (is_array($semaines) && is_array($prix) && count($semaines) === count($prix)) {
-                $prixModel = new PrixRegime();
+                $prixModel = new PrixRegimeModel();
 
                 for ($i = 0; $i < count($semaines); $i++) {
                     if ($semaines[$i] !== '' && $prix[$i] !== '') {
@@ -109,13 +109,13 @@ class RegimeController extends BaseController
 
     public function list()
     {
-        $regimeModel = new Regime();
+        $regimeModel = new RegimeModel();
         $regimes = $regimeModel->findAll();
 
         foreach ($regimes as &$regime) {
-            $compositionModel = new VCompositionRegime();
+            $compositionModel = new CompositionRegimeModel();
             $regime['compositions'] = $compositionModel->getCompositionRegimeByRegimeId($regime['id']);
-            $prixModel = new PrixRegime();
+            $prixModel = new PrixRegimeModel();
             $regime['prix'] = $prixModel->getPrixByRegimeId($regime['id']);
         }
 

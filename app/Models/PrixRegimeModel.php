@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PrixRegime extends Model
+class PrixRegimeModel extends Model
 {
     protected $table = 'prix_regimes';
     protected $primaryKey = 'id';
