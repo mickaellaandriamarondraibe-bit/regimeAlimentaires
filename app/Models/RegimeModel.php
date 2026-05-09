@@ -69,9 +69,6 @@ class RegimeModel extends Model
         $regime['compositions'] = (new VCompositionRegimeModel())->getCompositionRegimeByRegimeId($id);
         $regime['prix'] = (new PrixRegimeModel())->getPrixByRegimeId($id);
 
-        $objectif = (new ObjectifModel())->getObjectifById($regime['objectif_id']);
-        $regime['objectif_name'] = $objectif ? $objectif['name'] : 'Inconnu';
-
         $regime['sport_associe'] = (new RegimeSportModel())->getSportsByRegimeId($id);
 
         return $regime;
