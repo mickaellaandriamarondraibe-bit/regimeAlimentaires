@@ -145,7 +145,7 @@ $cardImages = [
                                 <div class="program-buy">
                                     <strong><?= esc(number_format((float) ($s['prix_final'] ?? 0), 0, ',', ' ')) ?> Ar</strong>
 
-                                    <form method="post" action="<?= site_url('programme/confirmer') ?>">
+                                    <form method="post" action="<?= site_url('programme/confirmer') ?>" style="display: inline;">
                                         <?= csrf_field() ?>
                                         <input type="hidden" name="objectif_id" value="<?= esc((string) ($objectif_selectionne ?? 0)) ?>">
                                         <input type="hidden" name="objectif_kg" value="<?= esc((string) ($objectif_kg_saisi ?? 1)) ?>">
