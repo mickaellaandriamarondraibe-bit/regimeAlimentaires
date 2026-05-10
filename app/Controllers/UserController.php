@@ -27,10 +27,12 @@ class UserController extends BaseController
     public function login()
     {
         if (session()->get('user_id')) {
-            return redirect()->to('/acceuil');
+            return redirect()->to('/accueil');
         }
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('auth/login', [
+            'title' => 'Connexion - NutriFit',
+        ]);
     }
 
     public function logout()
@@ -39,7 +41,7 @@ class UserController extends BaseController
         return redirect()->to('/login');
     }
 
-     public function validationLogin()
+    public function validationLogin()
     {
         $email = trim((string) $this->request->getPost('email'));
         $pwd = (string) $this->request->getPost('pwd');
@@ -67,12 +69,14 @@ class UserController extends BaseController
             return redirect()->to('/dashboard')->with('success', 'Connexion admin réussie.');
         }
 
-        return redirect()->to('/acceuil')->with('success', 'Connexion réussie.');
+        return redirect()->to('/accueil')->with('success', 'Connexion réussie.');
     }
 
     public function inscriptionPage1()
     {
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('auth/inscription_step1', [
+            'title' => 'Inscription - Étape 1',
+        ]);
     }
 
     public function inscriptionPage2()
@@ -86,7 +90,9 @@ class UserController extends BaseController
             'genre' => $this->request->getPost('genre') ?: $session->get('genre'),
         ]);
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('auth/inscription_step2', [
+            'title' => 'Inscription - Étape 2',
+        ]);
     }
 
 
@@ -180,15 +186,38 @@ class UserController extends BaseController
         return redirect()->to('/login')->with('success', 'Inscription réussie. Veuillez vous connecter.');
     }
 
-   
 
-    public function acceuil()
-    {   if(!session()->get('user_id')) {
+
+    public function accueil()
+    {
+        if (!session()->get('user_id')) {
             return redirect()->to('/login');
         }
+
         $userId = (int) session()->get('user_id');
+
         $user = $this->userModel->find($userId);
         $client = $this->infoClientModel->getByUserId($userId);
+
+        return view('index', [
+            'title' => 'Accueil - NutriFit',
+            'user' => $user,
+            'client' => $client,
+        ]);
+    }
+
+
+    public function profil()
+    {
+        $userId = session()->get('user_id');
+
+        if (!$userId) {
+            return redirect()->to('/login');
+        }
+
+        $user = $this->userModel->find($userId);
+
+        $client = $this->infoClientModel->getByUserId((int) $userId);
 
         if (!$client && $user) {
             $db = \Config\Database::connect();
@@ -200,75 +229,43 @@ class UserController extends BaseController
                 ->getRowArray();
         }
 
-        return view('template/healthy_food_international_landing_template(5)', [
+        return view('profil/index', [
+            'title' => 'Mon profil - NutriFit',
             'user' => $user,
             'client' => $client,
-            'regimes' => (new RegimeModel())->findAll(),
-            'objectifs' => (new ObjectifModel())->getAllObjectifs(),
             'gold_prix' => $this->parametreModel->getFloatValeur('gold_prix'),
             'gold_reduction' => $this->parametreModel->getFloatValeur('reduction_gold'),
         ]);
     }
-    
 
-    public function profil()
-{
-    $userId = session()->get('user_id');
+    public function modifierProfil()
+    {
+        $userId = session()->get('user_id');
 
-    if (!$userId) {
-        return redirect()->to('/login');
-    }
+        if (!$userId) {
+            return redirect()->to('/login');
+        }
 
-    $user = $this->userModel->find($userId);
+        $this->infoClientModel->updateProfilByUserId($userId, [
+            'name' => trim((string) $this->request->getPost('username')),
+            'phone'  => trim((string) $this->request->getPost('phone')),
+            'genre'  => $this->request->getPost('genre'),
+            'taille' => $this->request->getPost('taille'),
+            'poids'  => $this->request->getPost('poids'),
+        ]);
 
-    $client = $this->infoClientModel->getByUserId((int) $userId);
+        $this->userModel->updateProfilById($userId, [
+            'email'    => trim((string) $this->request->getPost('email')),
+        ]);
 
-    if (!$client && $user) {
-        $db = \Config\Database::connect();
-        $client = $db->table('infos_clients ic')
-            ->select('ic.*')
-            ->join('user u', 'u.id = ic.user_id')
-            ->where('u.email', $user['email'])
-            ->get()
-            ->getRowArray();
-    }
-
-    return view('template/healthy_food_international_landing_template(5)', [
-        'user' => $user,
-        'client' => $client,
-        'gold_prix' => $this->parametreModel->getFloatValeur('gold_prix'),
-        'gold_reduction' => $this->parametreModel->getFloatValeur('reduction_gold'),
-    ]);
-}
-    
-   public function modifierProfil()
-{
-    $userId = session()->get('user_id');
-
-    if (!$userId) {
-        return redirect()->to('/login');
-    }
-
-    $this->infoClientModel->updateProfilByUserId($userId, [
-        'name' => trim((string) $this->request->getPost('username')),
-        'phone'  => trim((string) $this->request->getPost('phone')),
-        'genre'  => $this->request->getPost('genre'),
-        'taille' => $this->request->getPost('taille'),
-        'poids'  => $this->request->getPost('poids'),
-    ]);
-
-    $this->userModel->updateProfilById($userId, [
-        'email'    => trim((string) $this->request->getPost('email')),
-    ]);
-
-    session()->set([
-        'email'    => trim((string) $this->request->getPost('email')),
-        'username' => trim((string) $this->request->getPost('username')),
-    ]);
+        session()->set([
+            'email'    => trim((string) $this->request->getPost('email')),
+            'username' => trim((string) $this->request->getPost('username')),
+        ]);
 
         return redirect()->to('/profil')
-        ->with('success', 'Profil modifié avec succès.');
-}
+            ->with('success', 'Profil modifié avec succès.');
+    }
 
     public function activerGold()
     {
@@ -314,6 +311,4 @@ class UserController extends BaseController
             return redirect()->to('/profil')->with('error', 'Erreur lors de l’activation Gold.');
         }
     }
-
-
 }

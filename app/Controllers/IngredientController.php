@@ -32,8 +32,8 @@ class IngredientController extends BaseController
         $ingredientModel = new IngredientModel();
         $ingredients = $ingredientModel->getAllIngredients();
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'admin_view' => 'admin-ingredient',
+        return view('admin/regimes/ingredients', [
+            'title' => 'Ingrédients des régimes - NutriFit',
             'ingredients' => $ingredients,
             ...$this->profileData(),
         ]);
@@ -53,5 +53,4 @@ class IngredientController extends BaseController
             return redirect()->to('/ingredient')->with('error', 'Erreur lors de l\'ajout de l\'ingrédient');
         }
     }
-
 }

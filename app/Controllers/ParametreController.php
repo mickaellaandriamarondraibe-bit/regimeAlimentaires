@@ -26,7 +26,7 @@ class ParametreController extends BaseController
         }
 
         if (!$this->userModel->isAdmin((int) $userId)) {
-            return redirect()->to('/acceuil')
+            return redirect()->to('/accueil')
                 ->with('error', 'Accès réservé à l’administrateur.');
         }
 
@@ -43,8 +43,9 @@ class ParametreController extends BaseController
             ->orderBy('cle', 'ASC')
             ->findAll();
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'parametres' => $parametres
+        return view('admin/parametres/index', [
+            'title' => 'Paramètres - NutriFit',
+            'parametres' => $parametres,
         ]);
     }
 
@@ -54,7 +55,9 @@ class ParametreController extends BaseController
             return $redirect;
         }
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('admin/parametres/form', [
+            'title' => 'Créer un paramètre - NutriFit',
+        ]);
     }
 
     public function store()
@@ -98,8 +101,9 @@ class ParametreController extends BaseController
                 ->with('error', 'Paramètre introuvable.');
         }
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'parametre' => $parametre
+        return view('admin/parametres/form', [
+            'title' => 'Modifier un paramètre - NutriFit',
+            'parametre' => $parametre,
         ]);
     }
 

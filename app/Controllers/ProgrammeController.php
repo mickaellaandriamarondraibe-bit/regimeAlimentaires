@@ -68,11 +68,11 @@ class ProgrammeController extends BaseController
 
         $imc = $this->calculerIMC($client['poids'], $client['taille']);
 
-        return view('template/healthy_food_international_landing_template(5)', [
+        return view('programmes/index', [
+            'title' => 'Programmes - NutriFit',
             'objectifs' => $objectifs,
             'imc' => $imc,
             'suggestions' => [],
-            'programme_view' => 'programs',
             ...$this->profileData(),
         ]);
     }
@@ -148,13 +148,14 @@ class ProgrammeController extends BaseController
             $objectifKg = abs($poidsActuel - $poidsCible);
 
             if ($objectifKg <= 0.1) {
-                return view('template/healthy_food_international_landing_template(5)', [
+                return view('programmes/index', [
+                    'title' => 'Suggestions - NutriFit',
                     'objectifs' => $this->objectifModel->getAllObjectifs(),
                     'imc' => $imc,
                     'objectif_selectionne' => (int) $objectifId,
-                    'objectif_kg_saisi' => 0,
+                    'objectif_kg_saisi' => (float) $objectifKg,
                     'suggestions' => [],
-                    'programme_view' => 'programs',
+                    'sucess' => 'Vous êtes déjà proche de votre poids idéal',
                     ...$this->profileData(),
                 ]);
             }
@@ -234,25 +235,19 @@ class ProgrammeController extends BaseController
             'last_objectif_sens' => (string) $sensObjectif,
         ]);
 
-        return view('template/healthy_food_international_landing_template(5)', [
+        return view('programmes/index', [
+            'title' => 'Suggestions - NutriFit',
             'objectifs' => $this->objectifModel->getAllObjectifs(),
             'imc' => $imc,
             'objectif_selectionne' => (int) $objectifId,
             'objectif_kg_saisi' => (float) $objectifKg,
             'suggestions' => $suggestions,
-            'programme_view' => 'programs',
             ...$this->profileData(),
         ]);
     }
 
     public function catalogue()
     {
-        $userId = session()->get('user_id');
-
-        if (!$userId) {
-            return redirect()->to('/login');
-        }
-
         $regimes = $this->regimeModel->findAll();
 
         foreach ($regimes as &$regime) {
@@ -263,8 +258,8 @@ class ProgrammeController extends BaseController
                 ->getSportsByRegimeId((int) $regime['id']);
         }
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'programme_view' => 'catalogue',
+        return view('programmes/catalogue', [
+            'title' => 'Catalogue des régimes - NutriFit',
             'regimes' => $regimes,
             ...$this->profileData(),
         ]);
@@ -586,8 +581,10 @@ class ProgrammeController extends BaseController
 
         $programmes = $this->programmeModel->getProgrammesByClientId((int) $client['id']);
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'programmes' => $programmes
+        return view('programmes/mes_programmes', [
+            'title' => 'Mes programmes - NutriFit',
+            'programmes' => $programmes,
+            ...$this->profileData(),
         ]);
     }
 
@@ -627,8 +624,8 @@ class ProgrammeController extends BaseController
         $programme['sports'] = $this->programmeSportModel
             ->getSportsByProgrammeId((int) $programme['id']);
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'programme_view' => 'programme-detail',
+        return view('programmes/detail', [
+            'title' => 'Détail programme - NutriFit',
             'programme' => $programme,
             ...$this->profileData(),
         ]);

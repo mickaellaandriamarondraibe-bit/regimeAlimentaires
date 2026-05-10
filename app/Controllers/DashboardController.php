@@ -92,8 +92,8 @@ class DashboardController extends BaseController
             ->get(12)
             ->getResultArray();
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'admin_view' => 'admin-dashboard',
+        return view('admin/dashboard', [
+            'title' => 'Dashboard Admin',
             'stats' => $stats,
             'tx_by_type' => $txByType,
             'users_by_role' => $usersByRole,

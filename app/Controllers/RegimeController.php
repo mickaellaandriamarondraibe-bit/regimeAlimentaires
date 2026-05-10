@@ -41,8 +41,8 @@ class RegimeController extends BaseController
 
         helper(['form']);
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'admin_view' => 'admin-regime-form',
+        return view('admin/regimes/create', [
+            'title' => 'Créer un régime - NutriFit',
             'ingredients' => $ingredients,
             'objectifs' => $objectifs,
             ...$this->profileData(),
@@ -137,8 +137,8 @@ class RegimeController extends BaseController
             $regime = $regimeModel->getRegimeComplet($regime['id']);
         }
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'admin_view' => 'admin-regime-list',
+        return view('admin/regimes/index', [
+            'title' => 'Gestion des régimes - NutriFit',
             'regimes' => $regimes,
             ...$this->profileData(),
         ]);
@@ -153,8 +153,8 @@ class RegimeController extends BaseController
             return redirect()->to('/regime/list')->with('errors', ['Régime introuvable.']);
         }
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'admin_view' => 'admin-regime-detail',
+        return view('admin/regimes/detail', [
+            'title' => 'Détail régime - NutriFit',
             'regime' => $regime,
             ...$this->profileData(),
         ]);

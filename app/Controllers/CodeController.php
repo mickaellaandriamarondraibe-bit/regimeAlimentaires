@@ -25,11 +25,6 @@ class CodeController extends BaseController
         $this->userModel = new UserModel();
     }
 
-    public function code()
-    {
-        return view('template/healthy_food_international_landing_template(5)');
-    }
-
     public function validationCode()
     {
         $userId = session()->get('user_id');

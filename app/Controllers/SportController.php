@@ -23,14 +23,17 @@ class SportController extends BaseController
     {
         $sports = $this->sportModel->findAll();
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'sports' => $sports
+        return view('admin/sport/index', [
+            'title' => 'Gestion des sports - NutriFit',
+            'sports' => $sports,
         ]);
     }
 
     public function showForm()
     {
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('admin/sport/form', [
+            'title' => 'Créer un sport - NutriFit',
+        ]);
     }
 
     public function saveSport()
@@ -58,8 +61,9 @@ class SportController extends BaseController
             throw new \Exception("Cette activité n'existe pas");
         }
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'sport' => $sport
+        return view('admin/sport/form', [
+            'title' => 'Modifier un sport - NutriFit',
+            'sport' => $sport,
         ]);
     }
 
@@ -109,8 +113,9 @@ class SportController extends BaseController
             throw new \Exception("Cette activité n'existe pas");
         }
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'sport' => $sport
+        return view('admin/sport/detail', [
+            'title' => 'Détail sport - NutriFit',
+            'sport' => $sport,
         ]);
     }
 
@@ -126,9 +131,11 @@ class SportController extends BaseController
 
         $regimesLies = $this->regimeSportModel->getRegimesBySportId($sportId);
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'regimes' => $regimes, 
-            'regimes_lies' => $regimesLies
+        return view('admin/sport/regimes_associes', [
+            'title' => 'Régimes associés - NutriFit',
+            'sport' => $sport,
+            'regimes' => $regimes,
+            'regimes_lies' => $regimesLies,
         ]);
     }
 

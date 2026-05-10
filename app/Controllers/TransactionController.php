@@ -12,6 +12,25 @@ class TransactionController extends BaseController
     private InfoClientsModel $infoClientsModel;
     private UserModel $userModel;
 
+    private function profileData(): array
+    {
+        $userId = (int) session()->get('user_id');
+        $user = (new UserModel())->find($userId);
+        $client = (new InfoClientsModel())->getByUserId($userId);
+
+        if (!$client && $user) {
+            $client = \Config\Database::connect()
+                ->table('infos_clients ic')
+                ->select('ic.*')
+                ->join('user u', 'u.id = ic.user_id')
+                ->where('u.email', $user['email'])
+                ->get()
+                ->getRowArray();
+        }
+
+        return ['user' => $user, 'client' => $client];
+    }
+
     public function __construct()
     {
         $this->transactionModel = new TransactionModel();
@@ -35,8 +54,10 @@ class TransactionController extends BaseController
 
         $transactions = $this->transactionModel->getTransactionByClientId($client['id']);
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'transactions' => $transactions
+        return view('profil/transactions', [
+            'title' => 'Mes transactions - NutriFit',
+            'transactions' => $transactions,
+            ...$this->profileData(),
         ]);
     }
 
@@ -76,8 +97,8 @@ class TransactionController extends BaseController
             ->get(20)
             ->getResultArray();
 
-        return view('template/healthy_food_international_landing_template(5)', [
-            'admin_view' => 'admin-dashboard',
+        return view('admin/transactions', [
+            'title' => 'Transactions - NutriFit',
             'stats' => $stats,
             'latest_transactions' => $transactions,
             'demandes_codes' => $demandesCodes,
@@ -85,9 +106,5 @@ class TransactionController extends BaseController
             'latest_users' => [],
             'latest_regimes' => [],
         ]);
-    }
-
-    public function transaction(){
-        return view('template/healthy_food_international_landing_template(5)');
     }
 }
