@@ -28,15 +28,6 @@
                 </div>
 
                 <div class="input-group" data-animate="fade-up" data-delay="420">
-                    <label>Genre</label>
-                    <select class="select" name="genre" required>
-                        <option value="">Choisir</option>
-                        <option value="H" <?= session('genre') === 'H' ? 'selected' : '' ?>>Homme</option>
-                        <option value="F" <?= session('genre') === 'F' ? 'selected' : '' ?>>Femme</option>
-                    </select>
-                </div>
-
-                <div class="input-group" data-animate="fade-up" data-delay="500">
                     <label>Mot de passe</label>
                     <div style="position:relative;">
                         <input class="input" type="password" name="pwd" id="pwdField" style="padding-right:44px;" required>
