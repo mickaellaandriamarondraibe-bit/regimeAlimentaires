@@ -37,6 +37,8 @@ $routes->group('', ['filter' => 'auth'], static function ($routes): void {
     $routes->post('/programme/suggestion', 'ProgrammeController::suggestion');
     $routes->post('/programme/confirmer', 'ProgrammeController::confirmer');
     $routes->post('/programme/confirmer-catalogue', 'ProgrammeController::confirmerDepuisCatalogue');
+    $routes->get('/programme/apercu-achat', 'ProgrammeController::apercuAvantAchat');
+    $routes->post('/programme/acheter', 'ProgrammeController::acheterProgramme');
     $routes->get('/programme/mes-programmes', 'ProgrammeController::mesProgrammes');
     $routes->get('/programme/detail/(:num)', 'ProgrammeController::detail/$1');
 
