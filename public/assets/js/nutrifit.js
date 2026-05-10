@@ -12,6 +12,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Modals catalogue
+    document.querySelectorAll('.js-open-program-modal').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const modalId = btn.dataset.modalId;
+            const modal = document.getElementById(modalId);
+
+            if (modal) {
+                modal.classList.add('is-open');
+            }
+        });
+    });
+
+    document.querySelectorAll('.js-close-program-modal').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const modalId = btn.dataset.modalId;
+            const modal = document.getElementById(modalId);
+
+            if (modal) {
+                modal.classList.remove('is-open');
+            }
+        });
+    });
+
+    document.querySelectorAll('.catalogue-modal').forEach((modal) => {
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.classList.remove('is-open');
+            }
+        });
+    });
+
     drawDashboardCharts();
     initHomeAnimations();
 });

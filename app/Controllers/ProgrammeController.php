@@ -279,35 +279,59 @@ class ProgrammeController extends BaseController
                 ->with('error', 'Veuillez compléter votre profil avant de continuer');
         }
 
-        // Récupérer les paramètres de query string
         $objectifId = (int) ($this->request->getGet('objectif_id') ?? 0);
         $regimeId = (int) ($this->request->getGet('regime_id') ?? 0);
-        $sportId = (int) ($this->request->getGet('sport_id') ?? 0);
         $objectifKg = (float) ($this->request->getGet('objectif_kg') ?? 0);
         $source = (string) ($this->request->getGet('source') ?? 'suggestion');
 
-        if ($regimeId <= 0 || $sportId <= 0) {
+        $sportIds = $this->request->getGet('sport_ids');
+
+        if ($sportIds === null) {
+            $sportId = (int) ($this->request->getGet('sport_id') ?? 0);
+            $sportIds = $sportId > 0 ? [$sportId] : [];
+        }
+
+        if (!is_array($sportIds)) {
+            $sportIds = [$sportIds];
+        }
+
+        $sportIds = array_values(array_filter(array_map('intval', $sportIds)));
+
+        if ($regimeId <= 0 || empty($sportIds)) {
             return redirect()->to('/programme')
                 ->with('error', 'Données invalides.');
         }
 
-        // Récupérer les objets
         $regime = $this->regimeModel->getRegimeComplet($regimeId);
-        $sport = $this->sportModel->find($sportId);
 
-        if (!$regime || !$sport) {
+        if (!$regime) {
             return redirect()->to('/programme')
-                ->with('error', 'Régime ou sport introuvable.');
+                ->with('error', 'Régime introuvable.');
         }
 
-        // Vérifier la compatibilité
-        if (!$this->regimeSportModel->verifyAssociation($regimeId, $sportId)) {
-            return redirect()->to('/programme')
-                ->with('error', 'Ce sport n\'est pas compatible avec le régime choisi.');
+        $sports = [];
+
+        foreach ($sportIds as $sportId) {
+            $sport = $this->sportModel->find($sportId);
+
+            if (!$sport) {
+                return redirect()->to('/programme')
+                    ->with('error', 'Sport introuvable.');
+            }
+
+            if (!$this->regimeSportModel->verifyAssociation($regimeId, $sportId)) {
+                return redirect()->to('/programme')
+                    ->with('error', 'Un des sports choisis n’est pas compatible avec le régime.');
+            }
+
+            $sports[] = $sport;
         }
 
-        $variationTotale = (float) $regime['variation_poids_semaine']
-            + (float) $sport['variation_poids_semaine'];
+        $variationTotale = (float) $regime['variation_poids_semaine'];
+
+        foreach ($sports as $sport) {
+            $variationTotale += (float) $sport['variation_poids_semaine'];
+        }
 
         if ($variationTotale == 0) {
             return redirect()->to('/programme')
@@ -339,6 +363,13 @@ class ProgrammeController extends BaseController
                     ->like('name', 'Augmenter')
                     ->first();
             }
+
+            if (!$objectif) {
+                return redirect()->to('/programme/catalogue')
+                    ->with('error', 'Objectif correspondant introuvable.');
+            }
+
+            $objectifId = (int) $objectif['id'];
         } else {
             // Pour les suggestions
             $objectifId = (int) ($this->request->getGet('objectif_id') ?? 0);
@@ -399,7 +430,8 @@ class ProgrammeController extends BaseController
         return view('programmes/apercu-achat', [
             'title' => 'Aperçu du programme - NutriFit',
             'regime' => $regime,
-            'sport' => $sport,
+            'sports' => $sports,
+            'sport_ids' => $sportIds,
             'objectif' => $objectif,
             'objectif_id' => $objectifId,
             'objectif_kg' => $objectifKg,
@@ -413,7 +445,6 @@ class ProgrammeController extends BaseController
             'solde_insuffisant' => $soldeInsuffisant,
             'variation_totale' => $variationTotale,
             'regime_id' => $regimeId,
-            'sport_id' => $sportId,
             'prix_regime_id' => $prixRegimeId,
             'source' => $source,
             ...$this->profileData(),
@@ -438,7 +469,15 @@ class ProgrammeController extends BaseController
         // Récupérer les paramètres POST
         $objectifId = (int) $this->request->getPost('objectif_id');
         $regimeId = (int) $this->request->getPost('regime_id');
-        $sportId = (int) $this->request->getPost('sport_id');
+
+        $sportIds = $this->request->getPost('sport_ids') ?? [];
+
+        if (!is_array($sportIds)) {
+            $sportIds = [$sportIds];
+        }
+
+        $sportIds = array_values(array_filter(array_map('intval', $sportIds)));
+
         $objectifKg = (float) $this->request->getPost('objectif_kg');
         $prixFinal = (float) $this->request->getPost('prix_final');
         $dureeFacturee = (int) $this->request->getPost('duree_facturee');
@@ -459,9 +498,11 @@ class ProgrammeController extends BaseController
         }
 
         // Vérifier la compatibilité du sport et régime
-        if (!$this->regimeSportModel->verifyAssociation($regimeId, $sportId)) {
-            return redirect()->to('/programme')
-                ->with('error', 'Ce sport n\'est pas compatible avec le régime choisi.');
+        foreach ($sportIds as $sportId) {
+            if (!$this->regimeSportModel->verifyAssociation($regimeId, $sportId)) {
+                return redirect()->to('/programme')
+                    ->with('error', 'Un des sports choisis n’est pas compatible avec le régime.');
+            }
         }
 
         $db = \Config\Database::connect();
@@ -494,10 +535,12 @@ class ProgrammeController extends BaseController
             ], true);
 
             // Associer le sport au programme
-            $this->programmeSportModel->insert([
-                'programme_id' => $programmeId,
-                'sport_id' => $sportId,
-            ]);
+            foreach ($sportIds as $sportId) {
+                $this->programmeSportModel->insert([
+                    'programme_id' => $programmeId,
+                    'sport_id' => $sportId,
+                ]);
+            }
 
             if ($db->transStatus() === false) {
                 $db->transRollback();
@@ -521,26 +564,43 @@ class ProgrammeController extends BaseController
     public function confirmer()
     {
         // Rétrocompatibilité : rediriger vers la preview
-        return redirect()->to('/programme/apercu-achat?'
-            . 'objectif_id=' . (int) $this->request->getPost('objectif_id')
-            . '&regime_id=' . (int) $this->request->getPost('regime_id')
-            . '&sport_id=' . (int) $this->request->getPost('sport_id')
-            . '&objectif_kg=' . (float) $this->request->getPost('objectif_kg')
-            . '&source=suggestion'
+        return redirect()->to(
+            '/programme/apercu-achat?'
+                . 'objectif_id=' . (int) $this->request->getPost('objectif_id')
+                . '&regime_id=' . (int) $this->request->getPost('regime_id')
+                . '&sport_id=' . (int) $this->request->getPost('sport_id')
+                . '&objectif_kg=' . (float) $this->request->getPost('objectif_kg')
+                . '&source=suggestion'
         );
     }
 
     public function confirmerDepuisCatalogue()
     {
-        // Rétrocompatibilité : rediriger vers la preview
-        return redirect()->to('/programme/apercu-achat?'
-            . 'objectif_id=0'
-            . '&regime_id=' . (int) $this->request->getPost('regime_id')
-            . '&sport_id=' . (int) $this->request->getPost('sport_id')
-            . '&prix_regime_id=' . (int) $this->request->getPost('prix_regime_id')
-            . '&objectif_kg=0'
-            . '&source=catalogue'
-        );
+        $regimeId = (int) $this->request->getPost('regime_id');
+        $prixRegimeId = (int) $this->request->getPost('prix_regime_id');
+        $sportIds = $this->request->getPost('sport_ids') ?? [];
+
+        if ($regimeId <= 0 || $prixRegimeId <= 0 || empty($sportIds)) {
+            return redirect()->to('/programme/catalogue')
+                ->with('error', 'Veuillez choisir une durée et au moins un sport.');
+        }
+
+        $sportIds = array_map('intval', $sportIds);
+        $sportIds = array_values(array_filter($sportIds, fn($id) => $id > 0));
+
+        if (empty($sportIds)) {
+            return redirect()->to('/programme/catalogue')
+                ->with('error', 'Veuillez choisir au moins un sport valide.');
+        }
+
+        return redirect()->to('/programme/apercu-achat?' . http_build_query([
+            'objectif_id' => 0,
+            'regime_id' => $regimeId,
+            'prix_regime_id' => $prixRegimeId,
+            'sport_ids' => $sportIds,
+            'objectif_kg' => 0,
+            'source' => 'catalogue'
+        ]));
     }
 
     public function mesProgrammes()
