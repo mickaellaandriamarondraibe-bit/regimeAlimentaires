@@ -59,11 +59,7 @@ class ProgrammeController extends BaseController
 
         $imc = $this->calculerIMC($client['poids'], $client['taille']);
 
-        return view('programme/index', [
-            'client' => $client,
-            'objectifs' => $objectifs,
-            'imc' => $imc
-        ]);
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function suggestion()
@@ -196,18 +192,7 @@ class ProgrammeController extends BaseController
             }
         }
 
-        return view('programme/suggestions', [
-            'client' => $client,
-            'objectif' => $objectif,
-
-            'objectif_kg' => $objectifKg,
-            'poids_actuel' => $poidsActuel,
-            'poids_cible' => $poidsCible,
-            'sens_objectif' => $sensObjectif,
-            'imc' => $imc,
-
-            'suggestions' => $suggestions,
-        ]);
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function catalogue()
@@ -228,9 +213,7 @@ class ProgrammeController extends BaseController
                 ->getSportsByRegimeId((int) $regime['id']);
         }
 
-        return view('programme/catalogue', [
-            'regimes' => $regimes
-        ]);
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function confirmer()
@@ -549,10 +532,7 @@ class ProgrammeController extends BaseController
 
         $programmes = $this->programmeModel->getProgrammesByClientId((int) $client['id']);
 
-        return view('programme/mes_programmes', [
-            'client' => $client,
-            'programmes' => $programmes,
-        ]);
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function detail($id)
@@ -591,10 +571,7 @@ class ProgrammeController extends BaseController
         $programme['sports'] = $this->programmeSportModel
             ->getSportsByProgrammeId((int) $programme['id']);
 
-        return view('programme/detail', [
-            'client' => $client,
-            'programme' => $programme,
-        ]);
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     private function calculerImc(float $poids, float $tailleCm): float

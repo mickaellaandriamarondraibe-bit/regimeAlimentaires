@@ -1,98 +1,21 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Création de Régime</title>
-    <style>
-        .error-message {
-            color: #d9534f;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: block;
-        }
-
-        .field-group {
-            margin-bottom: 15px;
-        }
-    </style>
-</head>
-
-<body>
-    <?php $errors = session()->getFlashdata('errors'); ?>
-
-    <form action="<?= base_url('regime/create') ?>" method="post">
-        <?= csrf_field() ?>
-        <div class="status"></div>
-
-        <fieldset>
-            <legend>Informations sur le régime</legend>
-
-            <!-- Champ Nom -->
-            <div class="field-group">
-                <label for="regime_name">Nom</label><br>
-                <input type="text" name="regime_name" id="regime_name" value="<?= old('regime_name') ?>">
-                <?php if (isset($errors['name'])) : ?>
-                    <span class="error-message"><?= esc($errors['name']) ?></span>
-                <?php endif ?>
-            </div>
-
-
-            <!-- Champ Variation Poids -->
-            <div class="field-group">
-                <label for="variation_poids_semaine">Variation du poids par semaine</label><br>
-                <input type="number" name="variation_poids_semaine" id="variation_poids_semaine" step="any" value="<?= old('variation_poids_semaine') ?>" placeholder="négative pour perte de poids et positive pour prise de poids">
-                <?php if (isset($errors['variation_poids_semaine'])) : ?>
-                    <span class="error-message"><?= esc($errors['variation_poids_semaine']) ?></span>
-                <?php endif ?>
-            </div>
-            
-            <!-- Champ Description -->
-            <div class="field-group">
-                <label for="description">Description</label><br>
-                <textarea name="description" id="description"><?= old('description') ?></textarea>
-                <?php if (isset($errors['description'])) : ?>
-                    <span class="error-message"><?= esc($errors['description']) ?></span>
-                <?php endif ?>
-            </div>
-        </fieldset>
-
-        <fieldset>
-            <legend>Compositions du régime (%)</legend>
-            <?php foreach ($ingredients as $item): ?>
-                <div class="field-group">
-                    <label for="pourcentage_<?= $item['name'] ?>"><?= $item['name'] ?></label>
-                    <input type="number" name="pourcentage_<?= $item['name'] ?>" id="pourcentage_<?= $item['name'] ?>" step="any" value="<?= old('pourcentage_' . $item['name'], '0.0') ?>">
-
-                    <!-- Erreur spécifique à l'ingrédient si nécessaire -->
-                    <?php if (isset($errors['pourcentage_' . $item['name']])) : ?>
-                        <span class="error-message"><?= esc($errors['pourcentage_' . $item['name']]) ?></span>
-                    <?php endif ?>
-                </div>
-            <?php endforeach; ?>
-        </fieldset>
-
-        <fieldset id="prix-fieldset">
-            <legend>Prix du régime</legend>
-            <div class="prix-week">
-                <label for="semaine">Numéro de la semaine</label>
-                <input type="number" name="semaine[]" id="semaine" value="<?= old('semaine.0') ?>">
-                <label for="prix">Prix (Ar)</label>
-                <input type="number" name="prix[]" id="prix" step="any" value="<?= old('prix.0') ?>">
-                <?php if (isset($errors['prix'])) : ?>
-                    <span class="error-message"><?= esc($errors['prix']) ?></span>
-                <?php endif ?>
-            </div>
-            <button type="button" id="add-week">Ajouter une semaine</button>
-        </fieldset>
-
-        <div class="btn-group">
-            <input type="submit" value="Insérer le régime">
-            <a href="/regime/list"><input type="button" value="Abandonner l'insertion"></a>
-        </div>
-    </form>
-
-    <script src="/assets/js/regime_form.js"></script>
-</body>
-
-</html>
+<?php $errors = session()->getFlashdata('errors') ?? []; ob_start(); ?>
+<div class="card">
+  <h1>Créer un régime</h1>
+  <form action="<?= site_url('/regime/create') ?>" method="post" class="row-1">
+    <?= csrf_field() ?>
+    <div><label>Nom</label><input type="text" name="regime_name" value="<?= esc((string) old('regime_name')) ?>" required></div>
+    <div><label>Variation du poids / semaine</label><input type="number" step="any" name="variation_poids_semaine" value="<?= esc((string) old('variation_poids_semaine')) ?>" required></div>
+    <div><label>Description</label><textarea name="description"><?= esc((string) old('description')) ?></textarea></div>
+    <h2>Compositions (%)</h2>
+    <div class="row">
+      <?php foreach ($ingredients as $item): ?>
+      <div><label><?= esc($item['name']) ?></label><input type="number" step="any" name="pourcentage_<?= esc($item['name']) ?>" value="<?= esc((string) old('pourcentage_' . $item['name'], '0')) ?>"></div>
+      <?php endforeach; ?>
+    </div>
+    <h2>Prix</h2>
+    <div id="prix-zone" class="row-1"><div class="row"><div><label>Semaine</label><input type="number" name="semaine[]" required></div><div><label>Prix</label><input type="number" step="any" name="prix[]" required></div></div></div>
+    <div class="actions"><button class="btn btn-light" type="button" onclick="addRow()">Ajouter semaine</button><button class="btn btn-primary" type="submit">Enregistrer</button></div>
+  </form>
+</div>
+<script>function addRow(){const z=document.getElementById('prix-zone');const d=document.createElement('div');d.className='row';d.innerHTML='<div><label>Semaine</label><input type="number" name="semaine[]" required></div><div><label>Prix</label><input type="number" step="any" name="prix[]" required></div>';z.appendChild(d);}</script>
+<?php $content = ob_get_clean(); echo view('template/base', ['title' => 'Créer régime', 'content' => $content]); ?>

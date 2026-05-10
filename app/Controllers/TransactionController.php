@@ -35,10 +35,7 @@ class TransactionController extends BaseController
 
         $transactions = $this->transactionModel->getTransactionByClientId($client['id']);
 
-        return view('transaction/index', [
-            'client' => $client,
-            'transactions' => $transactions
-        ]);
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function getAllTransactions()
@@ -55,12 +52,10 @@ class TransactionController extends BaseController
 
         $transactions = $this->transactionModel->getAllMouvements();
 
-        return view('admin/transactions', [
-            'transactions' => $transactions
-        ]);
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function transaction(){
-        return view('template/transaction');
+        return view('template/healthy_food_international_landing_template(5)');
     }
 }

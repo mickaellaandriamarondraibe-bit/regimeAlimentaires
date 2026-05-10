@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\InfoClientsModel;
+use App\Models\RegimeModel;
 
 class UserController extends BaseController
 {
@@ -22,7 +23,7 @@ class UserController extends BaseController
             return redirect()->to('/acceuil');
         }
 
-        return view('template/login');
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function logout()
@@ -55,12 +56,16 @@ class UserController extends BaseController
             'role'     => $userBase['role'] ?? null,
         ]);
 
+        if (($userBase['role'] ?? null) === 'admin') {
+            return redirect()->to('/dashboard')->with('success', 'Connexion admin réussie.');
+        }
+
         return redirect()->to('/acceuil')->with('success', 'Connexion réussie.');
     }
 
     public function inscriptionPage1()
     {
-        return view('template/inscriptionPage1');
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function inscriptionPage2()
@@ -73,7 +78,7 @@ class UserController extends BaseController
             'pwd'   => $this->request->getPost('pwd') ?: $session->get('pwd'),
         ]);
 
-        return view('template/inscriptionPage2');
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
 
@@ -139,6 +144,7 @@ class UserController extends BaseController
             'phone'           => $phone ?? null,
             'genre'           => $genre,
             'date_naissance'  => $dateNaissance,
+            'data_naissance'  => $dateNaissance,
             'age'             => $age,
             'taille'          => $taille,
             'poids'           => $poids,
@@ -173,7 +179,25 @@ class UserController extends BaseController
     {   if(!session()->get('user_id')) {
             return redirect()->to('/login');
         }
-        return view('template/acceuil');
+        $userId = (int) session()->get('user_id');
+        $user = $this->userModel->find($userId);
+        $client = $this->infoClientModel->getByUserId($userId);
+
+        if (!$client && $user) {
+            $db = \Config\Database::connect();
+            $client = $db->table('infos_clients ic')
+                ->select('ic.*')
+                ->join('user u', 'u.id = ic.user_id')
+                ->where('u.email', $user['email'])
+                ->get()
+                ->getRowArray();
+        }
+
+        return view('template/healthy_food_international_landing_template(5)', [
+            'user' => $user,
+            'client' => $client,
+            'regimes' => (new RegimeModel())->findAll(),
+        ]);
     }
     
 
@@ -187,9 +211,19 @@ class UserController extends BaseController
 
     $user = $this->userModel->find($userId);
 
-    $client = $this->infoClientModel->where('user_id', $userId)->first();
+    $client = $this->infoClientModel->getByUserId((int) $userId);
 
-    return view('template/profil', [
+    if (!$client && $user) {
+        $db = \Config\Database::connect();
+        $client = $db->table('infos_clients ic')
+            ->select('ic.*')
+            ->join('user u', 'u.id = ic.user_id')
+            ->where('u.email', $user['email'])
+            ->get()
+            ->getRowArray();
+    }
+
+    return view('template/healthy_food_international_landing_template(5)', [
         'user' => $user,
         'client' => $client,
     ]);
@@ -226,4 +260,3 @@ class UserController extends BaseController
 
 
 }
-

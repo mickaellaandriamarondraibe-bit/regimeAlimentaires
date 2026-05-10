@@ -686,10 +686,25 @@
       <div class="nav-icons">
         <button onclick="showPage('profile')"><i class="fa-regular fa-circle-user"></i><span>Mon compte</span></button>
         <button onclick="showPage('login')"><i class="fa-solid fa-right-to-bracket"></i><span>Login</span></button>
+        <?php if (session()->get('user_id')): ?>
+          <button onclick="window.location.href='<?= site_url('logout') ?>'"><i class="fa-solid fa-power-off"></i><span>Logout</span></button>
+        <?php endif; ?>
       </div>
 
       <button class="btn btn-light mobile-btn" id="mobileBtn"><i class="fa-solid fa-bars"></i></button>
     </div>
+    <?php if ((session('role') ?? '') === 'admin'): ?>
+      <div class="container" style="padding:10px 0 14px;">
+        <div class="actions" style="justify-content:center;">
+          <a class="btn btn-light" href="<?= site_url('dashboard') ?>">Dashboard</a>
+          <a class="btn btn-light" href="<?= site_url('ingredient') ?>">Ingrédients</a>
+          <a class="btn btn-light" href="<?= site_url('regime/list') ?>">Régimes</a>
+          <a class="btn btn-light" href="<?= site_url('regime/create') ?>">Créer régime</a>
+          <a class="btn btn-light" href="<?= site_url('admin/transactions') ?>">Transactions</a>
+          <a class="btn btn-light" href="<?= site_url('parametres') ?>">Paramètres</a>
+        </div>
+      </div>
+    <?php endif; ?>
   </header>
 
   <main>
@@ -859,12 +874,13 @@
       <div class="auth-bg">
         <div class="auth-card">
           <div class="auth-visual"><h2>Bon retour sur NutriFit</h2><p>Connectez-vous pour retrouver votre programme, vos menus et votre suivi.</p></div>
-          <form class="auth-form" onsubmit="event.preventDefault(); showPage('profile');">
+          <form class="auth-form" method="post" action="<?= site_url('validationLogin') ?>">
+            <?= csrf_field() ?>
             <h1>Connexion</h1>
             <p>Accédez à votre espace personnel.</p>
-            <div class="input-group"><label>Email</label><input class="input" type="email" placeholder="client@email.com" required></div>
-            <div class="input-group"><label>Mot de passe</label><input class="input" type="password" placeholder="••••••••" required></div>
-            <button class="btn btn-primary full" type="submit">Se connecter <i class="fa-solid fa-right-to-bracket"></i></button>
+            <div class="input-group"><label>Email</label><input class="input" type="email" name="email" placeholder="client@email.com" required></div>
+            <div class="input-group"><label>Mot de passe</label><input class="input" type="password" name="pwd" placeholder="••••••••" required></div>
+            <button class="btn btn-primary full" type="submit" formaction="<?= site_url('validationLogin') ?>" formmethod="post">Se connecter <i class="fa-solid fa-right-to-bracket"></i></button>
             <div class="auth-switch">Pas encore de compte ? <button type="button" onclick="showPage('signup1')">Créer un compte</button></div>
           </form>
         </div>
@@ -876,18 +892,26 @@
       <div class="auth-bg">
         <div class="auth-card">
           <div class="auth-visual"><h2>Étape 1 : vos informations</h2><p>Une première page simple pour créer le compte client.</p></div>
-          <form class="auth-form" onsubmit="event.preventDefault(); showPage('signup2');">
+          <form class="auth-form" method="post" action="<?= site_url('step2') ?>">
+            <?= csrf_field() ?>
             <div class="progress"><span class="on"></span><span></span></div>
             <h1>Créer mon compte</h1>
             <p>Renseignez les informations principales.</p>
+            <?php if (session()->getFlashdata('error')): ?>
+              <p style="color:#c81e1e;font-weight:700;"><?= esc(session()->getFlashdata('error')) ?></p>
+            <?php endif; ?>
             <div class="form-grid">
-              <div class="input-group"><label>Nom</label><input class="input" type="text" placeholder="Rakoto" required></div>
-              <div class="input-group"><label>Prénom</label><input class="input" type="text" placeholder="Frédéric" required></div>
+              <div class="input-group"><label>Nom d'utilisateur</label><input class="input" type="text" name="name" placeholder="Rakoto" value="<?= esc((string) session('name')) ?>" required></div>
+              <div class="input-group"><label>Email</label><input class="input" type="email" name="email" placeholder="votre@email.com" value="<?= esc((string) session('email')) ?>" required></div>
             </div>
-            <div class="input-group"><label>Email</label><input class="input" type="email" placeholder="votre@email.com" required></div>
-            <div class="input-group"><label>Téléphone</label><input class="input" type="tel" placeholder="+261 34 00 000 00" required></div>
-            <div class="input-group"><label>Mot de passe</label><input class="input" type="password" placeholder="Créer un mot de passe" required></div>
-            <button class="btn btn-primary full" type="submit">Continuer vers l’étape 2 <i class="fa-solid fa-arrow-right"></i></button>
+            <div class="input-group"><label>Mot de passe</label><input class="input" type="password" name="pwd" placeholder="Créer un mot de passe" required></div>
+            <input type="hidden" name="phone" value="<?= esc((string) session('phone')) ?>">
+            <input type="hidden" name="genre" value="<?= esc((string) session('genre')) ?>">
+            <input type="hidden" name="date_naissance" value="<?= esc((string) session('date_naissance')) ?>">
+            <input type="hidden" name="age" value="<?= esc((string) session('age')) ?>">
+            <input type="hidden" name="taille" value="<?= esc((string) session('taille')) ?>">
+            <input type="hidden" name="poids" value="<?= esc((string) session('poids')) ?>">
+            <button class="btn btn-primary full" type="submit" formaction="<?= site_url('step2') ?>" formmethod="post">Continuer vers l’étape 2 <i class="fa-solid fa-arrow-right"></i></button>
             <div class="auth-switch">Déjà inscrit ? <button type="button" onclick="showPage('login')">Se connecter</button></div>
           </form>
         </div>
@@ -899,21 +923,34 @@
       <div class="auth-bg">
         <div class="auth-card">
           <div class="auth-visual"><h2>Étape 2 : votre objectif</h2><p>Cette étape rend le parcours plus professionnel et personnalisé.</p></div>
-          <form class="auth-form" onsubmit="event.preventDefault(); showPage('profile');">
+          <form class="auth-form" method="post" action="<?= site_url('register') ?>">
+            <?= csrf_field() ?>
             <div class="progress"><span class="on"></span><span class="on"></span></div>
             <h1>Mon profil nutrition</h1>
-            <p>Choisissez votre objectif et vos préférences.</p>
+            <p>Informations issues de votre profil client.</p>
+            <?php if (session()->getFlashdata('error')): ?>
+              <p style="color:#c81e1e;font-weight:700;"><?= esc(session()->getFlashdata('error')) ?></p>
+            <?php endif; ?>
             <div class="form-grid">
-              <div class="input-group"><label>Objectif</label><select class="select" required><option>Perte de poids</option><option>Équilibre alimentaire</option><option>Programme sportif</option></select></div>
-              <div class="input-group"><label>Type de menu</label><select class="select" required><option>Classique</option><option>Végétarien</option><option>Sans porc</option><option>Riche en protéines</option></select></div>
+              <div class="input-group">
+                <label>Genre</label>
+                <select class="select" name="genre" required>
+                  <option value="H" <?= (($client['genre'] ?? session('genre') ?? '') === 'H') ? 'selected' : '' ?>>Homme</option>
+                  <option value="F" <?= (($client['genre'] ?? session('genre') ?? '') === 'F') ? 'selected' : '' ?>>Femme</option>
+                </select>
+              </div>
+              <div class="input-group"><label>Téléphone</label><input class="input" type="text" name="phone" value="<?= esc($client['phone'] ?? session('phone') ?? '') ?>"></div>
             </div>
             <div class="form-grid">
-              <div class="input-group"><label>Repas par jour</label><select class="select"><option>3 repas</option><option>4 repas</option><option>5 repas</option></select></div>
-              <div class="input-group"><label>Durée</label><select class="select"><option>1 mois</option><option>3 mois</option><option>6 mois</option></select></div>
+              <div class="input-group"><label>Poids (kg)</label><input class="input" type="number" step="0.01" name="poids" value="<?= esc($client['poids'] ?? session('poids') ?? '') ?>" required></div>
+              <div class="input-group"><label>Taille (cm)</label><input class="input" type="number" step="0.01" name="taille" value="<?= esc($client['taille'] ?? session('taille') ?? '') ?>" required></div>
             </div>
-            <div class="input-group"><label>Adresse de livraison</label><input class="input" type="text" placeholder="Votre adresse complète" required></div>
+            <div class="form-grid">
+              <div class="input-group"><label>Âge</label><input class="input" type="number" name="age" value="<?= esc($client['age'] ?? session('age') ?? '') ?>" required></div>
+              <div class="input-group"><label>Date de naissance</label><input class="input" type="date" name="date_naissance" value="<?= esc($client['date_naissance'] ?? $client['data_naissance'] ?? session('date_naissance') ?? '') ?>" required></div>
+            </div>
             <button class="btn btn-green full" type="submit">Finaliser et voir mon profil <i class="fa-solid fa-check"></i></button>
-            <div class="auth-switch"><button type="button" onclick="showPage('signup1')">Retour étape 1</button></div>
+            <div class="auth-switch"><button type="button" onclick="backToStep1()">Retour étape 1</button></div>
           </form>
         </div>
       </div>
@@ -926,29 +963,213 @@
           <div class="profile-avatar"></div>
           <div>
             <span class="badge"><i class="fa-solid fa-user-check"></i> Profil actif</span>
-            <h1>Bonjour, Frédéric</h1>
-            <p>Programme actuel : Premium Coach · Objectif : perte de poids · Livraison : hebdomadaire</p>
+            <h1>Bonjour, <?= esc($user['username'] ?? session('username') ?? 'Client') ?></h1>
+            <p>
+              Email : <?= esc($user['email'] ?? session('email') ?? '-') ?>
+              · Genre : <?= esc($client['genre'] ?? '-') ?>
+              · Wallet : <?= esc($client['wallet'] ?? '0') ?> Ar
+            </p>
           </div>
           <button class="btn btn-primary" onclick="showPage('menus')">Voir mes menus</button>
         </div>
       </div>
       <div class="container profile-grid">
         <article class="card pad reveal">
-          <h3>Résumé de mon programme</h3>
-          <p>Cette page donne l’impression d’un vrai espace client complet après login ou inscription.</p>
-          <div class="metric-grid">
-            <div class="metric"><strong>28</strong><span>repas prévus</span></div>
-            <div class="metric"><strong>7j</strong><span>prochaine semaine</span></div>
-            <div class="metric"><strong>92%</strong><span>routine suivie</span></div>
-          </div>
+          <h3>Mon profil nutrition</h3>
+          <?php if (session()->getFlashdata('success')): ?>
+            <p style="color:#129a57;font-weight:700;"><?= esc(session()->getFlashdata('success')) ?></p>
+          <?php endif; ?>
+          <?php if (session()->getFlashdata('error')): ?>
+            <p style="color:#c81e1e;font-weight:700;"><?= esc(session()->getFlashdata('error')) ?></p>
+          <?php endif; ?>
+          <form method="post" action="<?= site_url('profil/update') ?>">
+            <?= csrf_field() ?>
+            <div class="form-grid">
+              <div class="input-group"><label>Email</label><input class="input" type="email" name="email" value="<?= esc($user['email'] ?? session('email') ?? '') ?>" required></div>
+              <div class="input-group"><label>Nom d'utilisateur</label><input class="input" type="text" name="username" value="<?= esc($user['username'] ?? session('username') ?? '') ?>" required></div>
+            </div>
+            <div class="form-grid">
+              <div class="input-group"><label>Téléphone</label><input class="input" type="text" name="phone" value="<?= esc(($client['phone'] ?? '') === '0' ? '' : ($client['phone'] ?? '')) ?>"></div>
+              <div class="input-group">
+                <label>Genre</label>
+                <select class="select" name="genre" required>
+                  <option value="">Choisir</option>
+                  <option value="H" <?= (($client['genre'] ?? '') === 'H') ? 'selected' : '' ?>>Homme</option>
+                  <option value="F" <?= (($client['genre'] ?? '') === 'F') ? 'selected' : '' ?>>Femme</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="input-group"><label>Taille (cm)</label><input class="input" type="number" step="0.01" min="50" max="250" name="taille" value="<?= esc($client['taille'] ?? '') ?>" required></div>
+              <div class="input-group"><label>Poids (kg)</label><input class="input" type="number" step="0.01" min="10" max="300" name="poids" value="<?= esc($client['poids'] ?? '') ?>" required></div>
+            </div>
+            <button class="btn btn-primary full" type="submit">Enregistrer les modifications</button>
+          </form>
         </article>
         <article class="card pad reveal">
-          <h3>Prochaines actions</h3>
+          <h3>Détails client</h3>
           <div class="timeline">
-            <div class="timeline-item"><i class="fa-solid fa-box"></i><div><strong>Livraison lundi</strong><span>Votre box repas sera livrée entre 8h et 12h.</span></div></div>
-            <div class="timeline-item"><i class="fa-solid fa-phone"></i><div><strong>Appel coach</strong><span>Prévu jeudi pour ajuster le programme.</span></div></div>
-            <div class="timeline-item"><i class="fa-solid fa-bowl-food"></i><div><strong>Menus à valider</strong><span>Choisissez vos préférences pour la semaine prochaine.</span></div></div>
+            <div class="timeline-item"><i class="fa-solid fa-phone"></i><div><strong>Téléphone</strong><span><?= esc($client['phone'] ?? '-') ?></span></div></div>
+            <div class="timeline-item"><i class="fa-solid fa-calendar-days"></i><div><strong>Date de naissance</strong><span><?= esc($client['date_naissance'] ?? $client['data_naissance'] ?? '-') ?></span></div></div>
+            <div class="timeline-item"><i class="fa-solid fa-crown"></i><div><strong>Statut Gold</strong><span><?= !empty($client['is_gold']) ? 'Oui' : 'Non' ?></span></div></div>
           </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ADMIN DASHBOARD -->
+    <section class="page" id="page-admin-dashboard">
+      <div class="page-head">
+        <div class="container page-head-row">
+          <div><span class="badge"><i class="fa-solid fa-shield-halved"></i> Admin</span><h1>Dashboard Admin</h1></div>
+        </div>
+      </div>
+      <div class="container">
+        <article class="card pad reveal">
+          <div class="metric-grid" style="margin-bottom:14px;">
+            <div class="metric"><strong><?= esc((string) ($stats['users'] ?? 0)) ?></strong><span>Utilisateurs</span></div>
+            <div class="metric"><strong><?= esc((string) ($stats['regimes'] ?? 0)) ?></strong><span>Régimes</span></div>
+            <div class="metric"><strong><?= esc((string) ($stats['ingredients'] ?? 0)) ?></strong><span>Ingrédients</span></div>
+            <div class="metric"><strong><?= esc(number_format((float) ($stats['montant_total'] ?? 0), 0, ',', ' ')) ?> Ar</strong><span>Montant total transactions</span></div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary" href="<?= site_url('ingredient') ?>">Ingrédients</a>
+            <a class="btn btn-green" href="<?= site_url('regime/create') ?>">Créer régime</a>
+            <a class="btn btn-light" href="<?= site_url('regime/list') ?>">Liste régimes</a>
+            <a class="btn btn-light" href="<?= site_url('admin/transactions') ?>">Transactions</a>
+            <a class="btn btn-light" href="<?= site_url('parametres') ?>">Paramètres</a>
+          </div>
+        </article>
+
+        <article class="card pad reveal" style="margin-top:14px;">
+          <h3>Derniers utilisateurs</h3>
+          <table><thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Rôle</th></tr></thead><tbody>
+            <?php foreach (($latest_users ?? []) as $u): ?>
+              <tr><td><?= esc($u['id']) ?></td><td><?= esc($u['username']) ?></td><td><?= esc($u['email']) ?></td><td><?= esc($u['role']) ?></td></tr>
+            <?php endforeach; ?>
+          </tbody></table>
+        </article>
+
+        <article class="card pad reveal" style="margin-top:14px;">
+          <h3>Derniers régimes</h3>
+          <table><thead><tr><th>ID</th><th>Nom</th><th>Variation/semaine</th></tr></thead><tbody>
+            <?php foreach (($latest_regimes ?? []) as $r): ?>
+              <tr><td><?= esc($r['id']) ?></td><td><?= esc($r['name']) ?></td><td><?= esc($r['variation_poids_semaine']) ?></td></tr>
+            <?php endforeach; ?>
+          </tbody></table>
+        </article>
+
+        <article class="card pad reveal" style="margin-top:14px;">
+          <h3>Dernières transactions</h3>
+          <table><thead><tr><th>Date</th><th>Type</th><th>Client</th><th>Montant</th></tr></thead><tbody>
+            <?php foreach (($latest_transactions ?? []) as $t): ?>
+              <tr><td><?= esc($t['date']) ?></td><td><?= esc($t['type']) ?></td><td><?= esc($t['username'] ?? '-') ?></td><td><?= esc($t['montant']) ?> Ar</td></tr>
+            <?php endforeach; ?>
+          </tbody></table>
+        </article>
+      </div>
+    </section>
+
+    <!-- ADMIN INGREDIENT -->
+    <section class="page" id="page-admin-ingredient">
+      <div class="page-head"><div class="container page-head-row"><div><span class="badge"><i class="fa-solid fa-carrot"></i> Admin</span><h1>Ingrédients</h1></div></div></div>
+      <div class="container">
+        <article class="card pad reveal">
+          <form action="<?= site_url('ingredient/create') ?>" method="post" class="row" style="margin-bottom:14px;">
+            <?= csrf_field() ?>
+            <div class="input-group"><label>Nom ingrédient</label><input class="input" type="text" name="name" required></div>
+            <div class="actions" style="align-items:end;"><button class="btn btn-primary" type="submit">Ajouter</button></div>
+          </form>
+          <table><thead><tr><th>Nom</th></tr></thead><tbody>
+            <?php foreach (($ingredients ?? []) as $item): ?><tr><td><?= esc($item['name']) ?></td></tr><?php endforeach; ?>
+          </tbody></table>
+        </article>
+      </div>
+    </section>
+
+    <!-- ADMIN REGIME LIST -->
+    <section class="page" id="page-admin-regime-list">
+      <div class="page-head"><div class="container page-head-row"><div><span class="badge"><i class="fa-solid fa-list"></i> Admin</span><h1>Liste des régimes</h1></div></div></div>
+      <div class="container">
+        <article class="card pad reveal">
+          <div class="actions" style="margin-bottom:10px;"><a class="btn btn-primary" href="<?= site_url('regime/create') ?>">Créer un régime</a></div>
+          <table><thead><tr><th>Photo</th><th>Nom</th><th>Action</th></tr></thead><tbody>
+            <?php foreach (($regimes ?? []) as $r): ?>
+              <?php
+                $img = 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=600&q=80';
+                $nameLower = strtolower((string) ($r['name'] ?? ''));
+                if (str_contains($nameLower, 'mass') || str_contains($nameLower, 'gain')) {
+                    $img = 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80';
+                } elseif (str_contains($nameLower, 'lean') || str_contains($nameLower, 'cut')) {
+                    $img = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80';
+                } elseif (str_contains($nameLower, 'boost') || str_contains($nameLower, 'active')) {
+                    $img = 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=600&q=80';
+                }
+              ?>
+              <tr>
+                <td><img src="<?= esc($img) ?>" alt="Regime" style="width:86px;height:58px;object-fit:cover;border-radius:10px;"></td>
+                <td><?= esc($r['name']) ?></td>
+                <td><a class="btn btn-light" href="<?= site_url('regime/detail/' . $r['id']) ?>">Détail</a></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody></table>
+        </article>
+      </div>
+    </section>
+
+    <!-- ADMIN REGIME FORM -->
+    <section class="page" id="page-admin-regime-form">
+      <div class="page-head"><div class="container page-head-row"><div><span class="badge"><i class="fa-solid fa-pen-to-square"></i> Admin</span><h1>Créer un régime</h1></div></div></div>
+      <div class="container">
+        <article class="card pad reveal">
+          <form action="<?= site_url('regime/create') ?>" method="post" class="row-1">
+            <?= csrf_field() ?>
+            <div class="input-group"><label>Nom</label><input class="input" type="text" name="regime_name" value="<?= esc((string) old('regime_name')) ?>" required></div>
+            <div class="input-group"><label>Variation du poids / semaine</label><input class="input" type="number" step="any" name="variation_poids_semaine" value="<?= esc((string) old('variation_poids_semaine')) ?>" required></div>
+            <div class="input-group"><label>Description</label><textarea class="input" name="description"><?= esc((string) old('description')) ?></textarea></div>
+            <h3>Compositions (%)</h3>
+            <div class="form-grid">
+              <?php foreach (($ingredients ?? []) as $item): ?>
+                <div class="input-group"><label><?= esc($item['name']) ?></label><input class="input" type="number" step="any" name="pourcentage_<?= esc($item['name']) ?>" value="<?= esc((string) old('pourcentage_' . $item['name'], '0')) ?>"></div>
+              <?php endforeach; ?>
+            </div>
+            <h3>Prix</h3>
+            <div id="prix-zone" class="row-1"><div class="form-grid"><div class="input-group"><label>Semaine</label><input class="input" type="number" name="semaine[]" required></div><div class="input-group"><label>Prix</label><input class="input" type="number" step="any" name="prix[]" required></div></div></div>
+            <div class="actions"><button class="btn btn-light" type="button" onclick="addAdminWeekRow()">Ajouter semaine</button><button class="btn btn-primary" type="submit">Enregistrer</button></div>
+          </form>
+        </article>
+      </div>
+    </section>
+
+    <!-- ADMIN REGIME DETAIL -->
+    <section class="page" id="page-admin-regime-detail">
+      <div class="page-head"><div class="container page-head-row"><div><span class="badge"><i class="fa-solid fa-circle-info"></i> Admin</span><h1>Détail régime</h1></div></div></div>
+      <div class="container">
+        <article class="card pad reveal">
+          <?php if (!empty($regime)): ?>
+            <?php
+              $detailImg = 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1000&q=80';
+              $detailName = strtolower((string) ($regime['name'] ?? ''));
+              if (str_contains($detailName, 'mass') || str_contains($detailName, 'gain')) {
+                  $detailImg = 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1000&q=80';
+              } elseif (str_contains($detailName, 'lean') || str_contains($detailName, 'cut')) {
+                  $detailImg = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1000&q=80';
+              } elseif (str_contains($detailName, 'boost') || str_contains($detailName, 'active')) {
+                  $detailImg = 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1000&q=80';
+              }
+            ?>
+            <img src="<?= esc($detailImg) ?>" alt="Regime image" style="width:100%;max-height:280px;object-fit:cover;border-radius:14px;margin-bottom:12px;">
+            <h2><?= esc($regime['name']) ?></h2>
+            <p><?= esc($regime['description']) ?></p>
+            <p><strong>Variation:</strong> <?= esc($regime['variation_poids_semaine']) ?> kg/semaine</p>
+            <h3>Compositions</h3>
+            <table><thead><tr><th>Ingrédient</th><th>%</th></tr></thead><tbody><?php foreach (($regime['compositions'] ?? []) as $c): ?><tr><td><?= esc($c['ingredient_name']) ?></td><td><?= esc($c['pourcentage']) ?></td></tr><?php endforeach; ?></tbody></table>
+            <h3 style="margin-top:14px;">Prix</h3>
+            <table><thead><tr><th>Semaine</th><th>Prix</th></tr></thead><tbody><?php foreach (($regime['prix'] ?? []) as $p): ?><tr><td><?= esc($p['duree_semaine']) ?></td><td><?= esc($p['prix']) ?> Ar</td></tr><?php endforeach; ?></tbody></table>
+          <?php else: ?>
+            <p>Régime introuvable.</p>
+          <?php endif; ?>
+          <div class="actions" style="margin-top:10px;"><a class="btn btn-light" href="<?= site_url('regime/list') ?>">Retour</a></div>
         </article>
       </div>
     </section>
@@ -969,7 +1190,7 @@
   </div>
 
   <script>
-    const pages = ['home', 'menus', 'programs', 'login', 'signup1', 'signup2', 'profile'];
+    const pages = ['home', 'menus', 'programs', 'login', 'signup1', 'signup2', 'profile', 'admin-dashboard', 'admin-ingredient', 'admin-regime-list', 'admin-regime-form', 'admin-regime-detail'];
     const navMenu = document.getElementById('navMenu');
     const mobileBtn = document.getElementById('mobileBtn');
 
@@ -989,7 +1210,7 @@
       mobileBtn.innerHTML = navMenu.classList.contains('mobile-open') ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
     });
 
-    const dishes = [
+    const staticDishes = [
       { title: "Merlu, sauce à l’estragon, purée de carottes et riz", cat: "viande", label: "", img: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=900&q=85", desc: "Plat équilibré avec poisson, féculent et légumes doux." },
       { title: "Porc sauce au poivre, écrasé de pomme de terre et petits pois", cat: "viande", label: "", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=85", desc: "Une recette généreuse pour un programme classique." },
       { title: "Poulet au pesto rosso, mini penne et ratatouille", cat: "poulet pates", label: "", img: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=85", desc: "Poulet, pâtes et légumes méditerranéens." },
@@ -999,6 +1220,28 @@
       { title: "Crevettes, riz parfumé et légumes croquants", cat: "viande", label: "", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=85", desc: "Un plat léger avec une belle présentation visuelle." },
       { title: "Bowl méditerranéen, riz et légumes grillés", cat: "vegetarien", label: "Nouveau", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=900&q=85", desc: "Bowl moderne adapté à une landing page internationale." }
     ];
+
+    const dbRegimes = <?= json_encode($regimes ?? [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+    const dishes = (Array.isArray(dbRegimes) && dbRegimes.length > 0)
+      ? dbRegimes.map((r) => {
+          const name = (r.name || 'Régime').toLowerCase();
+          let img = "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=900&q=85";
+          if (name.includes('mass') || name.includes('gain') || Number(r.variation_poids_semaine) > 0) {
+            img = "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85";
+          } else if (name.includes('lean') || name.includes('cut') || Number(r.variation_poids_semaine) < 0) {
+            img = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=85";
+          } else if (name.includes('boost') || name.includes('active')) {
+            img = "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=85";
+          }
+          return {
+            title: r.name || 'Régime',
+            cat: Number(r.variation_poids_semaine) < 0 ? 'viande' : 'vegetarien',
+            label: Number(r.variation_poids_semaine) > 0 ? 'Gain' : 'Perte',
+            img,
+            desc: r.description || 'Régime disponible dans notre programme.'
+          };
+        })
+      : staticDishes;
 
     function renderDishes(list = dishes) {
       const grid = document.getElementById('dishGrid');
@@ -1041,6 +1284,44 @@
     }
     function closeModal() { document.getElementById('dishModal').classList.remove('active'); }
 
+    function addAdminWeekRow() {
+      const z = document.getElementById('prix-zone');
+      if (!z) return;
+      const d = document.createElement('div');
+      d.className = 'form-grid';
+      d.innerHTML = '<div class="input-group"><label>Semaine</label><input class="input" type="number" name="semaine[]" required></div><div class="input-group"><label>Prix</label><input class="input" type="number" step="any" name="prix[]" required></div>';
+      z.appendChild(d);
+    }
+
+    function backToStep1() {
+      const formStep2 = document.querySelector('#page-signup2 form.auth-form');
+      if (!formStep2) return;
+
+      const f = document.createElement('form');
+      f.method = 'post';
+      f.action = '<?= site_url('savePage2') ?>';
+
+      const csrfTokenName = '<?= csrf_token() ?>';
+      const csrfTokenValue = '<?= csrf_hash() ?>';
+      const csrfInput = document.createElement('input');
+      csrfInput.type = 'hidden';
+      csrfInput.name = csrfTokenName;
+      csrfInput.value = csrfTokenValue;
+      f.appendChild(csrfInput);
+
+      ['phone', 'genre', 'date_naissance', 'age', 'taille', 'poids'].forEach((name) => {
+        const source = formStep2.querySelector(`[name="${name}"]`);
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = source ? source.value : '';
+        f.appendChild(input);
+      });
+
+      document.body.appendChild(f);
+      f.submit();
+    }
+
     function validateCode() {
       const input = document.getElementById('programCode');
       const code = input.value.trim().toUpperCase();
@@ -1064,6 +1345,31 @@
     function revealVisible() {
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     }
+
+    <?php
+      $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+      $path = trim($requestPath, '/');
+      $parts = $path === '' ? [] : explode('/', $path);
+      $last = end($parts) ?: '';
+      $initialPage = 'home';
+
+      if (!empty($admin_view)) {
+          $initialPage = $admin_view;
+      } elseif ($last === 'login') {
+          $initialPage = 'login';
+      } elseif ($last === 'inscription') {
+          $initialPage = 'signup1';
+      } elseif ($last === 'step2') {
+          $initialPage = 'signup2';
+      } elseif ($last === 'profil') {
+          $initialPage = 'profile';
+      } elseif ($last === 'dashboard') {
+          $initialPage = 'admin-dashboard';
+      } elseif ($last === 'ingredient') {
+          $initialPage = 'admin-ingredient';
+      }
+    ?>
+    showPage('<?= esc($initialPage) ?>');
 
     renderDishes();
     revealVisible();

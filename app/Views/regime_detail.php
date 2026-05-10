@@ -1,49 +1,12 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Détail du Régime</title>
-</head>
-<body>
-    <h1>Détail du Régime : <?= esc($regime['name']) ?></h1>
-
-    <div>
-        <strong>Description :</strong>
-        <p><?= esc($regime['description']) ?></p>
-    </div>
-
-    <div>
-        <strong>Variation de poids par semaine :</strong>
-        <span><?= esc($regime['variation_poids_semaine']) ?> kg</span>
-    </div>
-
-    <hr>
-
-    <h2>Compositions (%)</h2>
-    <?php if (!empty($regime['compositions'])) : ?>
-        <ul>
-            <?php foreach ($regime['compositions'] as $compo) : ?>
-                <li><?= esc($compo['ingredient_name']) ?> : <?= esc($compo['pourcentage']) ?> %</li>
-            <?php endforeach; ?>
-        </ul>
-    <?php else : ?>
-        <p>Aucune composition pour ce régime.</p>
-    <?php endif; ?>
-
-    <hr>
-
-    <h2>Prix</h2>
-    <?php if (!empty($regime['prix'])) : ?>
-        <ul>
-            <?php foreach ($regime['prix'] as $p) : ?>
-                <li>Semaine <?= esc($p['duree_semaine']) ?> : <?= esc($p['prix']) ?> Ar</li>
-            <?php endforeach; ?>
-        </ul>
-    <?php else : ?>
-        <p>Aucun prix défini.</p>
-    <?php endif; ?>
-
-    <br>
-    <a href="<?= base_url('regime/list') ?>">Retour à la liste</a>
-</body>
-</html>
+<?php ob_start(); ?>
+<div class="card">
+  <h1><?= esc($regime['name']) ?></h1>
+  <p class="muted"><?= esc($regime['description']) ?></p>
+  <p><strong>Variation:</strong> <?= esc($regime['variation_poids_semaine']) ?> kg/semaine</p>
+  <h2>Compositions</h2>
+  <table><thead><tr><th>Ingrédient</th><th>%</th></tr></thead><tbody><?php foreach (($regime['compositions'] ?? []) as $c): ?><tr><td><?= esc($c['ingredient_name']) ?></td><td><?= esc($c['pourcentage']) ?></td></tr><?php endforeach; ?></tbody></table>
+  <h2 style="margin-top:16px;">Prix</h2>
+  <table><thead><tr><th>Semaine</th><th>Prix</th></tr></thead><tbody><?php foreach (($regime['prix'] ?? []) as $p): ?><tr><td><?= esc($p['duree_semaine']) ?></td><td><?= esc($p['prix']) ?> Ar</td></tr><?php endforeach; ?></tbody></table>
+  <div class="actions"><a class="btn btn-light" href="<?= site_url('/regime/list') ?>">Retour</a></div>
+</div>
+<?php $content = ob_get_clean(); echo view('template/base', ['title' => 'Détail régime', 'content' => $content]); ?>

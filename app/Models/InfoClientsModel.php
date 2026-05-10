@@ -15,6 +15,7 @@ class InfoClientsModel extends Model
         'phone',
         'genre',
         'date_naissance',
+        'data_naissance',
         'age',
         'taille',
         'poids',

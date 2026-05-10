@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des regimes</title>
-</head>
-<body>
-    <h1>Liste des régimes</h1>
-    <ul>
-    <?php foreach ($regimes as $regime):?>
-        <li>
-            <?= esc($regime['name']) ?> - 
-            <a href="<?= base_url('regime/detail/' . $regime['id']) ?>">Voir le détail</a>
-        </li>
-    <?php endforeach;?>
-    </ul>
-    <a href="/regime/create">Add new regime</a>
-</body>
-</html>
+<?php ob_start(); ?>
+<div class="card">
+  <h1>Liste des régimes</h1>
+  <div class="actions"><a class="btn btn-primary" href="<?= site_url('/regime/create') ?>">Créer un régime</a></div>
+  <table><thead><tr><th>Nom</th><th>Action</th></tr></thead><tbody>
+  <?php foreach ($regimes as $regime): ?>
+    <tr><td><?= esc($regime['name']) ?></td><td><a class="btn btn-light" href="<?= site_url('/regime/detail/' . $regime['id']) ?>">Détail</a></td></tr>
+  <?php endforeach; ?>
+  </tbody></table>
+</div>
+<?php $content = ob_get_clean(); echo view('template/base', ['title' => 'Régimes', 'content' => $content]); ?>

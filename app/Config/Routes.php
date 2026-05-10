@@ -26,7 +26,7 @@ $routes->group('', ['filter' => 'auth'], static function ($routes): void {
     $routes->get('/test', 'InfoClientController::test');
     $routes->post('/achat', 'InfoClientController::validationDepense');
     $routes->get('/sport', 'SportController::listSport');
-    $routes->get('/sport/create', 'SportController::edit');
+    $routes->get('/sport/create', 'SportController::showForm');
     $routes->post('/sport/create', 'SportController::saveSport');
     $routes->get('/sport/edit/(:num)', 'SportController::edit/$1');
     $routes->post('/sport/update/(:num)', 'SportController::update/$1');
@@ -36,6 +36,14 @@ $routes->group('', ['filter' => 'auth'], static function ($routes): void {
     $routes->post('/sport/(:num)/regimes/save', 'SportController::saveRegime/$1');
     $routes->get('/regime/list', 'RegimeController::list');
     $routes->get('/regime/detail/(:num)', 'RegimeController::detail/$1');
+    $routes->get('/programme', 'ProgrammeController::index');
+    $routes->post('/programme/suggestion', 'ProgrammeController::suggestion');
+    $routes->get('/programme/catalogue', 'ProgrammeController::catalogue');
+    $routes->post('/programme/confirmer', 'ProgrammeController::confirmer');
+    $routes->post('/programme/confirmer-catalogue', 'ProgrammeController::confirmerDepuisCatalogue');
+    $routes->get('/programme/mes-programmes', 'ProgrammeController::mesProgrammes');
+    $routes->get('/programme/detail/(:num)', 'ProgrammeController::detail/$1');
+    $routes->get('/transactions', 'TransactionController::myTransaction');
 
     // Routes admin
     $routes->group('', ['filter' => 'role:admin'], static function ($routes): void {
@@ -45,5 +53,12 @@ $routes->group('', ['filter' => 'auth'], static function ($routes): void {
         $routes->post('/ingredient/create', 'IngredientController::create');
         $routes->get('/regime/create', 'RegimeController::showForm');
         $routes->post('/regime/create', 'RegimeController::saveRegime');
+        $routes->get('/admin/transactions', 'TransactionController::getAllTransactions');
+        $routes->get('/parametres', 'ParametreController::index');
+        $routes->get('/parametres/create', 'ParametreController::create');
+        $routes->post('/parametres/store', 'ParametreController::store');
+        $routes->get('/parametres/edit/(:num)', 'ParametreController::edit/$1');
+        $routes->post('/parametres/update/(:num)', 'ParametreController::update/$1');
+        $routes->post('/parametres/delete/(:num)', 'ParametreController::delete/$1');
     });
 });

@@ -8,9 +8,30 @@ use \App\Models\VCompositionRegimeModel;
 use \App\Models\CompositionRegimeModel;
 use \App\Models\ObjectifModel;
 use \App\Models\PrixRegimeModel;
+use App\Models\UserModel;
+use App\Models\InfoClientsModel;
 
 class RegimeController extends BaseController
 {
+    private function profileData(): array
+    {
+        $userId = (int) session()->get('user_id');
+        $user = (new UserModel())->find($userId);
+        $client = (new InfoClientsModel())->getByUserId($userId);
+
+        if (!$client && $user) {
+            $client = \Config\Database::connect()
+                ->table('infos_clients ic')
+                ->select('ic.*')
+                ->join('user u', 'u.id = ic.user_id')
+                ->where('u.email', $user['email'])
+                ->get()
+                ->getRowArray();
+        }
+
+        return ['user' => $user, 'client' => $client];
+    }
+
     public function showForm()
     {
         $ingredientModel = new IngredientModel();
@@ -21,9 +42,11 @@ class RegimeController extends BaseController
 
         helper(['form']);
 
-        return $this->render('regime_form', [
+        return view('template/healthy_food_international_landing_template(5)', [
+            'admin_view' => 'admin-regime-form',
             'ingredients' => $ingredients,
-            'objectifs' => $objectifs
+            'objectifs' => $objectifs,
+            ...$this->profileData(),
         ]);
     }
 
@@ -115,8 +138,10 @@ class RegimeController extends BaseController
             $regime = $regimeModel->getRegimeComplet($regime['id']);
         }
 
-        return $this->render('regime_list', [
-            'regimes' => $regimes
+        return view('template/healthy_food_international_landing_template(5)', [
+            'admin_view' => 'admin-regime-list',
+            'regimes' => $regimes,
+            ...$this->profileData(),
         ]);
     }
 
@@ -129,8 +154,10 @@ class RegimeController extends BaseController
             return redirect()->to('/regime/list')->with('errors', ['Régime introuvable.']);
         }
 
-        return $this->render('regime_detail', [
-            'regime' => $regime
+        return view('template/healthy_food_international_landing_template(5)', [
+            'admin_view' => 'admin-regime-detail',
+            'regime' => $regime,
+            ...$this->profileData(),
         ]);
     }
 }

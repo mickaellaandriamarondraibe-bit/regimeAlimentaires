@@ -14,7 +14,7 @@ class InfoClientController extends BaseController
         $this->transactionModel = new TransactionModel();
     }
     function infoClient(){
-        return view('template/infoClient');
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     
@@ -68,7 +68,7 @@ class InfoClientController extends BaseController
     }
 
     function test(){
-        return view('template/achat');
+        return view('template/healthy_food_international_landing_template(5)');
     }
     
 

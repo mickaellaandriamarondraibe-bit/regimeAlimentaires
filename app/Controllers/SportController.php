@@ -23,14 +23,12 @@ class SportController extends BaseController
     {
         $sports = $this->sportModel->findAll();
 
-        return view('sport/list', [
-            'sports' => $sports
-        ]);
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function showForm()
     {
-        return view('sport/form');
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function saveSport()
@@ -58,10 +56,10 @@ class SportController extends BaseController
             throw new \Exception("Cette activité n'existe pas");
         }
 
-        return view('sport/form', ['sport' => $sport]);
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
-    public function updateSport($id)
+    public function update($id)
     {
         $sport = $this->sportModel->find($id);
 
@@ -75,7 +73,7 @@ class SportController extends BaseController
             'variation_poids_semaine' => $this->request->getPost('variation_poids_semaine')
         ];
 
-        if ($this->sportModel->update($id, $sportData)) {
+        if (!$this->sportModel->update($id, $sportData)) {
             throw new \Exception("Impossible de mettre à jour cette activité sportive");
         }
 
@@ -107,7 +105,7 @@ class SportController extends BaseController
             throw new \Exception("Cette activité n'existe pas");
         }
 
-        return view('sport/detail', ['sport' => $sport]);
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function regimesAssocies(int $sportId)
@@ -122,11 +120,7 @@ class SportController extends BaseController
 
         $regimesLies = $this->regimeSportModel->getRegimesBySportId($sportId);
 
-        return view('sport/regimes', [
-            'sport' => $sport,
-            'regimes' => $regimes,
-            'regimes_lies' => $regimesLies
-        ]);
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function saveRegime($sportId)

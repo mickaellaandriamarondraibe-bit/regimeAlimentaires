@@ -24,7 +24,7 @@ class CodeController extends BaseController
 
     public function code()
     {
-        return view('template/code');
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     public function validationCode()
