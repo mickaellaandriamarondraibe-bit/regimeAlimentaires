@@ -55,6 +55,8 @@ $routes->group('', ['filter' => 'auth'], static function ($routes): void {
         $routes->get('/regime/create', 'RegimeController::showForm');
         $routes->post('/regime/create', 'RegimeController::saveRegime');
         $routes->get('/admin/transactions', 'TransactionController::getAllTransactions');
+        $routes->post('/admin/demandes-code/valider/(:num)', 'CodeController::validerDemande/$1');
+        $routes->post('/admin/demandes-code/refuser/(:num)', 'CodeController::refuserDemande/$1');
         $routes->get('/parametres', 'ParametreController::index');
         $routes->get('/parametres/create', 'ParametreController::create');
         $routes->post('/parametres/store', 'ParametreController::store');

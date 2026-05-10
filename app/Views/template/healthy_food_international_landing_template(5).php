@@ -596,6 +596,16 @@
     .timeline-item i { color: var(--green); margin-top: 3px; }
     .timeline-item strong { color: var(--purple); display: block; margin-bottom: 4px; }
     .timeline-item span { color: var(--muted); line-height: 1.5; font-size: .94rem; }
+    .admin-table-wrap { overflow-x: auto; border: 1px solid #eadff0; border-radius: 14px; background: #fff; margin-top: 8px; }
+    .admin-table { width: 100%; border-collapse: collapse; min-width: 760px; font-size: 14px; }
+    .admin-table thead th { text-align: left; padding: 12px 14px; background: #f7f0fb; color: #4d1c63; font-weight: 800; border-bottom: 1px solid #eadff0; white-space: nowrap; }
+    .admin-table tbody td { padding: 11px 14px; border-bottom: 1px solid #f2ebf6; color: #3e3346; vertical-align: middle; }
+    .admin-table tbody tr:nth-child(even) { background: #fcf9ff; }
+    .admin-table tbody tr:hover { background: #f7f1fd; }
+    .status-pill { display:inline-block; padding:4px 10px; border-radius:999px; font-weight:700; font-size:12px; }
+    .status-pending { background:#fff5d8; color:#8a5a00; }
+    .status-valid { background:#e7f9ef; color:#0f8a53; }
+    .status-refused { background:#ffe9e9; color:#b42323; }
 
     /* Modal */
     .modal {
@@ -667,6 +677,15 @@
 </head>
 <body>
   <?php $isLoggedIn = (bool) session()->get('user_id'); ?>
+  <?php
+    $pendingDemandesCount = 0;
+    if ((session('role') ?? '') === 'admin') {
+      $pendingDemandesCount = (int) \Config\Database::connect()
+        ->table('demande_code')
+        ->where('statut', 'en_attente')
+        ->countAllResults();
+    }
+  ?>
   <header class="navbar">
     <div class="container nav-inner">
       <button class="logo" onclick="showPage('home')">
@@ -702,7 +721,12 @@
           <a class="btn btn-light" href="<?= site_url('ingredient') ?>">Ingrédients</a>
           <a class="btn btn-light" href="<?= site_url('regime/list') ?>">Régimes</a>
           <a class="btn btn-light" href="<?= site_url('regime/create') ?>">Créer régime</a>
-          <a class="btn btn-light" href="<?= site_url('admin/transactions') ?>">Transactions</a>
+          <a class="btn btn-light" href="<?= site_url('admin/transactions') ?>">
+            Transactions
+            <?php if ($pendingDemandesCount > 0): ?>
+              (<?= esc((string) $pendingDemandesCount) ?> demande<?= $pendingDemandesCount > 1 ? 's' : '' ?>)
+            <?php endif; ?>
+          </a>
           <a class="btn btn-light" href="<?= site_url('parametres') ?>">Paramètres</a>
         </div>
       </div>
@@ -774,10 +798,17 @@
               <h3>Insérer un code</h3>
               <p>Déjà reçu un code ? Entrez-le ici pour accéder directement à votre programme ou à votre offre.</p>
 
-              <div class="code-input-wrap">
-                <input class="input code-input" id="programCode" type="text" placeholder="Ex : NUTRI2026" maxlength="20">
-                <button class="btn btn-primary" onclick="validateCode()">Valider</button>
-              </div>
+              <form class="code-input-wrap" method="post" action="<?= site_url('envoyerCode') ?>">
+                <?= csrf_field() ?>
+                <input class="input code-input" name="code" type="text" placeholder="Ex : WELCOME-10K" maxlength="20" required>
+                <button class="btn btn-primary" type="submit">Valider</button>
+              </form>
+              <?php if (session()->getFlashdata('success')): ?>
+                <p style="margin:10px 0 0;color:#129a57;font-weight:700;"><?= esc(session()->getFlashdata('success')) ?></p>
+              <?php endif; ?>
+              <?php if (session()->getFlashdata('error')): ?>
+                <p style="margin:10px 0 0;color:#c81e1e;font-weight:700;"><?= esc(session()->getFlashdata('error')) ?></p>
+              <?php endif; ?>
 
               <div class="code-help">
                 <i class="fa-solid fa-circle-info"></i>
@@ -1160,29 +1191,110 @@
 
         <article class="card pad reveal" style="margin-top:14px;">
           <h3>Derniers utilisateurs</h3>
-          <table><thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Rôle</th></tr></thead><tbody>
+          <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Rôle</th></tr></thead><tbody>
             <?php foreach (($latest_users ?? []) as $u): ?>
               <tr><td><?= esc($u['id']) ?></td><td><?= esc($u['username']) ?></td><td><?= esc($u['email']) ?></td><td><?= esc($u['role']) ?></td></tr>
             <?php endforeach; ?>
-          </tbody></table>
+          </tbody></table></div>
         </article>
 
         <article class="card pad reveal" style="margin-top:14px;">
           <h3>Derniers régimes</h3>
-          <table><thead><tr><th>ID</th><th>Nom</th><th>Variation/semaine</th></tr></thead><tbody>
+          <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>ID</th><th>Nom</th><th>Variation/semaine</th></tr></thead><tbody>
             <?php foreach (($latest_regimes ?? []) as $r): ?>
               <tr><td><?= esc($r['id']) ?></td><td><?= esc($r['name']) ?></td><td><?= esc($r['variation_poids_semaine']) ?></td></tr>
             <?php endforeach; ?>
-          </tbody></table>
+          </tbody></table></div>
         </article>
 
         <article class="card pad reveal" style="margin-top:14px;">
           <h3>Dernières transactions</h3>
-          <table><thead><tr><th>Date</th><th>Type</th><th>Client</th><th>Montant</th></tr></thead><tbody>
+          <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Date</th><th>Type</th><th>Client</th><th>Montant</th></tr></thead><tbody>
             <?php foreach (($latest_transactions ?? []) as $t): ?>
               <tr><td><?= esc($t['date']) ?></td><td><?= esc($t['type']) ?></td><td><?= esc($t['username'] ?? '-') ?></td><td><?= esc($t['montant']) ?> Ar</td></tr>
             <?php endforeach; ?>
-          </tbody></table>
+          </tbody></table></div>
+        </article>
+
+        <article class="card pad reveal" style="margin-top:14px;">
+          <h3>Demandes de codes envoyées</h3>
+          <?php if (session()->getFlashdata('success')): ?>
+            <p style="margin:6px 0 0;color:#129a57;font-weight:700;"><?= esc(session()->getFlashdata('success')) ?></p>
+          <?php endif; ?>
+          <?php if (session()->getFlashdata('error')): ?>
+            <p style="margin:6px 0 0;color:#c81e1e;font-weight:700;"><?= esc(session()->getFlashdata('error')) ?></p>
+          <?php endif; ?>
+          <div class="admin-table-wrap"><table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Client</th>
+                <th>Code</th>
+                <th>Statut</th>
+                <th>Validé par</th>
+                <th>Date validation</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach (($demandes_codes ?? []) as $d): ?>
+                <?php
+                  $st = (string) ($d['statut'] ?? '');
+                  $stClass = $st === 'valide' ? 'status-valid' : ($st === 'refuse' ? 'status-refused' : 'status-pending');
+                ?>
+                <tr>
+                  <td><?= esc($d['id']) ?></td>
+                  <td><?= esc($d['client_username'] ?? '-') ?></td>
+                  <td><?= esc($d['code'] ?? '-') ?></td>
+                  <td><span class="status-pill <?= esc($stClass) ?>"><?= esc($st ?: '-') ?></span></td>
+                  <td><?= esc($d['validated_by_email'] ?? '-') ?></td>
+                  <td><?= esc($d['validated_at'] ?? '-') ?></td>
+                  <td>
+                    <?php if (($d['statut'] ?? '') === 'en_attente'): ?>
+                      <div class="actions">
+                        <form method="post" action="<?= site_url('admin/demandes-code/valider/' . (int) $d['id']) ?>">
+                          <?= csrf_field() ?>
+                          <button class="btn btn-green" type="submit">Valider</button>
+                        </form>
+                        <form method="post" action="<?= site_url('admin/demandes-code/refuser/' . (int) $d['id']) ?>">
+                          <?= csrf_field() ?>
+                          <button class="btn btn-light" type="submit">Refuser</button>
+                        </form>
+                      </div>
+                    <?php else: ?>
+                      <span style="color:#777;">Traitée</span>
+                    <?php endif; ?>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table></div>
+        </article>
+
+        <article class="card pad reveal" style="margin-top:14px;">
+          <h3>Achats de régimes</h3>
+          <div class="admin-table-wrap"><table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID Programme</th>
+                <th>Client</th>
+                <th>Régime</th>
+                <th>Montant</th>
+                <th>Date achat</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach (($achats_programmes ?? []) as $a): ?>
+                <tr>
+                  <td><?= esc($a['id']) ?></td>
+                  <td><?= esc($a['client_username'] ?? '-') ?></td>
+                  <td><?= esc($a['regime_name'] ?? '-') ?></td>
+                  <td><?= esc($a['prix_total'] ?? 0) ?> Ar</td>
+                  <td><?= esc($a['date_programme'] ?? '-') ?></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table></div>
         </article>
       </div>
     </section>
@@ -1443,20 +1555,6 @@
       f.submit();
     }
 
-    function validateCode() {
-      const input = document.getElementById('programCode');
-      const code = input.value.trim().toUpperCase();
-      if (!code) {
-        input.focus();
-        input.style.boxShadow = '0 0 0 4px rgba(255,90,31,.18)';
-        return;
-      }
-      if (code === 'NUTRI2026' || code === 'WELCOME' || code === 'FIT2026') {
-        showPage('profile');
-      } else {
-        alert('Code non reconnu. Exemple de code test : NUTRI2026');
-      }
-    }
 
     function findObjectifId(kind) {
       const list = Array.isArray(objectifsData) ? objectifsData : [];

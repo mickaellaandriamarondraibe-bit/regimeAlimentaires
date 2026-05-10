@@ -6,6 +6,7 @@ use App\Models\CodeModel;
 use App\Models\DemandeCode;
 use App\Models\TransactionModel;
 use App\Models\InfoClientsModel;
+use App\Models\UserModel;
 
 class CodeController extends BaseController
 {
@@ -13,6 +14,7 @@ class CodeController extends BaseController
     private DemandeCode $DemandeCode;
     private TransactionModel $transactionModel;
     private InfoClientsModel $infoClientModel;
+    private UserModel $userModel;
 
     public function __construct()
     {
@@ -20,6 +22,7 @@ class CodeController extends BaseController
         $this->DemandeCode = new DemandeCode();
         $this->transactionModel = new TransactionModel();
         $this->infoClientModel = new InfoClientsModel();
+        $this->userModel = new UserModel();
     }
 
     public function code()
@@ -38,13 +41,13 @@ class CodeController extends BaseController
         $code = trim((string) $this->request->getPost('code'));
 
         if ($code === '') {
-            return redirect()->to('/code')->with('error', 'Veuillez saisir un code.');
+            return redirect()->back()->withInput()->with('error', 'Veuillez saisir un code.');
         }
 
         $codeBase = $this->CodeModel->verifCode($code);
 
         if (empty($codeBase)) {
-            return redirect()->to('/code')->with('error', 'Code incorrect.');
+            return redirect()->back()->withInput()->with('error', 'Code invalide.');
         }
 
         $codeId = is_array($codeBase)
@@ -52,7 +55,17 @@ class CodeController extends BaseController
             : ($codeBase->id ?? null);
 
         if (!$codeId) {
-            return redirect()->to('/code')->with('error', 'Code invalide : id introuvable.');
+            return redirect()->back()->withInput()->with('error', 'Code invalide : id introuvable.');
+        }
+
+        $demandeExistante = $this->DemandeCode
+            ->where('code_id', $codeId)
+            ->where('client_id', $clientId)
+            ->where('statut', 'en_attente')
+            ->first();
+
+        if ($demandeExistante) {
+            return redirect()->back()->with('success', 'Votre demande est déjà en attente. Vous recevrez une réponse plus tard.');
         }
 
         $demandeData = [
@@ -65,12 +78,12 @@ class CodeController extends BaseController
             $created = $this->DemandeCode->createDemande($demandeData);
 
             if (!$created) {
-                return redirect()->to('/code')->with('error', 'Erreur lors de la création de la demande.');
+                return redirect()->back()->withInput()->with('error', 'Erreur lors de la création de la demande.');
             }
 
-            return redirect()->to('/code')->with('success', 'Code soumis pour validation.');
+            return redirect()->back()->with('success', 'Code valide. Votre demande est envoyée, vous recevrez un message plus tard.');
         } catch (\Throwable $e) {
-            return redirect()->to('/code')->with('error', 'Erreur : ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Erreur : ' . $e->getMessage());
         }
     }
 
@@ -133,5 +146,118 @@ class CodeController extends BaseController
             $db->transRollback();
             return false;
         }
+    }
+
+    public function validerDemande(int $demandeId)
+    {
+        $adminId = (int) session()->get('user_id');
+        if ($adminId <= 0) {
+            return redirect()->to('/login');
+        }
+        if (!$this->userModel->isAdmin($adminId)) {
+            return redirect()->to('/admin/transactions')->with('error', 'Accès réservé à l’admin.');
+        }
+
+        $demande = $this->DemandeCode->find($demandeId);
+        if (!$demande) {
+            return redirect()->to('/admin/transactions')->with('error', 'Demande introuvable.');
+        }
+        if (($demande['statut'] ?? '') !== 'en_attente') {
+            return redirect()->to('/admin/transactions')->with('error', 'Cette demande a déjà été traitée.');
+        }
+
+        $codeId = (int) ($demande['code_id'] ?? 0);
+        $clientInfoId = (int) ($demande['client_id'] ?? 0);
+        if ($codeId <= 0 || $clientInfoId <= 0) {
+            return redirect()->to('/admin/transactions')->with('error', 'Données de demande invalides.');
+        }
+
+        // Un code validé = une seule personne
+        $alreadyValidated = $this->DemandeCode
+            ->where('code_id', $codeId)
+            ->where('statut', 'valide')
+            ->first();
+        if ($alreadyValidated) {
+            $this->DemandeCode->update($demandeId, [
+                'statut' => 'refuse',
+                'validated_by' => $adminId,
+                'validated_at' => date('Y-m-d H:i:s'),
+            ]);
+            return redirect()->to('/admin/transactions')->with('error', 'Code déjà utilisé par un autre client.');
+        }
+
+        $code = $this->CodeModel->find($codeId);
+        if (!$code) {
+            return redirect()->to('/admin/transactions')->with('error', 'Code introuvable.');
+        }
+        $montant = (float) ($code['montant'] ?? 0);
+        if ($montant <= 0) {
+            return redirect()->to('/admin/transactions')->with('error', 'Montant du code invalide.');
+        }
+
+        $client = $this->infoClientModel->find($clientInfoId);
+        if (!$client) {
+            return redirect()->to('/admin/transactions')->with('error', 'Client introuvable.');
+        }
+
+        $db = \Config\Database::connect();
+        $db->transBegin();
+        try {
+            $walletActuel = (float) ($client['wallet'] ?? 0);
+            $this->infoClientModel->update($clientInfoId, [
+                'wallet' => $walletActuel + $montant,
+            ]);
+
+            $this->transactionModel->createTransaction([
+                'date' => date('Y-m-d H:i:s'),
+                'type' => 'C',
+                'client_id' => $clientInfoId,
+                'montant' => $montant,
+            ]);
+
+            $this->DemandeCode->update($demandeId, [
+                'statut' => 'valide',
+                'validated_by' => $adminId,
+                'validated_at' => date('Y-m-d H:i:s'),
+            ]);
+
+            if ($db->transStatus() === false) {
+                $db->transRollback();
+                return redirect()->to('/admin/transactions')->with('error', 'Erreur lors de la validation.');
+            }
+
+            $db->transCommit();
+            return redirect()->to('/admin/transactions')->with('success', 'Demande validée et wallet crédité.');
+        } catch (\Throwable $e) {
+            $db->transRollback();
+            return redirect()->to('/admin/transactions')->with('error', 'Erreur: ' . $e->getMessage());
+        }
+    }
+
+    public function refuserDemande(int $demandeId)
+    {
+        $adminId = (int) session()->get('user_id');
+        if ($adminId <= 0) {
+            return redirect()->to('/login');
+        }
+        if (!$this->userModel->isAdmin($adminId)) {
+            return redirect()->to('/admin/transactions')->with('error', 'Accès réservé à l’admin.');
+        }
+
+        $demande = $this->DemandeCode->find($demandeId);
+        if (!$demande) {
+            return redirect()->to('/admin/transactions')->with('error', 'Demande introuvable.');
+        }
+        if (($demande['statut'] ?? '') !== 'en_attente') {
+            return redirect()->to('/admin/transactions')->with('error', 'Cette demande a déjà été traitée.');
+        }
+
+        $this->DemandeCode->update($demandeId, [
+            'statut' => 'refuse',
+            'validated_by' => $adminId,
+            'validated_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        return redirect()->to('/admin/transactions')->with('success', 'Demande refusée.');
     }
 }
