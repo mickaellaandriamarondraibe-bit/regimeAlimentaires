@@ -17,7 +17,7 @@ class DemandeCode extends Model
         'validated_at' => 'permit_empty|valid_date',
     ];
    
-    function createDemande(array $data): bool
+    function createDemande(array $data): int
     {
         $this->insert($data);
         return $this->getInsertID();

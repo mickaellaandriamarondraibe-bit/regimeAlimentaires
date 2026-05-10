@@ -45,7 +45,7 @@ class DashboardController extends BaseController
 
         $latestUsers = \Config\Database::connect()
             ->table('user u')
-            ->select('u.id, u.email, u.role, ic.username')
+            ->select('u.id, u.email, u.role, ic.name')
             ->join('infos_clients ic', 'ic.user_id = u.id', 'left')
             ->orderBy('u.id', 'DESC')
             ->get(8)
@@ -76,7 +76,7 @@ class DashboardController extends BaseController
         }
 
         $demandesCodes = $db->table('demande_code dc')
-            ->select('dc.id, dc.statut, dc.validated_at, c.code, ic.username AS client_username, ua.email AS validated_by_email')
+            ->select('dc.id, dc.statut, dc.validated_at, c.code, ic.name AS client_name, ua.email AS validated_by_email')
             ->join('code c', 'c.id = dc.code_id')
             ->join('infos_clients ic', 'ic.id = dc.client_id')
             ->join('user ua', 'ua.id = dc.validated_by', 'left')
@@ -85,7 +85,7 @@ class DashboardController extends BaseController
             ->getResultArray();
 
         $achatsProgrammes = $db->table('programme p')
-            ->select('p.id, p.date_programme, p.prix_total, r.name AS regime_name, ic.username AS client_username')
+            ->select('p.id, p.date_programme, p.prix_total, r.name AS regime_name, ic.name AS client_name')
             ->join('regimes r', 'r.id = p.regime_id')
             ->join('infos_clients ic', 'ic.id = p.client_id')
             ->orderBy('p.id', 'DESC')

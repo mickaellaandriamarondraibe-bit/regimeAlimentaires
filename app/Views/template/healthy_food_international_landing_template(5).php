@@ -1009,7 +1009,7 @@
               <p style="color:#c81e1e;font-weight:700;"><?= esc(session()->getFlashdata('error')) ?></p>
             <?php endif; ?>
             <div class="form-grid">
-              <div class="input-group"><label>Nom d'utilisateur</label><input class="input" type="text" name="name" placeholder="Rakoto" value="<?= esc((string) session('name')) ?>" required></div>
+              <div class="input-group"><label>Nom d'utilisateur</label><input class="input" type="text" name="username" placeholder="Rakoto" value="<?= esc((string) session('name')) ?>" required></div>
               <div class="input-group"><label>Email</label><input class="input" type="email" name="email" placeholder="votre@email.com" value="<?= esc((string) session('email')) ?>" required></div>
             </div>
             <div class="input-group">
@@ -1078,7 +1078,7 @@
           <div class="profile-avatar"></div>
           <div>
             <span class="badge"><i class="fa-solid fa-user-check"></i> Profil actif</span>
-            <h1>Bonjour, <?= esc($client['username'] ?? session('username') ?? 'Client') ?></h1>
+            <h1>Bonjour, <?= esc($client['name'] ?? session('username') ?? 'Client') ?></h1>
             <p>
               Email : <?= esc($user['email'] ?? session('email') ?? '-') ?>
               · Genre : <?= esc($client['genre'] ?? '-') ?>
@@ -1104,7 +1104,7 @@
             <?= csrf_field() ?>
             <div class="form-grid">
               <div class="input-group"><label>Email</label><input class="input" type="email" name="email" value="<?= esc($user['email'] ?? session('email') ?? '') ?>" required></div>
-              <div class="input-group"><label>Nom d'utilisateur</label><input class="input" type="text" name="username" value="<?= esc($client['username'] ?? session('username') ?? '') ?>" required></div>
+              <div class="input-group"><label>Nom d'utilisateur</label><input class="input" type="text" name="username" value="<?= esc($client['name'] ?? session('username') ?? '') ?>" required></div>
             </div>
             <div class="form-grid">
               <div class="input-group"><label>Téléphone</label><input class="input" type="text" name="phone" value="<?= esc(($client['phone'] ?? '') === '0' ? '' : ($client['phone'] ?? '')) ?>"></div>
@@ -1193,7 +1193,7 @@
           <h3>Derniers utilisateurs</h3>
           <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Rôle</th></tr></thead><tbody>
             <?php foreach (($latest_users ?? []) as $u): ?>
-              <tr><td><?= esc($u['id']) ?></td><td><?= esc($u['username']) ?></td><td><?= esc($u['email']) ?></td><td><?= esc($u['role']) ?></td></tr>
+              <tr><td><?= esc($u['id']) ?></td><td><?= esc($u['name']) ?></td><td><?= esc($u['email']) ?></td><td><?= esc($u['role']) ?></td></tr>
             <?php endforeach; ?>
           </tbody></table></div>
         </article>
@@ -1211,7 +1211,7 @@
           <h3>Dernières transactions</h3>
           <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Date</th><th>Type</th><th>Client</th><th>Montant</th></tr></thead><tbody>
             <?php foreach (($latest_transactions ?? []) as $t): ?>
-              <tr><td><?= esc($t['date']) ?></td><td><?= esc($t['type']) ?></td><td><?= esc($t['username'] ?? '-') ?></td><td><?= esc($t['montant']) ?> Ar</td></tr>
+              <tr><td><?= esc($t['date']) ?></td><td><?= esc($t['type']) ?></td><td><?= esc($t['name'] ?? '-') ?></td><td><?= esc($t['montant']) ?> Ar</td></tr>
             <?php endforeach; ?>
           </tbody></table></div>
         </article>
@@ -1244,7 +1244,7 @@
                 ?>
                 <tr>
                   <td><?= esc($d['id']) ?></td>
-                  <td><?= esc($d['client_username'] ?? '-') ?></td>
+                  <td><?= esc($d['client_name'] ?? '-') ?></td>
                   <td><?= esc($d['code'] ?? '-') ?></td>
                   <td><span class="status-pill <?= esc($stClass) ?>"><?= esc($st ?: '-') ?></span></td>
                   <td><?= esc($d['validated_by_email'] ?? '-') ?></td>
@@ -1287,7 +1287,7 @@
               <?php foreach (($achats_programmes ?? []) as $a): ?>
                 <tr>
                   <td><?= esc($a['id']) ?></td>
-                  <td><?= esc($a['client_username'] ?? '-') ?></td>
+                  <td><?= esc($a['client_name'] ?? '-') ?></td>
                   <td><?= esc($a['regime_name'] ?? '-') ?></td>
                   <td><?= esc($a['prix_total'] ?? 0) ?> Ar</td>
                   <td><?= esc($a['date_programme'] ?? '-') ?></td>

@@ -43,7 +43,9 @@ class ParametreController extends BaseController
             ->orderBy('cle', 'ASC')
             ->findAll();
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'parametres' => $parametres
+        ]);
     }
 
     public function create()
@@ -96,7 +98,9 @@ class ParametreController extends BaseController
                 ->with('error', 'Paramètre introuvable.');
         }
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'parametre' => $parametre
+        ]);
     }
 
     public function update(int $id)

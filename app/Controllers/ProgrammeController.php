@@ -243,7 +243,7 @@ class ProgrammeController extends BaseController
             'programme_view' => 'programs',
             ...$this->profileData(),
         ]);
-        }
+    }
 
     public function catalogue()
     {
@@ -263,7 +263,11 @@ class ProgrammeController extends BaseController
                 ->getSportsByRegimeId((int) $regime['id']);
         }
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'programme_view' => 'catalogue',
+            'regimes' => $regimes,
+            ...$this->profileData(),
+        ]);
     }
 
     public function confirmer()
@@ -582,7 +586,9 @@ class ProgrammeController extends BaseController
 
         $programmes = $this->programmeModel->getProgrammesByClientId((int) $client['id']);
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'programmes' => $programmes
+        ]);
     }
 
     public function detail($id)
@@ -621,7 +627,11 @@ class ProgrammeController extends BaseController
         $programme['sports'] = $this->programmeSportModel
             ->getSportsByProgrammeId((int) $programme['id']);
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'programme_view' => 'programme-detail',
+            'programme' => $programme,
+            ...$this->profileData(),
+        ]);
     }
 
     private function calculerImc(float $poids, float $tailleCm): float

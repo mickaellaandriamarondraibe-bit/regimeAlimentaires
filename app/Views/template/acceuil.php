@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 <div class="card">
-  <h1>Bienvenue <?= esc((string) session('username')) ?></h1>
+  <h1>Bienvenue <?= esc((string) session('name')) ?></h1>
   <p class="muted">Choisissez une action rapide.</p>
   <div class="actions">
     <a class="btn btn-primary" href="<?= site_url('/profil') ?>">Mon profil</a>

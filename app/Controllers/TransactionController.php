@@ -35,7 +35,9 @@ class TransactionController extends BaseController
 
         $transactions = $this->transactionModel->getTransactionByClientId($client['id']);
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'transactions' => $transactions
+        ]);
     }
 
     public function getAllTransactions()
@@ -59,7 +61,7 @@ class TransactionController extends BaseController
         ];
         $db = \Config\Database::connect();
         $demandesCodes = $db->table('demande_code dc')
-            ->select('dc.id, dc.statut, dc.validated_at, c.code, ic.username AS client_username, ua.email AS validated_by_email')
+            ->select('dc.id, dc.statut, dc.validated_at, c.code, ic.name AS client_name, ua.email AS validated_by_email')
             ->join('code c', 'c.id = dc.code_id')
             ->join('infos_clients ic', 'ic.id = dc.client_id')
             ->join('user ua', 'ua.id = dc.validated_by', 'left')
@@ -67,7 +69,7 @@ class TransactionController extends BaseController
             ->get(20)
             ->getResultArray();
         $achatsProgrammes = $db->table('programme p')
-            ->select('p.id, p.date_programme, p.prix_total, r.name AS regime_name, ic.username AS client_username')
+            ->select('p.id, p.date_programme, p.prix_total, r.name AS regime_name, ic.name AS client_name')
             ->join('regimes r', 'r.id = p.regime_id')
             ->join('infos_clients ic', 'ic.id = p.client_id')
             ->orderBy('p.id', 'DESC')

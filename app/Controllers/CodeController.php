@@ -32,11 +32,19 @@ class CodeController extends BaseController
 
     public function validationCode()
     {
-        $clientId = session()->get('user_id');
+        $userId = session()->get('user_id');
 
-        if (!$clientId) {
+        if (!$userId) {
             return redirect()->to('/login')->with('error', 'Veuillez vous connecter.');
         }
+
+        $client = $this->infoClientModel->getByUserId($userId);
+
+        if (!$client) {
+            return redirect()->back()->with('error', 'Vous n\'avez encore de profil client.');
+        }
+
+        $clientId = $client['id'];
 
         $code = trim((string) $this->request->getPost('code'));
 
@@ -95,21 +103,17 @@ class CodeController extends BaseController
             return false;
         }
 
-        $clientId = session()->get('user_id');
+        $userId = session()->get('user_id');
 
-        if (!$clientId) {
+        if (!$userId) {
             return false;
         }
 
-        $client = $this->infoClientModel->getByUserId($clientId);
+        $client = $this->infoClientModel->getByUserId($userId);
 
         if (!$client) {
             return false;
         }
-
-        $soldeActuel = is_array($client)
-            ? (float) ($client['solde'] ?? 0)
-            : (float) ($client->solde ?? 0);
 
         $montant = is_array($code)
             ? (float) ($code['montant'] ?? 0)
@@ -119,19 +123,17 @@ class CodeController extends BaseController
             return false;
         }
 
-        $nouveauSolde = $soldeActuel + $montant;
-
         $db = \Config\Database::connect();
 
         try {
             $db->transBegin();
 
-            $this->infoClientModel->updateSolde($clientId, $nouveauSolde);
+            $this->infoClientModel->updateSolde($userId, $montant);
 
             $this->transactionModel->createTransaction([
                 'date'      => date('Y-m-d H:i:s'),
                 'type'      => 'C',
-                'client_id' => $clientId,
+                'client_id' => $client['id'],
                 'montant'   => $montant,
             ]);
 

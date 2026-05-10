@@ -45,7 +45,7 @@
             <input type="text" placeholder="Search" style="width:220px;padding:8px 10px;border:1px solid #ddd;border-radius:10px;">
           </div>
 
-          <p style="margin:0 0 10px;color:#ff5a1f;font-weight:700;">Hello, <?= esc($client['username'] ?? session('username') ?? 'Admin') ?></p>
+          <p style="margin:0 0 10px;color:#ff5a1f;font-weight:700;">Hello, <?= esc($client['name'] ?? session('username') ?? 'Admin') ?></p>
 
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;">
             <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:12px;"><strong>$<?= esc(number_format((float)($stats['montant_total'] ?? 0),0,',',' ')) ?></strong><br><small>Total sales</small></div>
@@ -63,7 +63,7 @@
                 <?php foreach (($latest_transactions ?? []) as $t): ?>
                   <tr>
                     <td><?= esc($t['date']) ?></td>
-                    <td><?= esc($t['username'] ?? '-') ?></td>
+                    <td><?= esc($t['name'] ?? '-') ?></td>
                     <td><span class="admin-pill <?= ($t['type'] ?? '') === 'C' ? 'admin-pill-c' : 'admin-pill-d' ?>"><?= esc($t['type']) ?></span></td>
                     <td><strong><?= esc($t['montant']) ?></strong></td>
                   </tr>
@@ -97,7 +97,7 @@
           <?php foreach (($latest_users ?? []) as $u): ?>
             <tr>
               <td><?= esc($u['id']) ?></td>
-              <td><?= esc($u['username']) ?></td>
+              <td><?= esc($u['name']) ?></td>
               <td><?= esc($u['email']) ?></td>
               <td><span class="admin-pill <?= ($u['role'] ?? '') === 'admin' ? 'admin-pill-admin' : 'admin-pill-client' ?>"><?= esc($u['role']) ?></span></td>
             </tr>

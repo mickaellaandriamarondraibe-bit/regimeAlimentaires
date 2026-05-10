@@ -23,7 +23,9 @@ class SportController extends BaseController
     {
         $sports = $this->sportModel->findAll();
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'sports' => $sports
+        ]);
     }
 
     public function showForm()
@@ -56,7 +58,9 @@ class SportController extends BaseController
             throw new \Exception("Cette activité n'existe pas");
         }
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'sport' => $sport
+        ]);
     }
 
     public function update($id)
@@ -105,7 +109,9 @@ class SportController extends BaseController
             throw new \Exception("Cette activité n'existe pas");
         }
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'sport' => $sport
+        ]);
     }
 
     public function regimesAssocies(int $sportId)
@@ -120,7 +126,10 @@ class SportController extends BaseController
 
         $regimesLies = $this->regimeSportModel->getRegimesBySportId($sportId);
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'regimes' => $regimes, 
+            'regimes_lies' => $regimesLies
+        ]);
     }
 
     public function saveRegime($sportId)

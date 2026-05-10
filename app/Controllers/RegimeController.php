@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use \App\Models\IngredientModel;
 use \App\Models\RegimeModel;
-use \App\Models\VCompositionRegimeModel;
 use \App\Models\CompositionRegimeModel;
 use \App\Models\ObjectifModel;
 use \App\Models\PrixRegimeModel;

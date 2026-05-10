@@ -32,7 +32,7 @@ INSERT INTO user (id, email, role, password) VALUES
 (5, 'dina@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2');
 
 INSERT INTO infos_clients (
-    id, user_id, username, phone, date_naissance, genre, taille, poids, age, is_gold, wallet
+    id, user_id, name, phone, date_naissance, genre, taille, poids, age, is_gold, wallet
 ) VALUES
 (1, 1, 'admin', '0340000001', '1990-01-01', 'H', 175.00, 78.00, 36, 1, 150000.00),
 (2, 2, 'alice', '0340000002', '1999-05-10', 'F', 162.00, 71.50, 27, 0, 120000.00),

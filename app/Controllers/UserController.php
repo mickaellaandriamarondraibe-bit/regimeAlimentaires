@@ -58,7 +58,7 @@ class UserController extends BaseController
 
         session()->set([
             'user_id'  => $userBase['id'],
-            'username' => $this->infoClientModel->getByUserId((int) $userBase['id'])['username'] ?? '',
+            'username' => $this->infoClientModel->getByUserId((int) $userBase['id'])['name'] ?? '',
             'email'    => $userBase['email'],
             'role'     => $userBase['role'] ?? null,
         ]);
@@ -81,7 +81,7 @@ class UserController extends BaseController
 
         $session->set([
             'email' => $this->request->getPost('email') ?: $session->get('email'),
-            'name'  => $this->request->getPost('name') ?: $session->get('name'),
+            'username'  => $this->request->getPost('username') ?: $session->get('username'),
             'pwd'   => $this->request->getPost('pwd') ?: $session->get('pwd'),
             'genre' => $this->request->getPost('genre') ?: $session->get('genre'),
         ]);
@@ -109,7 +109,7 @@ class UserController extends BaseController
         $session = session();
 
         $email = trim((string) $session->get('email'));
-        $username = trim((string) $session->get('name'));
+        $username = trim((string) $session->get('username'));
         $password = (string) $session->get('pwd');
 
         $phone = trim((string) $this->request->getPost('phone'));
@@ -131,7 +131,7 @@ class UserController extends BaseController
             return redirect()->to('/step2')->with('error', 'Cet email existe déjà.');
         }
 
-        if ($this->infoClientModel->where('username', $username)->first()) {
+        if ($this->infoClientModel->where('name', $username)->first()) {
             return redirect()->to('/step2')->with('error', 'Ce nom d’utilisateur existe déjà.');
         }
 
@@ -147,16 +147,16 @@ class UserController extends BaseController
         $userId = $this->userModel->getInsertID();
 
         $this->infoClientModel->insert([
-            'user_id'         => $userId,
-            'username'        => $username,
-            'phone'           => $phone ?? null,
-            'genre'           => $genre,
-            'date_naissance'  => $dateNaissance,
-            'age'             => $age,
-            'taille'          => $taille,
-            'poids'           => $poids,
-            'is_gold'         => 0,
-            'wallet'          => 0,
+            'user_id'           => $userId,
+            'name'              => $username,
+            'phone'             => $phone ?? null,
+            'genre'             => $genre,
+            'date_naissance'    => $dateNaissance,
+            'age'               => $age,
+            'taille'            => $taille,
+            'poids'             => $poids,
+            'is_gold'           => 0,
+            'wallet'            => 0,
         ]);
 
         $db->transComplete();
@@ -167,7 +167,7 @@ class UserController extends BaseController
 
         $session->remove([
             'email',
-            'name',
+            'username',
             'pwd',
             'phone',
             'genre',
@@ -250,7 +250,7 @@ class UserController extends BaseController
     }
 
     $this->infoClientModel->updateProfilByUserId($userId, [
-        'username' => trim((string) $this->request->getPost('username')),
+        'name' => trim((string) $this->request->getPost('username')),
         'phone'  => trim((string) $this->request->getPost('phone')),
         'genre'  => $this->request->getPost('genre'),
         'taille' => $this->request->getPost('taille'),

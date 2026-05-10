@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS user(
 CREATE TABLE IF NOT EXISTS infos_clients (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL UNIQUE,
-    username VARCHAR(100) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(30),
     date_naissance DATE NOT NULL,
     genre ENUM('H', 'F') NOT NULL,
