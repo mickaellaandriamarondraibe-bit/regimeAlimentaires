@@ -10,7 +10,7 @@ $isActive = static function (string $target) use ($path): bool {
 <header class="navbar">
     <div class="container nav-inner">
         <a class="logo" href="<?= site_url($isLoggedIn ? 'accueil' : 'login') ?>">
-            <span class="logo-icon"><i class="fa-solid fa-heart-pulse"></i></span>
+            <img src="/assets/img/logo.png" alt="" style="width: 50px;">
             NutriFit
         </a>
 

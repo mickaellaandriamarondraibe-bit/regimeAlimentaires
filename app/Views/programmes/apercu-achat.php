@@ -17,6 +17,31 @@
                 <i class="fa-solid fa-arrow-left"></i>
                 Retour
             </a>
+            <form method="post" action="<?= site_url('pdf/apercu-achat') ?>">
+                <?= csrf_field() ?>
+
+                <input type="hidden" name="regime_name" value="<?= esc($regime['name'] ?? '-') ?>">
+                <input type="hidden" name="objectif_name" value="<?= esc($objectif['name'] ?? '-') ?>">
+                <input type="hidden" name="objectif_kg" value="<?= esc((string) $objectif_kg) ?>">
+                <input type="hidden" name="duree_facturee" value="<?= esc((string) $duree_facturee) ?>">
+                <input type="hidden" name="variation_totale" value="<?= esc((string) $variation_totale) ?>">
+                <input type="hidden" name="prix_base" value="<?= esc((string) $prix_base) ?>">
+                <input type="hidden" name="prix_final" value="<?= esc((string) $prix_final) ?>">
+                <input type="hidden" name="poids_initial" value="<?= esc((string) $poids_initial) ?>">
+                <input type="hidden" name="poids_cible" value="<?= esc((string) $poids_cible) ?>">
+                <input type="hidden" name="imc_initial" value="<?= esc((string) $imc_initial) ?>">
+                <input type="hidden" name="solde_actuel" value="<?= esc((string) $solde_actuel) ?>">
+
+                <?php foreach (($sports ?? []) as $sport): ?>
+                    <input type="hidden" name="sports_names[]" value="<?= esc($sport['name'] ?? '-') ?>">
+                    <input type="hidden" name="sports_variations[]" value="<?= esc((string) ($sport['variation_poids_semaine'] ?? 0)) ?>">
+                <?php endforeach; ?>
+
+                <button class="btn btn-primary" type="submit">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    Exporter PDF
+                </button>
+            </form>
         </div>
     </div>
 </section>
@@ -169,8 +194,7 @@
                 <article
                     class="card"
                     data-animate="fade-up"
-                    style="margin-top: 16px; <?= $solde_insuffisant ? 'border: 2px solid var(--danger);' : '' ?>"
-                >
+                    style="margin-top: 16px; <?= $solde_insuffisant ? 'border: 2px solid var(--danger);' : '' ?>">
                     <div class="pad">
                         <h3 style="margin-bottom: 20px;">Votre portefeuille</h3>
 
@@ -233,8 +257,7 @@
                                 <input
                                     type="hidden"
                                     name="sport_ids[]"
-                                    value="<?= esc((string) $sportId) ?>"
-                                >
+                                    value="<?= esc((string) $sportId) ?>">
                             <?php endforeach; ?>
 
                             <button type="submit" class="btn btn-primary full">

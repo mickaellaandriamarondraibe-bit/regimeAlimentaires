@@ -18,10 +18,10 @@
                 Mes programmes
             </a>
 
-            <button class="btn btn-primary" type="button" onclick="window.print()">
+            <a class="btn btn-primary" href="<?= site_url('pdf/programme/' . ($programme['id'] ?? 0)) ?>">
                 <i class="fa-solid fa-file-pdf"></i>
                 Exporter PDF
-            </button>
+            </a>
         </div>
     </div>
 </section>

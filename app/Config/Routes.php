@@ -42,6 +42,10 @@ $routes->group('', ['filter' => 'auth'], static function ($routes): void {
     $routes->get('/programme/mes-programmes', 'ProgrammeController::mesProgrammes');
     $routes->get('/programme/detail/(:num)', 'ProgrammeController::detail/$1');
 
+    // Export PDF
+    $routes->post('pdf/apercu-achat', 'PDFController::apercuAchat');
+    $routes->get('pdf/programme/(:num)', 'PDFController::detailProgramme/$1');
+
     // Routes admin
     $routes->group('', ['filter' => 'role:admin'], static function ($routes): void {
         // Dashboard
