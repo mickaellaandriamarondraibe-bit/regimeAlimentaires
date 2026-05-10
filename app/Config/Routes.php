@@ -12,6 +12,7 @@ $routes->get('/login', 'UserController::login');
 $routes->post('/validationLogin', 'UserController::validationLogin');
 $routes->get('/inscription', 'UserController::inscriptionPage1');
 $routes->match(['get', 'post'], '/step2', 'UserController::inscriptionPage2');
+$routes->post('/back-to-step1', 'UserController::backToStep1');
 $routes->post('/savePage2', 'UserController::savePage2');
 $routes->post('/register', 'UserController::enregistrementUser');
 $routes->get('/programme/catalogue', 'ProgrammeController::catalogue');

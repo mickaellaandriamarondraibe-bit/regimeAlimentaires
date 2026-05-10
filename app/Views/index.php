@@ -2,8 +2,36 @@
 
 <?= $this->section('content') ?>
 
+<section class="home-hero">
+    <div class="container hero-grid">
+        <div data-animate="hero-left">
+            <span class="badge" data-animate="slide-right" data-delay="80"><i class="fa-solid fa-bolt"></i> Programme nutritionnel international</span>
+            <h1 data-animate="slide-left-to-right" data-delay="180">Mangez mieux. <span>Progressez simplement.</span></h1>
+            <p data-animate="slide-right" data-delay="280">Template professionnel complet pour un service de repas équilibrés : menus, programmes, inscription en deux étapes, connexion, profil client et parcours “commencer”.</p>
+            <div class="hero-actions" data-animate="slide-right" data-delay="380">
+                <a class="btn btn-primary" href="<?= session('user_id') ? site_url('programme') : site_url('login') ?>">
+                    Commencer maintenant
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a class="btn btn-light" href="<?= site_url('programme/catalogue') ?>">Voir les menus</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="big-food"></div>
+            <img class="deco-photo d1" src="<?= base_url('assets/img/grilled-chicken-rice-spicy-chickpeas-avocado-cabbage-pepper-buddha-bowl.jpg') ?>" alt="Bol healthy décoratif">
+            <img class="deco-photo d3" src="<?= base_url('assets/img/logo.png') ?>" alt="Logo NutriFit décoratif">
+            <span class="orbit o1">🍅</span>
+            <span class="orbit o2">🥑</span>
+            <span class="orbit o3">🥕</span>
+            <div class="floating f1"><i class="fa-solid fa-truck-fast"></i> Livraison à domicile</div>
+            <div class="floating f2"><i class="fa-solid fa-user-doctor"></i> Coach nutrition</div>
+        </div>
+    </div>
+</section>
+
 <section class="page-head">
-    <div class="container page-head-row">
+    <div class="container page-head-row" data-animate="fade-up">
         <div>
             <span class="badge">
                 <i class="fa-solid fa-house"></i>
@@ -29,7 +57,7 @@
 <section class="section">
     <div class="container">
 
-        <article class="card pad" style="margin-bottom:22px;">
+        <article class="card pad home-card" data-animate="fade-up" style="margin-bottom:22px;">
             <h3>Résumé de votre compte</h3>
 
             <?php
@@ -68,7 +96,8 @@
         </article>
 
         <div class="programs-grid">
-            <article class="card pad">
+            <article class="card pad home-card" data-animate="card">
+                <img class="card-deco" src="<?= base_url('assets/img/grilled-chicken-rice-spicy-chickpeas-avocado-cabbage-pepper-buddha-bowl.jpg') ?>" alt="Illustration programme">
                 <span class="badge">
                     <i class="fa-solid fa-chart-line"></i>
                     Programme
@@ -85,7 +114,8 @@
                 </a>
             </article>
 
-            <article class="card pad">
+            <article class="card pad home-card" data-animate="card">
+                <img class="card-deco" src="<?= base_url('assets/img/top-view-healthy-diet-salad-with-grilled-chicken-broccoli-cauliflower-tomato-lettuce-avocado-lettuce.jpg') ?>" alt="Illustration catalogue">
                 <span class="badge">
                     <i class="fa-solid fa-book-open"></i>
                     Catalogue
@@ -102,7 +132,7 @@
                 </a>
             </article>
 
-            <article class="card pad">
+            <article class="card pad home-card" data-animate="card">
                 <h3>Recharger mon wallet</h3>
 
                 <p style="color:var(--muted);line-height:1.7;margin:12px 0 18px;">

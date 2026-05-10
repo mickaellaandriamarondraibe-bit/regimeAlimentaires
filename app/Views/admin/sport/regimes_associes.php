@@ -3,13 +3,13 @@
 <?= $this->section('content') ?>
 
 <section class="page-head">
-    <div class="container page-head-row">
+    <div class="container page-head-row" data-animate="fade-up">
         <div>
-            <span class="badge">
+            <span class="badge" data-animate="slide-right" data-delay="80">
                 <i class="fa-solid fa-link"></i>
                 Compatibilité
             </span>
-            <h1>Régimes associés au sport</h1>
+            <h1 data-animate="slide-right" data-delay="160">Régimes associés au sport</h1>
         </div>
 
         <div class="actions">

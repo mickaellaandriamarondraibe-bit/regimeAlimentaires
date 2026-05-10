@@ -10,13 +10,13 @@ $action = $isEdit
 ?>
 
 <section class="page-head">
-    <div class="container page-head-row">
+    <div class="container page-head-row" data-animate="fade-up">
         <div>
-            <span class="badge">
+            <span class="badge" data-animate="slide-right" data-delay="80">
                 <i class="fa-solid fa-person-running"></i>
                 Sport
             </span>
-            <h1><?= $isEdit ? 'Modifier une activité sportive' : 'Créer une activité sportive' ?></h1>
+            <h1 data-animate="slide-right" data-delay="160"><?= $isEdit ? 'Modifier une activité sportive' : 'Créer une activité sportive' ?></h1>
         </div>
 
         <div class="actions">

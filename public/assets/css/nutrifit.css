@@ -147,6 +147,356 @@ textarea {
     border-bottom: 1px solid rgba(59, 23, 73, .08);
 }
 
+.home-hero {
+    background: linear-gradient(115deg, #f8edcf 0%, #f3eef6 55%, #d8f0df 100%);
+    padding: 92px 0 70px;
+    min-height: 78vh;
+    border-bottom: 1px solid rgba(59, 23, 73, .08);
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 44px;
+    align-items: center;
+}
+
+.home-hero h1 {
+    color: var(--purple);
+    font-size: clamp(2.5rem, 6.5vw, 5rem);
+    line-height: .95;
+    letter-spacing: -.06em;
+    margin: 18px 0 18px;
+    max-width: 620px;
+}
+
+.home-hero h1 span {
+    display: block;
+    color: #ff3d1c;
+}
+
+.home-hero p {
+    color: #6d6172;
+    line-height: 1.55;
+    max-width: 620px;
+    font-size: 1.08rem;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+}
+
+/* Cinematic intro: bloc texte hero */
+.home-hero .hero-grid > [data-animate="hero-left"] > .badge,
+.home-hero .hero-grid > [data-animate="hero-left"] > h1,
+.home-hero .hero-grid > [data-animate="hero-left"] > p,
+.home-hero .hero-grid > [data-animate="hero-left"] > .hero-actions {
+    opacity: 0;
+    transform: translateX(-120px) scale(.98);
+    will-change: transform, opacity;
+}
+
+.home-hero .hero-grid > [data-animate="hero-left"] > .badge {
+    animation: heroCinematicLite .85s cubic-bezier(.22,.8,.2,1) .05s forwards;
+}
+
+.home-hero .hero-grid > [data-animate="hero-left"] > h1 {
+    animation: heroCinematicLite 1s cubic-bezier(.22,.8,.2,1) .16s forwards;
+}
+
+.home-hero .hero-grid > [data-animate="hero-left"] > p {
+    animation: heroCinematicLite .95s cubic-bezier(.22,.8,.2,1) .28s forwards;
+}
+
+.home-hero .hero-grid > [data-animate="hero-left"] > .hero-actions {
+    animation: heroCinematicLite .9s cubic-bezier(.22,.8,.2,1) .40s forwards;
+}
+
+.hero-visual {
+    position: relative;
+    min-height: 520px;
+}
+
+.home-hero .hero-visual {
+    opacity: 0;
+    transform: translateX(120px) scale(.98);
+    animation: heroVisualLite .95s cubic-bezier(.22,.8,.2,1) .18s forwards;
+}
+
+.big-food {
+    height: 100%;
+    min-height: 520px;
+    border-radius: 42px;
+    background-image:
+        linear-gradient(180deg, rgba(31, 18, 40, .08), rgba(31, 18, 40, .18)),
+        url('/assets/img/top-view-healthy-diet-salad-with-grilled-chicken-broccoli-cauliflower-tomato-lettuce-avocado-lettuce.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(59,23,73,.12);
+    box-shadow: 0 28px 70px rgba(59, 23, 73, .18);
+    position: relative;
+    overflow: hidden;
+}
+
+.big-food::before {
+    content: "";
+}
+
+.floating {
+    position: absolute;
+    background: rgba(255, 255, 255, .92);
+    color: var(--purple);
+    border: 1px solid rgba(59,23,73,.12);
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-weight: 900;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    box-shadow: 0 10px 26px rgba(59, 23, 73, .12);
+}
+
+.floating i {
+    color: var(--green);
+}
+
+.deco-photo {
+    position: absolute;
+    width: 92px;
+    height: 92px;
+    object-fit: cover;
+    border-radius: 22px;
+    border: 2px solid rgba(255, 255, 255, .85);
+    box-shadow: 0 16px 34px rgba(31, 18, 40, .25);
+    z-index: 3;
+    animation: none;
+}
+
+.deco-photo.d1 {
+    top: -18px;
+    left: -24px;
+    width: 108px;
+    height: 108px;
+}
+
+.deco-photo.d3 {
+    top: 44%;
+    left: -40px;
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    background: #fff;
+    animation-delay: 1.2s;
+}
+
+.f1 {
+    left: -12px;
+    top: 90px;
+    animation: none;
+}
+
+.f2 {
+    right: 18px;
+    top: 34px;
+    animation: none;
+}
+
+.orbit {
+    position: absolute;
+    font-size: 2rem;
+    filter: drop-shadow(0 8px 18px rgba(59, 23, 73, .18));
+    animation: none;
+}
+
+.o1 {
+    left: 16px;
+    bottom: 36px;
+    animation-delay: .3s;
+}
+
+.o2 {
+    right: 22px;
+    bottom: 74px;
+    animation-delay: 1.1s;
+}
+
+.o3 {
+    left: 42%;
+    top: 16px;
+    animation-delay: .7s;
+}
+
+.reveal {
+    animation: revealUp .9s ease both;
+}
+
+[data-animate].anim-ready {
+    opacity: 0;
+    transition: opacity .35s ease, transform .35s ease;
+    transition-delay: var(--anim-delay, 0ms);
+    will-change: transform, opacity;
+}
+
+/* Evite les conflits avec les animations cinematiques du hero */
+.home-hero [data-animate].anim-ready {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+}
+
+[data-animate="fade-up"].anim-ready,
+[data-animate="card"].anim-ready {
+    transform: translateY(12px);
+    filter: none;
+}
+
+[data-animate="hero-left"].anim-ready {
+    transform: none;
+    filter: none;
+}
+
+[data-animate="hero-right"].anim-ready {
+    transform: translateX(56px);
+    filter: blur(4px);
+}
+
+[data-animate="slide-left-to-right"].anim-ready {
+    transform: none;
+    filter: none;
+    opacity: 1;
+    transition: none;
+}
+
+[data-animate="slide-right"].anim-ready {
+    transform: none;
+    filter: none;
+    opacity: 1;
+    transition: none;
+}
+
+[data-animate].anim-ready.is-visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+.programs-grid .home-card:nth-child(1) { --anim-delay: 80ms; }
+.programs-grid .home-card:nth-child(2) { --anim-delay: 170ms; }
+.programs-grid .home-card:nth-child(3) { --anim-delay: 260ms; }
+
+@media (prefers-reduced-motion: reduce) {
+    [data-animate].anim-ready {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+    }
+
+    [data-animate="slide-right"].anim-ready,
+    [data-animate="slide-left-to-right"].anim-ready {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+    }
+}
+
+@keyframes floatFood {
+    0%, 100% { transform: translate(-50%, -50%) rotate(-2deg); }
+    50% { transform: translate(-50%, -53%) rotate(2deg); }
+}
+
+@keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes orbit {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-12px) scale(1.08); }
+}
+
+@keyframes decoFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes revealUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroCinematic {
+    0% {
+        opacity: 0;
+        transform: translateX(-280px) skewX(-12deg) scale(.88);
+        filter: blur(14px);
+    }
+    68% {
+        opacity: 1;
+        transform: translateX(14px) skewX(1deg) scale(1.015);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) skewX(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes heroCinematicLite {
+    0% {
+        opacity: 0;
+        transform: translateX(-120px) scale(.98);
+    }
+    70% {
+        opacity: 1;
+        transform: translateX(8px) scale(1.005);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes heroVisualLite {
+    0% {
+        opacity: 0;
+        transform: translateX(120px) scale(.98);
+    }
+    70% {
+        opacity: 1;
+        transform: translateX(-8px) scale(1.005);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes heroVisualIn {
+    0% {
+        opacity: 0;
+        transform: translateX(240px) scale(.92) rotate(2deg);
+        filter: blur(10px);
+    }
+    70% {
+        opacity: 1;
+        transform: translateX(-10px) scale(1.02) rotate(-.4deg);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1) rotate(0);
+        filter: blur(0);
+    }
+}
+
 .page-head-row {
     display: flex;
     justify-content: space-between;
@@ -384,6 +734,15 @@ textarea:focus {
     gap: 22px;
 }
 
+.card-deco {
+    width: 100%;
+    height: 138px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 14px;
+    border: 1px solid rgba(59, 23, 73, .1);
+}
+
 .profile-grid {
     display: grid;
     grid-template-columns: 1.1fr .9fr;
@@ -433,6 +792,27 @@ textarea:focus {
     .metric-grid {
         grid-template-columns: 1fr 1fr;
     }
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-visual {
+        min-height: 360px;
+    }
+
+    .big-food {
+        min-height: 360px;
+    }
+
+    .f1 {
+        left: 10px;
+        top: 12px;
+    }
+
+    .orbit {
+        font-size: 1.6rem;
+    }
 }
 
 @media (max-width: 680px) {
@@ -445,5 +825,30 @@ textarea:focus {
 
     .section {
         padding: 50px 0;
+    }
+
+    .home-hero {
+        padding: 48px 0 34px;
+    }
+
+    .big-food::before {
+        font-size: 170px;
+    }
+
+    .floating {
+        position: static;
+        margin-top: 10px;
+    }
+
+    .home-hero .hero-grid > [data-animate="hero-left"] > .badge,
+    .home-hero .hero-grid > [data-animate="hero-left"] > h1,
+    .home-hero .hero-grid > [data-animate="hero-left"] > p,
+    .home-hero .hero-grid > [data-animate="hero-left"] > .hero-actions {
+        transform: translateX(-180px) skewX(-10deg) scale(.92);
+    }
+
+    .deco-photo.d1,
+    .deco-photo.d3 {
+        display: none;
     }
 }

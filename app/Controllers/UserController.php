@@ -95,6 +95,22 @@ class UserController extends BaseController
         ]);
     }
 
+    public function backToStep1()
+    {
+        $session = session();
+
+        // Sauvegarder les données de l'étape 2 en session
+        $session->set([
+            'phone'          => $this->request->getPost('phone') ?: $session->get('phone'),
+            'genre'          => $this->request->getPost('genre') ?: $session->get('genre'),
+            'date_naissance' => $this->request->getPost('date_naissance') ?: $session->get('date_naissance'),
+            'taille'         => $this->request->getPost('taille') ?: $session->get('taille'),
+            'poids'          => $this->request->getPost('poids') ?: $session->get('poids'),
+        ]);
+
+        return redirect()->to('/inscription');
+    }
+
 
     public function savePage2()
     {
@@ -102,7 +118,6 @@ class UserController extends BaseController
             'phone'          => $this->request->getPost('phone'),
             'genre'          => $this->request->getPost('genre'),
             'date_naissance' => $this->request->getPost('date_naissance'),
-            'age'            => $this->request->getPost('age'),
             'taille'         => $this->request->getPost('taille'),
             'poids'          => $this->request->getPost('poids'),
         ]);
@@ -121,16 +136,36 @@ class UserController extends BaseController
         $phone = trim((string) $this->request->getPost('phone'));
         $genre = (string) $this->request->getPost('genre');
         $dateNaissance = (string) $this->request->getPost('date_naissance');
-        $age = (int) $this->request->getPost('age');
         $taille = (float) $this->request->getPost('taille');
         $poids = (float) $this->request->getPost('poids');
 
-        if ($email === '' || $username === '' || $password === '') {
-            return redirect()->to('/step2')->with('error', 'Les informations de l’étape 1 sont manquantes.');
+        // Champs étape 2 optionnels côté UI, mais non-null côté DB.
+        // On applique donc des valeurs par défaut sûres.
+        if ($genre === '') {
+            $genre = (string) $session->get('genre');
+        }
+        if ($genre === '') {
+            $genre = 'H';
         }
 
-        if ($genre === '' || $dateNaissance === '' || $age <= 0 || $taille <= 0 || $poids <= 0) {
-            return redirect()->to('/step2')->with('error', 'Veuillez remplir correctement toutes les informations.');
+        if ($dateNaissance === '') {
+            $dateNaissance = date('Y-m-d');
+        }
+
+        if ($taille <= 0) {
+            $taille = 0.0;
+        }
+        if ($poids <= 0) {
+            $poids = 0.0;
+        }
+
+        $age = (int) date_diff(date_create($dateNaissance), date_create(date('Y-m-d')))->y;
+        if ($age <= 0) {
+            $age = 1;
+        }
+
+        if ($email === '' || $username === '' || $password === '') {
+            return redirect()->to('/step2')->with('error', 'Les informations de l’étape 1 sont manquantes.');
         }
 
         if ($this->userModel->where('email', $email)->first()) {
@@ -155,7 +190,7 @@ class UserController extends BaseController
         $this->infoClientModel->insert([
             'user_id'           => $userId,
             'name'              => $username,
-            'phone'             => $phone ?? null,
+            'phone'             => $phone !== '' ? $phone : null,
             'genre'             => $genre,
             'date_naissance'    => $dateNaissance,
             'age'               => $age,
@@ -178,7 +213,6 @@ class UserController extends BaseController
             'phone',
             'genre',
             'date_naissance',
-            'age',
             'taille',
             'poids',
         ]);

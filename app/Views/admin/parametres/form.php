@@ -10,13 +10,13 @@ $action = $isEdit
 ?>
 
 <section class="page-head">
-    <div class="container page-head-row">
+    <div class="container page-head-row" data-animate="fade-up">
         <div>
-            <span class="badge">
+            <span class="badge" data-animate="slide-right" data-delay="80">
                 <i class="fa-solid fa-sliders"></i>
                 Paramètres
             </span>
-            <h1><?= $isEdit ? 'Modifier un paramètre' : 'Créer un paramètre' ?></h1>
+            <h1 data-animate="slide-right" data-delay="160"><?= $isEdit ? 'Modifier un paramètre' : 'Créer un paramètre' ?></h1>
         </div>
 
         <div class="actions">

@@ -12,16 +12,16 @@ $action = $isEdit
 
 <section class="page-head">
 
-    <div class="container page-head-row">
+    <div class="container page-head-row" data-animate="fade-up">
 
         <div>
 
-            <span class="badge">
+            <span class="badge" data-animate="slide-right" data-delay="80">
                 <i class="fa-solid fa-bullseye"></i>
                 Objectifs
             </span>
 
-            <h1>
+            <h1 data-animate="slide-right" data-delay="160">
                 <?= $isEdit ? 'Modifier un objectif' : 'Créer un objectif' ?>
             </h1>
 

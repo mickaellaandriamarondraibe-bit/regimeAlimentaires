@@ -3,10 +3,10 @@
 <?= $this->section('content') ?>
 
 <section class="page-head">
-    <div class="container page-head-row">
+    <div class="container page-head-row" data-animate="fade-up">
         <div>
-            <span class="badge"><i class="fa-solid fa-chart-line"></i> Programmes</span>
-            <h1>Suggestions selon votre objectif</h1>
+            <span class="badge" data-animate="slide-right" data-delay="80"><i class="fa-solid fa-chart-line"></i> Programmes</span>
+            <h1 data-animate="slide-right" data-delay="160">Suggestions selon votre objectif</h1>
         </div>
     </div>
 </section>

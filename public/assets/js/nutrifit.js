@@ -13,7 +13,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     drawDashboardCharts();
+    initHomeAnimations();
 });
+
+function initHomeAnimations() {
+    const autoTargets = [
+        '.page-head-row',
+        '.card',
+        '.admin-table-wrap',
+    ];
+
+    autoTargets.forEach((selector) => {
+        document.querySelectorAll(selector).forEach((el) => {
+            if (!el.hasAttribute('data-animate')) {
+                el.setAttribute('data-animate', 'fade-up');
+            }
+        });
+    });
+
+    const items = Array.from(document.querySelectorAll('[data-animate]'))
+        .filter((el) => !el.closest('.home-hero'));
+    if (!items.length) {
+        return;
+    }
+
+    items.forEach((el) => {
+        el.classList.add('anim-ready');
+        el.style.setProperty('--anim-delay', '0ms');
+    });
+
+    // Afficher tout de suite les éléments déjà dans le viewport au chargement
+    items.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.92) {
+            el.classList.add('is-visible');
+        }
+    });
+
+    if (!('IntersectionObserver' in window)) {
+        items.forEach((el) => el.classList.add('is-visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.16,
+        rootMargin: '0px 0px -8% 0px',
+    });
+
+    items.forEach((el) => {
+        if (!el.classList.contains('is-visible')) {
+            observer.observe(el);
+        }
+    });
+}
 
 function drawDashboardCharts() {
     if (typeof Chart === 'undefined') {

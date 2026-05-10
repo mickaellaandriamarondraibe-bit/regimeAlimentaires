@@ -3,15 +3,15 @@
 <?= $this->section('content') ?>
 
 <section class="page-head">
-    <div class="container page-head-row">
+    <div class="container page-head-row" data-animate="fade-up">
 
         <div>
-            <span class="badge">
+            <span class="badge" data-animate="slide-right" data-delay="80">
                 <i class="fa-solid fa-utensils"></i>
                 Catalogue
             </span>
 
-            <h1>Catalogue des régimes</h1>
+            <h1 data-animate="slide-right" data-delay="160">Catalogue des régimes</h1>
         </div>
 
         <div class="actions">
@@ -50,7 +50,9 @@
                     <?php
                         $variation = (float) ($regime['variation_poids_semaine'] ?? 0);
 
-                        $prix = (float) ($regime['prix'] ?? 0);
+                        $prixList = $regime['prix'] ?? [];
+                        $selectedPrix = $prixList[0] ?? null;
+                        $prix = (float) ($selectedPrix['prix'] ?? 0);
 
                         $sports = $regime['sports'] ?? [];
 
@@ -177,6 +179,11 @@
                                             type="hidden"
                                             name="sport_id"
                                             value="<?= esc((string) ($sport['id'] ?? 0)) ?>"
+                                        >
+                                        <input
+                                            type="hidden"
+                                            name="prix_regime_id"
+                                            value="<?= esc((string) ($selectedPrix['id'] ?? 0)) ?>"
                                         >
 
                                         <button class="btn btn-primary full" type="submit">
