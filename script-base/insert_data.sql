@@ -24,19 +24,19 @@ SET FOREIGN_KEY_CHECKS = 1;
 /* =========================
    USERS + INFOS CLIENTS
 ========================= */
-INSERT INTO user (id, email, username, role, password) VALUES
-(1, 'admin@nutrifit.mg', 'admin', 'admin', '$2y$10$0558a2CACKvqrAtal95cE.5T1ekkzC70pT.3YzEE.y2XmwLjrOHWe'),
-(2, 'alice@nutrifit.mg', 'alice', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'),
-(3, 'bob@nutrifit.mg', 'bob', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'),
-(4, 'clara@nutrifit.mg', 'clara', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2');
+INSERT INTO user (id, email, role, password) VALUES
+(1, 'admin@nutrifit.mg', 'admin', '$2y$10$0558a2CACKvqrAtal95cE.5T1ekkzC70pT.3YzEE.y2XmwLjrOHWe'),
+(2, 'alice@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'),
+(3, 'bob@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'),
+(4, 'clara@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2');
 
 INSERT INTO infos_clients (
-    id, user_id, phone, date_naissance, genre, taille, poids, data_naissance, age, is_gold, wallet
+    id, user_id, username, phone, date_naissance, genre, taille, poids, age, is_gold, wallet
 ) VALUES
-(1, 1, '0340000001', '1990-01-01', 'H', 175.00, 78.00, '1990-01-01', 36, 1, 150000.00),
-(2, 2, '0340000002', '1999-05-10', 'F', 162.00, 71.50, '1999-05-10', 27, 0, 120000.00),
-(3, 3, '0340000003', '1996-11-15', 'H', 178.00, 64.00, '1996-11-15', 29, 1, 95000.00),
-(4, 4, '0340000004', '2001-02-21', 'F', 168.00, 59.00, '2001-02-21', 25, 0, 60000.00);
+(1, 1, 'admin', '0340000001', '1990-01-01', 'H', 175.00, 78.00, 36, 1, 150000.00),
+(2, 2, 'alice', '0340000002', '1999-05-10', 'F', 162.00, 71.50, 27, 0, 120000.00),
+(3, 3, 'bob', '0340000003', '1996-11-15', 'H', 178.00, 64.00, 29, 1, 95000.00),
+(4, 4, 'clara', '0340000004', '2001-02-21', 'F', 168.00, 59.00, 25, 0, 60000.00);
 
 /* =========================
    OBJECTIFS

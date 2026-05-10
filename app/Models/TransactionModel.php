@@ -44,7 +44,7 @@ class TransactionModel extends Model
         return $this->select('
             transactions.*,
             infos_clients.phone,
-            user.username,
+            infos_clients.username,
             user.email
         ')
             ->join('infos_clients', 'infos_clients.id = transactions.client_id')

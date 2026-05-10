@@ -51,7 +51,7 @@ class UserController extends BaseController
 
         session()->set([
             'user_id'  => $userBase['id'],
-            'username' => $userBase['username'],
+            'username' => $this->infoClientModel->getByUserId((int) $userBase['id'])['username'] ?? '',
             'email'    => $userBase['email'],
             'role'     => $userBase['role'] ?? null,
         ]);
@@ -123,7 +123,7 @@ class UserController extends BaseController
             return redirect()->to('/step2')->with('error', 'Cet email existe déjà.');
         }
 
-        if ($this->userModel->where('username', $username)->first()) {
+        if ($this->infoClientModel->where('username', $username)->first()) {
             return redirect()->to('/step2')->with('error', 'Ce nom d’utilisateur existe déjà.');
         }
 
@@ -132,7 +132,6 @@ class UserController extends BaseController
 
         $this->userModel->insert([
             'email'    => $email,
-            'username' => $username,
             'password' => password_hash($password, PASSWORD_DEFAULT),
             'role'     => 'client',
         ]);
@@ -141,10 +140,10 @@ class UserController extends BaseController
 
         $this->infoClientModel->insert([
             'user_id'         => $userId,
+            'username'        => $username,
             'phone'           => $phone ?? null,
             'genre'           => $genre,
             'date_naissance'  => $dateNaissance,
-            'data_naissance'  => $dateNaissance,
             'age'             => $age,
             'taille'          => $taille,
             'poids'           => $poids,
@@ -238,6 +237,7 @@ class UserController extends BaseController
     }
 
     $this->infoClientModel->updateProfilByUserId($userId, [
+        'username' => trim((string) $this->request->getPost('username')),
         'phone'  => trim((string) $this->request->getPost('phone')),
         'genre'  => $this->request->getPost('genre'),
         'taille' => $this->request->getPost('taille'),
@@ -246,7 +246,6 @@ class UserController extends BaseController
 
     $this->userModel->updateProfilById($userId, [
         'email'    => trim((string) $this->request->getPost('email')),
-        'username' => trim((string) $this->request->getPost('username')),
     ]);
 
     session()->set([

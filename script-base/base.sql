@@ -24,7 +24,6 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE IF NOT EXISTS user(
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(150) NOT NULL UNIQUE,
-    username VARCHAR(100) NOT NULL UNIQUE,
     role ENUM('client', 'admin') NOT NULL DEFAULT 'client',
     password VARCHAR(255) NOT NULL
 );
@@ -32,12 +31,12 @@ CREATE TABLE IF NOT EXISTS user(
 CREATE TABLE IF NOT EXISTS infos_clients (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL UNIQUE,
+    username VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(30),
-    date_naissance DATE, 
+    date_naissance DATE NOT NULL,
     genre ENUM('H', 'F') NOT NULL,
     taille DECIMAL(5,2) NOT NULL,
     poids DECIMAL(5,2) NOT NULL,
-    data_naissance DATE NOT NULL,
     age INT NOT NULL,
     is_gold BOOLEAN NOT NULL DEFAULT FALSE,
     wallet DECIMAL(10,2) NOT NULL DEFAULT 0,

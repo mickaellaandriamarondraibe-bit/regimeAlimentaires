@@ -43,7 +43,13 @@ class DashboardController extends BaseController
             'montant_total' => (float) (\Config\Database::connect()->table('transactions')->selectSum('montant')->get()->getRowArray()['montant'] ?? 0),
         ];
 
-        $latestUsers = $userModel->orderBy('id', 'DESC')->findAll(8);
+        $latestUsers = \Config\Database::connect()
+            ->table('user u')
+            ->select('u.id, u.email, u.role, ic.username')
+            ->join('infos_clients ic', 'ic.user_id = u.id', 'left')
+            ->orderBy('u.id', 'DESC')
+            ->get(8)
+            ->getResultArray();
         $latestRegimes = $regimeModel->orderBy('id', 'DESC')->findAll(8);
         $latestTransactions = $transactionModel->getAllMouvements();
 

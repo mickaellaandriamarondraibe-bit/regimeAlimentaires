@@ -8,10 +8,9 @@ class UserModel extends Model
 {
     protected $table = 'user';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['email', 'username', 'role', 'password'];
+    protected $allowedFields = ['email', 'role', 'password'];
 
     protected $validationRules = [
-        'username' => 'required|max_length[100]',
         'email'    => 'required|valid_email|max_length[150]|is_unique[user.email,id,{id}]',
         'password' => 'required|min_length[6]|max_length[255]',
         'role'     => 'required|in_list[admin,client]',

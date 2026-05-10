@@ -45,7 +45,7 @@
             <input type="text" placeholder="Search" style="width:220px;padding:8px 10px;border:1px solid #ddd;border-radius:10px;">
           </div>
 
-          <p style="margin:0 0 10px;color:#ff5a1f;font-weight:700;">Hello, <?= esc($user['username'] ?? 'Admin') ?></p>
+          <p style="margin:0 0 10px;color:#ff5a1f;font-weight:700;">Hello, <?= esc($client['username'] ?? session('username') ?? 'Admin') ?></p>
 
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;">
             <div style="background:#fff;border:1px solid #eee;border-radius:12px;padding:12px;"><strong>$<?= esc(number_format((float)($stats['montant_total'] ?? 0),0,',',' ')) ?></strong><br><small>Total sales</small></div>

@@ -947,7 +947,7 @@
             </div>
             <div class="form-grid">
               <div class="input-group"><label>Âge</label><input class="input" type="number" name="age" value="<?= esc($client['age'] ?? session('age') ?? '') ?>" required></div>
-              <div class="input-group"><label>Date de naissance</label><input class="input" type="date" name="date_naissance" value="<?= esc($client['date_naissance'] ?? $client['data_naissance'] ?? session('date_naissance') ?? '') ?>" required></div>
+              <div class="input-group"><label>Date de naissance</label><input class="input" type="date" name="date_naissance" value="<?= esc($client['date_naissance'] ?? session('date_naissance') ?? '') ?>" required></div>
             </div>
             <button class="btn btn-green full" type="submit">Finaliser et voir mon profil <i class="fa-solid fa-check"></i></button>
             <div class="auth-switch"><button type="button" onclick="backToStep1()">Retour étape 1</button></div>
@@ -963,7 +963,7 @@
           <div class="profile-avatar"></div>
           <div>
             <span class="badge"><i class="fa-solid fa-user-check"></i> Profil actif</span>
-            <h1>Bonjour, <?= esc($user['username'] ?? session('username') ?? 'Client') ?></h1>
+            <h1>Bonjour, <?= esc($client['username'] ?? session('username') ?? 'Client') ?></h1>
             <p>
               Email : <?= esc($user['email'] ?? session('email') ?? '-') ?>
               · Genre : <?= esc($client['genre'] ?? '-') ?>
@@ -986,7 +986,7 @@
             <?= csrf_field() ?>
             <div class="form-grid">
               <div class="input-group"><label>Email</label><input class="input" type="email" name="email" value="<?= esc($user['email'] ?? session('email') ?? '') ?>" required></div>
-              <div class="input-group"><label>Nom d'utilisateur</label><input class="input" type="text" name="username" value="<?= esc($user['username'] ?? session('username') ?? '') ?>" required></div>
+              <div class="input-group"><label>Nom d'utilisateur</label><input class="input" type="text" name="username" value="<?= esc($client['username'] ?? session('username') ?? '') ?>" required></div>
             </div>
             <div class="form-grid">
               <div class="input-group"><label>Téléphone</label><input class="input" type="text" name="phone" value="<?= esc(($client['phone'] ?? '') === '0' ? '' : ($client['phone'] ?? '')) ?>"></div>
@@ -1010,7 +1010,7 @@
           <h3>Détails client</h3>
           <div class="timeline">
             <div class="timeline-item"><i class="fa-solid fa-phone"></i><div><strong>Téléphone</strong><span><?= esc($client['phone'] ?? '-') ?></span></div></div>
-            <div class="timeline-item"><i class="fa-solid fa-calendar-days"></i><div><strong>Date de naissance</strong><span><?= esc($client['date_naissance'] ?? $client['data_naissance'] ?? '-') ?></span></div></div>
+            <div class="timeline-item"><i class="fa-solid fa-calendar-days"></i><div><strong>Date de naissance</strong><span><?= esc($client['date_naissance'] ?? '-') ?></span></div></div>
             <div class="timeline-item"><i class="fa-solid fa-crown"></i><div><strong>Statut Gold</strong><span><?= !empty($client['is_gold']) ? 'Oui' : 'Non' ?></span></div></div>
           </div>
         </article>
