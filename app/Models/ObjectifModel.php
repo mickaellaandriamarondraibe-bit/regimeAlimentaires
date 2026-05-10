@@ -15,8 +15,19 @@ class ObjectifModel extends Model
     protected $useSoftDeletes = false;
 
     protected $allowedFields = [
-        'id',
         'name'
+    ];
+
+    protected $validationRules = [
+        'name' => 'required|min_length[2]|max_length[100]',
+    ];
+
+    protected $validationMessages = [
+        'name' => [
+            'required' => 'Le nom de l’objectif est requis.',
+            'min_length' => 'Le nom doit contenir au moins 2 caractères.',
+            'max_length' => 'Le nom ne doit pas dépasser 100 caractères.',
+        ],
     ];
 
     public function getObjectifById(int $id)

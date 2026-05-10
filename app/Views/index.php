@@ -33,15 +33,15 @@
             <h3>Résumé de votre compte</h3>
 
             <?php
-                $imc = null;
+            $imc = null;
 
-                if (!empty($client['poids']) && !empty($client['taille'])) {
-                    $tailleM = ((float) $client['taille']) / 100;
+            if (!empty($client['poids']) && !empty($client['taille'])) {
+                $tailleM = ((float) $client['taille']) / 100;
 
-                    if ($tailleM > 0) {
-                        $imc = round(((float) $client['poids']) / ($tailleM * $tailleM), 2);
-                    }
+                if ($tailleM > 0) {
+                    $imc = round(((float) $client['poids']) / ($tailleM * $tailleM), 2);
                 }
+            }
             ?>
 
             <div class="metric-grid">
@@ -103,20 +103,30 @@
             </article>
 
             <article class="card pad">
-                <span class="badge">
-                    <i class="fa-solid fa-wallet"></i>
-                    Wallet
-                </span>
-
-                <h3 style="margin-top:16px;">Recharger avec un code</h3>
+                <h3>Recharger mon wallet</h3>
 
                 <p style="color:var(--muted);line-height:1.7;margin:12px 0 18px;">
-                    Entrez un code pour envoyer une demande de validation à l’administrateur.
+                    Entrez un code de recharge. La demande sera ensuite validée par un administrateur.
                 </p>
 
-                <a class="btn btn-light full" href="<?= site_url('code') ?>">
-                    Entrer un code
-                </a>
+                <form method="post" action="<?= site_url('envoyerCode') ?>">
+                    <?= csrf_field() ?>
+
+                    <div class="input-group">
+                        <label>Code de recharge</label>
+                        <input
+                            class="input"
+                            type="text"
+                            name="code"
+                            placeholder="Ex : CODE-50000"
+                            required>
+                    </div>
+
+                    <button class="btn btn-primary full" type="submit">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Envoyer la demande
+                    </button>
+                </form>
             </article>
         </div>
 

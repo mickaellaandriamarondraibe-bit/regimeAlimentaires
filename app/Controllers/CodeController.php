@@ -25,6 +25,96 @@ class CodeController extends BaseController
         $this->userModel = new UserModel();
     }
 
+    public function index()
+    {
+        $codes = $this->CodeModel
+            ->orderBy('id', 'DESC')
+            ->findAll();
+
+        return view('admin/codes/index', [
+            'title' => 'Codes de recharge - NutriFit',
+            'codes' => $codes,
+        ]);
+    }
+
+    public function create()
+    {
+        return view('admin/codes/form', [
+            'title' => 'Créer un code - NutriFit',
+        ]);
+    }
+
+    public function store()
+    {
+        $data = [
+            'code' => trim((string) $this->request->getPost('code')),
+            'montant' => (float) $this->request->getPost('montant'),
+        ];
+
+        if (!$this->CodeModel->insert($data)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->CodeModel->errors());
+        }
+
+        return redirect()->to('/codes')
+            ->with('success', 'Code ajouté avec succès.');
+    }
+
+    public function edit(int $id)
+    {
+        $codeRecharge = $this->CodeModel->find($id);
+
+        if (!$codeRecharge) {
+            return redirect()->to('/codes')
+                ->with('error', 'Code introuvable.');
+        }
+
+        return view('admin/codes/form', [
+            'title' => 'Modifier un code - NutriFit',
+            'codeRecharge' => $codeRecharge,
+        ]);
+    }
+
+    public function update(int $id)
+    {
+        $codeRecharge = $this->CodeModel->find($id);
+
+        if (!$codeRecharge) {
+            return redirect()->to('/codes')
+                ->with('error', 'Code introuvable.');
+        }
+
+        $data = [
+            'code' => trim((string) $this->request->getPost('code')),
+            'montant' => (float) $this->request->getPost('montant'),
+        ];
+
+        if (!$this->CodeModel->update($id, $data)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->CodeModel->errors());
+        }
+
+        return redirect()->to('/codes')
+            ->with('success', 'Code modifié avec succès.');
+    }
+
+    public function delete(int $id)
+    {
+        $codeRecharge = $this->CodeModel->find($id);
+
+        if (!$codeRecharge) {
+            return redirect()->to('/codes')
+                ->with('error', 'Code introuvable.');
+        }
+
+        $this->CodeModel->delete($id);
+
+        return redirect()->to('/codes')
+            ->with('success', 'Code supprimé avec succès.');
+    }
+
     public function validationCode()
     {
         $userId = session()->get('user_id');

@@ -233,7 +233,7 @@ class UserController extends BaseController
             'title' => 'Mon profil - NutriFit',
             'user' => $user,
             'client' => $client,
-            'gold_prix' => $this->parametreModel->getFloatValeur('gold_prix'),
+            'prix_gold' => $this->parametreModel->getFloatValeur('prix_gold'),
             'gold_reduction' => $this->parametreModel->getFloatValeur('reduction_gold'),
         ]);
     }
@@ -283,7 +283,7 @@ class UserController extends BaseController
             return redirect()->to('/profil')->with('success', 'Option Gold déjà active.');
         }
 
-        $prixGold = (float) $this->parametreModel->getFloatValeur('gold_prix');
+        $prixGold = (float) $this->parametreModel->getFloatValeur('prix_gold');
         if ($prixGold <= 0) {
             $prixGold = 50000;
         }

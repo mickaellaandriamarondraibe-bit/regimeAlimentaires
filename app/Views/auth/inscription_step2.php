@@ -34,6 +34,15 @@
                     </div>
 
                     <div class="input-group">
+                        <label>Genre</label>
+                        <select class="select" name="genre" required>
+                            <option value="">Choisir</option>
+                            <option value="H" <?= session('genre') === 'H' ? 'selected' : '' ?>>Homme</option>
+                            <option value="F" <?= session('genre') === 'F' ? 'selected' : '' ?>>Femme</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
                         <label>Taille en cm</label>
                         <input class="input" type="number" step="0.01" name="taille" value="<?= esc((string) session('taille')) ?>" required>
                     </div>

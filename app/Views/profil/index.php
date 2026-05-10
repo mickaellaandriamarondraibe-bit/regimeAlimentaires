@@ -154,7 +154,7 @@
             <p style="margin-bottom:18px;">
                 Prix :
                 <strong>
-                    <?= esc(number_format((float) ($gold_prix ?? 50000), 0, ',', ' ')) ?> Ar
+                    <?= esc(number_format((float) ($prix_gold ?? 50000), 0, ',', ' ')) ?> Ar
                 </strong>
             </p>
 

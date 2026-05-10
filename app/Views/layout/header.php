@@ -13,18 +13,22 @@ $isAdmin = (session('role') ?? '') === 'admin';
         <nav class="nav-menu" id="navMenu">
             <?php if ($isAdmin): ?>
                 <a href="<?= site_url('dashboard') ?>">Dashboard</a>
-                <a href="<?= site_url('ingredient') ?>">Ingrédients</a>
+                <a href="<?= site_url('objectifs') ?>">Objectifs</a>
+                <a href="<?= site_url('codes') ?>">Codes</a>
                 <a href="<?= site_url('regime/list') ?>">Régimes</a>
                 <a href="<?= site_url('sport') ?>">Sports</a>
                 <a href="<?= site_url('parametres') ?>">Paramètres</a>
                 <a href="<?= site_url('admin/transactions') ?>">Transactions</a>
-            <?php else: ?>
+            <?php elseif ($isLoggedIn): ?>
                 <a href="<?= site_url('accueil') ?>">Accueil</a>
                 <a href="<?= site_url('programme') ?>">Programme</a>
                 <a href="<?= site_url('programme/catalogue') ?>">Catalogue</a>
                 <a href="<?= site_url('programme/mes-programmes') ?>">Mes programmes</a>
                 <a href="<?= site_url('transactions') ?>">Transactions</a>
                 <a href="<?= site_url('profil') ?>">Profil</a>
+            <?php else: ?>
+                <a href="<?= site_url('accueil') ?>">Accueil</a>
+                <a href="<?= site_url('programme/catalogue') ?>">Catalogue</a>
             <?php endif; ?>
         </nav>
 

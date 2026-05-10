@@ -3,26 +3,30 @@
 <?= $this->section('content') ?>
 
 <?php
-$isEdit = !empty($parametre);
+$isEdit = !empty($codeRecharge);
+
 $action = $isEdit
-    ? site_url('parametres/update/' . ($parametre['id'] ?? 0))
-    : site_url('parametres/store');
+    ? site_url('codes/update/' . ($codeRecharge['id'] ?? 0))
+    : site_url('codes/store');
 ?>
 
 <section class="page-head">
     <div class="container page-head-row">
         <div>
             <span class="badge">
-                <i class="fa-solid fa-sliders"></i>
-                Paramètres
+                <i class="fa-solid fa-ticket"></i>
+                Codes
             </span>
-            <h1><?= $isEdit ? 'Modifier un paramètre' : 'Créer un paramètre' ?></h1>
+
+            <h1>
+                <?= $isEdit ? 'Modifier un code' : 'Créer un code de recharge' ?>
+            </h1>
         </div>
 
         <div class="actions">
-            <a class="btn btn-light" href="<?= site_url('parametres') ?>">
+            <a class="btn btn-light" href="<?= site_url('codes') ?>">
                 <i class="fa-solid fa-arrow-left"></i>
-                Liste des paramètres
+                Retour
             </a>
         </div>
     </div>
@@ -36,47 +40,39 @@ $action = $isEdit
 
                 <div class="form-grid">
                     <div class="input-group">
-                        <label>Clé</label>
+                        <label>Code</label>
                         <input
                             class="input"
                             type="text"
-                            name="cle"
-                            value="<?= esc($parametre['cle'] ?? '') ?>"
-                            placeholder="Ex : prix_gold"
+                            name="code"
                             required
+                            placeholder="Ex : NTF-50000-A1B2"
+                            value="<?= esc(old('code', $codeRecharge['code'] ?? '')) ?>"
                         >
                     </div>
 
                     <div class="input-group">
-                        <label>Valeur</label>
+                        <label>Montant</label>
                         <input
                             class="input"
-                            type="text"
-                            name="valeur"
-                            value="<?= esc($parametre['valeur'] ?? '') ?>"
-                            placeholder="Ex : 50000"
+                            type="number"
+                            name="montant"
+                            step="0.01"
+                            min="0"
                             required
+                            placeholder="Ex : 50000"
+                            value="<?= esc(old('montant', $codeRecharge['montant'] ?? '')) ?>"
                         >
                     </div>
                 </div>
 
-                <div class="input-group">
-                    <label>Description</label>
-                    <textarea
-                        class="input"
-                        name="description"
-                        rows="5"
-                        placeholder="Description du paramètre"
-                    ><?= esc($parametre['description'] ?? '') ?></textarea>
-                </div>
-
-                <div class="actions">
+                <div class="actions" style="margin-top:22px;">
                     <button class="btn btn-primary" type="submit">
                         <i class="fa-solid fa-floppy-disk"></i>
                         <?= $isEdit ? 'Modifier' : 'Enregistrer' ?>
                     </button>
 
-                    <a class="btn btn-light" href="<?= site_url('parametres') ?>">
+                    <a class="btn btn-light" href="<?= site_url('codes') ?>">
                         Annuler
                     </a>
                 </div>

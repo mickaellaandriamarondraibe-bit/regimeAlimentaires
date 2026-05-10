@@ -167,7 +167,7 @@ INSERT INTO programme_sport (programme_id, sport_id) VALUES
 INSERT INTO parametres (id, cle, valeur, description) VALUES
 (1, 'imc_ideal', '22', 'Valeur IMC cible utilisee pour les suggestions.'),
 (2, 'reduction_gold', '15', 'Reduction en pourcentage appliquee aux clients Gold.'),
-(3, 'gold_prix', '50000', 'Prix unique pour activer l option Gold.');
+(3, 'prix_gold', '50000', 'Prix unique pour activer l option Gold.');
 
 /* Comptes de test:
    admin@nutrifit.mg / admin123
