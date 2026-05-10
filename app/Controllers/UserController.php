@@ -69,7 +69,7 @@ class UserController extends BaseController
             return redirect()->to('/dashboard')->with('success', 'Connexion admin réussie.');
         }
 
-        return redirect()->to('/accueil')->with('success', 'Connexion réussie.');
+        return redirect()->to('/accueil');
     }
 
     public function inscriptionPage1()

@@ -20,8 +20,7 @@
         <div class="hero-visual">
             <div class="big-food"></div>
             <img class="deco-photo d1" src="<?= base_url('assets/img/grilled-chicken-rice-spicy-chickpeas-avocado-cabbage-pepper-buddha-bowl.jpg') ?>" alt="Bol healthy décoratif">
-            <img class="deco-photo d3" src="<?= base_url('assets/img/logo.png') ?>" alt="Logo NutriFit décoratif">
-            <span class="orbit o1">🍅</span>
+           
             <span class="orbit o2">🥑</span>
             <span class="orbit o3">🥕</span>
             <div class="floating f1"><i class="fa-solid fa-truck-fast"></i> Livraison à domicile</div>
