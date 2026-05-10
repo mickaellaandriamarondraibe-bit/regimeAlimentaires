@@ -14,7 +14,7 @@ class InfoClientController extends BaseController
         $this->transactionModel = new TransactionModel();
     }
     function infoClient(){
-        return view('template/infoClient');
+        return view('template/healthy_food_international_landing_template(5)');
     }
 
     
@@ -52,15 +52,11 @@ class InfoClientController extends BaseController
         
         ];
         $montantADebiter = -$depense;
-        $montantAdmin = $this->infoClientModel->getByUserId(1);
-        $soldeAdmin = (float) ($montantAdmin['wallet'] ?? 0);
-        $montantAcrediter = $soldeAdmin + $depense;
         
         try {
                  $this->transactionModel->createTransaction($transactionData);
                  $this->transactionModel->createTransaction($transactionDataCredi);
                  $this->infoClientModel->updateSolde($userId, $montantADebiter);
-                 $this->infoClientModel->updateSolde(1, $montantAcrediter);
         } catch (\Throwable $th) {
              return redirect()->to('/test')->with('error', 'Erreur lors de la mise a jour du solde.');
         }
@@ -68,7 +64,7 @@ class InfoClientController extends BaseController
     }
 
     function test(){
-        return view('template/achat');
+        return view('template/healthy_food_international_landing_template(5)');
     }
     
 

@@ -18,7 +18,7 @@ class RoleFilter implements FilterInterface
         $userRole = (string) session()->get('role');
 
         if ($allowedRoles !== [] && ! in_array($userRole, $allowedRoles, true)) {
-            return redirect()->to('/acceuil')->with('error', 'Accès refusé.');
+            return redirect()->to('/accueil')->with('error', 'Accès refusé.');
         }
 
         return null;

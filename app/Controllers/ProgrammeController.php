@@ -26,6 +26,15 @@ class ProgrammeController extends BaseController
     private TransactionModel $transactionModel;
     private ProgrammeSportModel $programmeSportModel;
 
+    private function profileData(): array
+    {
+        $userId = (int) session()->get('user_id');
+        $user = (new \App\Models\UserModel())->find($userId);
+        $client = $this->infoClientsModel->getByUserId($userId);
+
+        return ['user' => $user, 'client' => $client];
+    }
+
     public function __construct()
     {
         $this->infoClientsModel = new InfoClientsModel();
@@ -57,12 +66,14 @@ class ProgrammeController extends BaseController
 
         $objectifs = $this->objectifModel->getAllObjectifs();
 
-        $imc = $this->calculerIMC($client['poids'], $client['taille']);
+        $imc = $this->calculerImc($client['poids'], $client['taille']);
 
-        return view('programme/index', [
-            'client' => $client,
+        return view('programmes/index', [
+            'title' => 'Programmes - NutriFit',
             'objectifs' => $objectifs,
-            'imc' => $imc
+            'imc' => $imc,
+            'suggestions' => [],
+            ...$this->profileData(),
         ]);
     }
 
@@ -80,7 +91,6 @@ class ProgrammeController extends BaseController
             return redirect()->to('/profil')
                 ->with('error', 'Veuillez compléter votre profil avant de continuer');
         }
-
 
         $objectifId = $this->request->getPost('objectif_id');
 
@@ -100,32 +110,53 @@ class ProgrammeController extends BaseController
 
         $poidsActuel = (float) $client['poids'];
         $tailleCm = (float) $client['taille'];
-        $imc = $this->calculerIMC($poidsActuel, $tailleCm);
-
-        $nomObjectif = $objectif['name'];
+        $imc = $this->calculerImc($poidsActuel, $tailleCm);
 
         $objectifKg = 0.0;
         $poidsCible = 0.0;
         $sensObjectif = null;
         $regimes = [];
 
-        if (str_contains($nomObjectif, 'reduire') || str_contains($nomObjectif, 'réduire')) {
-            $objectifKg = $this->request->getPost('objectif_kg');
+        $nomObjectif = strtolower((string) ($objectif['name'] ?? ''));
+        $isReduce = ((int) $objectifId === 1)
+            || str_contains($nomObjectif, 'reduire')
+            || str_contains($nomObjectif, 'réduire');
+        $isGain = ((int) $objectifId === 2)
+            || str_contains($nomObjectif, 'augmenter');
+        $isImc = ((int) $objectifId === 3)
+            || str_contains($nomObjectif, 'imc');
+
+        if ($isReduce) {
+            $objectifKg = (float) $this->request->getPost('objectif_kg');
+            if ($objectifKg <= 0) {
+                return redirect()->back()->withInput()->with('error', 'Veuillez saisir un objectif KG valide.');
+            }
             $poidsCible = $poidsActuel - $objectifKg;
             $sensObjectif = 'perte';
             $regimes = $this->regimeModel->getNegativeRegimes();
-        } elseif (str_contains($nomObjectif, 'augmenter')) {
-            $objectifKg = $this->request->getPost('objectif_kg');
+        } elseif ($isGain) {
+            $objectifKg = (float) $this->request->getPost('objectif_kg');
+            if ($objectifKg <= 0) {
+                return redirect()->back()->withInput()->with('error', 'Veuillez saisir un objectif KG valide.');
+            }
             $poidsCible = $poidsActuel + $objectifKg;
             $sensObjectif = 'gain';
             $regimes = $this->regimeModel->getPoitiveRegimes();
-        } elseif (str_contains($nomObjectif, 'imc')) {
+        } elseif ($isImc) {
             $poidsCible = $this->calculerPoidsIdeal($tailleCm);
             $objectifKg = abs($poidsActuel - $poidsCible);
 
             if ($objectifKg <= 0.1) {
-                return redirect()->back()
-                    ->with('success', 'Votre IMC actuel est déjà très proche de l\'IMC ideal. Continuez sur cette voie.');
+                return view('programmes/index', [
+                    'title' => 'Suggestions - NutriFit',
+                    'objectifs' => $this->objectifModel->getAllObjectifs(),
+                    'imc' => $imc,
+                    'objectif_selectionne' => (int) $objectifId,
+                    'objectif_kg_saisi' => (float) $objectifKg,
+                    'suggestions' => [],
+                    'sucess' => 'Vous êtes déjà proche de votre poids idéal',
+                    ...$this->profileData(),
+                ]);
             }
 
             if ($poidsActuel > $poidsCible) {
@@ -196,28 +227,26 @@ class ProgrammeController extends BaseController
             }
         }
 
-        return view('programme/suggestions', [
-            'client' => $client,
-            'objectif' => $objectif,
+        // Garder une trace simple du dernier diagnostic pour l'afficher sur le profil
+        session()->set([
+            'last_objectif_name' => $objectif['name'] ?? '',
+            'last_objectif_kg' => (float) $objectifKg,
+            'last_objectif_sens' => (string) $sensObjectif,
+        ]);
 
-            'objectif_kg' => $objectifKg,
-            'poids_actuel' => $poidsActuel,
-            'poids_cible' => $poidsCible,
-            'sens_objectif' => $sensObjectif,
+        return view('programmes/index', [
+            'title' => 'Suggestions - NutriFit',
+            'objectifs' => $this->objectifModel->getAllObjectifs(),
             'imc' => $imc,
-
+            'objectif_selectionne' => (int) $objectifId,
+            'objectif_kg_saisi' => (float) $objectifKg,
             'suggestions' => $suggestions,
+            ...$this->profileData(),
         ]);
     }
 
     public function catalogue()
     {
-        $userId = session()->get('user_id');
-
-        if (!$userId) {
-            return redirect()->to('/login');
-        }
-
         $regimes = $this->regimeModel->findAll();
 
         foreach ($regimes as &$regime) {
@@ -228,12 +257,14 @@ class ProgrammeController extends BaseController
                 ->getSportsByRegimeId((int) $regime['id']);
         }
 
-        return view('programme/catalogue', [
-            'regimes' => $regimes
+        return view('programmes/catalogue', [
+            'title' => 'Catalogue des régimes - NutriFit',
+            'regimes' => $regimes,
+            ...$this->profileData(),
         ]);
     }
 
-    public function confirmer()
+    public function apercuAvantAchat()
     {
         $userId = session()->get('user_id');
 
@@ -248,82 +279,141 @@ class ProgrammeController extends BaseController
                 ->with('error', 'Veuillez compléter votre profil avant de continuer');
         }
 
-        $objectifId = (int) $this->request->getPost('objectif_id');
-        $regimeId = (int) $this->request->getPost('regime_id');
-        $sportId = (int) $this->request->getPost('sport_id');
-        $objectifKg = (float) $this->request->getPost('objectif_kg');
+        $objectifId = (int) ($this->request->getGet('objectif_id') ?? 0);
+        $regimeId = (int) ($this->request->getGet('regime_id') ?? 0);
+        $objectifKg = (float) ($this->request->getGet('objectif_kg') ?? 0);
+        $source = (string) ($this->request->getGet('source') ?? 'suggestion');
 
-        if ($objectifId <= 0 || $regimeId <= 0 || $sportId <= 0 || $objectifKg <= 0) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Données du programme invalides.');
+        $sportIds = $this->request->getGet('sport_ids');
+
+        if ($sportIds === null) {
+            $sportId = (int) ($this->request->getGet('sport_id') ?? 0);
+            $sportIds = $sportId > 0 ? [$sportId] : [];
         }
 
-        $objectif = $this->objectifModel->find($objectifId);
-        $regime = $this->regimeModel->find($regimeId);
-
-        if (!$objectif || !$regime) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Objectif ou régime introuvable.');
+        if (!is_array($sportIds)) {
+            $sportIds = [$sportIds];
         }
 
-        $sportCompatible = $this->regimeSportModel->verifyAssociation($regimeId, $sportId);
+        $sportIds = array_values(array_filter(array_map('intval', $sportIds)));
 
-        if (!$sportCompatible) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Ce sport n’est pas compatible avec le régime choisi.');
+        if ($regimeId <= 0 || empty($sportIds)) {
+            return redirect()->to('/programme')
+                ->with('error', 'Données invalides.');
         }
 
-        $sport = $this->sportModel->find($sportId);
+        $regime = $this->regimeModel->getRegimeComplet($regimeId);
 
-        if (!$sport) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Sport introuvable.');
+        if (!$regime) {
+            return redirect()->to('/programme')
+                ->with('error', 'Régime introuvable.');
         }
 
-        $variationTotale = (float) $regime['variation_poids_semaine']
-            + (float) $sport['variation_poids_semaine'];
+        $sports = [];
+
+        foreach ($sportIds as $sportId) {
+            $sport = $this->sportModel->find($sportId);
+
+            if (!$sport) {
+                return redirect()->to('/programme')
+                    ->with('error', 'Sport introuvable.');
+            }
+
+            if (!$this->regimeSportModel->verifyAssociation($regimeId, $sportId)) {
+                return redirect()->to('/programme')
+                    ->with('error', 'Un des sports choisis n’est pas compatible avec le régime.');
+            }
+
+            $sports[] = $sport;
+        }
+
+        $variationTotale = (float) $regime['variation_poids_semaine'];
+
+        foreach ($sports as $sport) {
+            $variationTotale += (float) $sport['variation_poids_semaine'];
+        }
 
         if ($variationTotale == 0) {
-            return redirect()->back()
-                ->withInput()
+            return redirect()->to('/programme')
                 ->with('error', 'La variation totale est nulle.');
         }
 
-        $dureeCalculee = (int) ceil($objectifKg / abs($variationTotale));
+        // Pour le catalogue
+        if ($source === 'catalogue') {
+            $prixRegimeId = (int) ($this->request->getGet('prix_regime_id') ?? 0);
+            $prix = $this->prixRegimeModel->find($prixRegimeId);
 
-        if ($dureeCalculee <= 0) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Durée calculée invalide.');
+            if (!$prix || (int) $prix['regime_id'] !== $regimeId) {
+                return redirect()->to('/programme/catalogue')
+                    ->with('error', 'Tarif invalide.');
+            }
+
+            $dureeFacturee = (int) $prix['duree_semaine'];
+            $prixBase = (float) $prix['prix'];
+            $objectifKg = abs($variationTotale) * $dureeFacturee;
+            $objectif = null;
+
+            if ($variationTotale < 0) {
+                $objectif = $this->objectifModel
+                    ->like('name', 'Réduire')
+                    ->orLike('name', 'Reduire')
+                    ->first();
+            } else {
+                $objectif = $this->objectifModel
+                    ->like('name', 'Augmenter')
+                    ->first();
+            }
+
+            if (!$objectif) {
+                return redirect()->to('/programme/catalogue')
+                    ->with('error', 'Objectif correspondant introuvable.');
+            }
+
+            $objectifId = (int) $objectif['id'];
+        } else {
+            // Pour les suggestions
+            $objectifId = (int) ($this->request->getGet('objectif_id') ?? 0);
+            $objectifKg = (float) ($this->request->getGet('objectif_kg') ?? 0);
+
+            if ($objectifId <= 0 || $objectifKg <= 0) {
+                return redirect()->to('/programme')
+                    ->with('error', 'Données invalides.');
+            }
+
+            $objectif = $this->objectifModel->find($objectifId);
+
+            if (!$objectif) {
+                return redirect()->to('/programme')
+                    ->with('error', 'Objectif introuvable.');
+            }
+
+            $dureeCalculee = (int) ceil($objectifKg / abs($variationTotale));
+
+            if ($dureeCalculee <= 0) {
+                return redirect()->to('/programme')
+                    ->with('error', 'Durée calculée invalide.');
+            }
+
+            $prixData = $this->prixRegimeModel->getPrixSelonDuree($regimeId, $dureeCalculee);
+
+            if (!$prixData) {
+                return redirect()->to('/programme')
+                    ->with('error', 'Aucun tarif disponible pour cette durée.');
+            }
+
+            $dureeFacturee = (int) $prixData['duree_semaine'];
+            $prixBase = (float) $prixData['prix'];
+            $prixRegimeId = (int) $prixData['id'];
         }
 
-        $prix = $this->prixRegimeModel->getPrixSelonDuree($regimeId, $dureeCalculee);
-
-        if (!$prix) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Aucun tarif disponible pour cette durée.');
-        }
-
-        $dureeFacturee = (int) $prix['duree_semaine'];
-        $prixBase = (float) $prix['prix'];
         $prixFinal = $this->calculerPrixFinal($prixBase, (bool) $client['is_gold']);
 
-        if ((float) $client['wallet'] < $prixFinal) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Solde insuffisant pour acheter ce programme.');
-        }
-
+        // Calculer le poids cible
         $poidsInitial = (float) $client['poids'];
         $tailleCm = (float) $client['taille'];
         $imcInitial = $this->calculerImc($poidsInitial, $tailleCm);
 
-        $nomObjectif = strtolower($objectif['name']);
+        $nomObjectif = strtolower($objectif['name'] ?? '');
 
         if (str_contains($nomObjectif, 'réduire') || str_contains($nomObjectif, 'reduire')) {
             $poidsCible = $poidsInitial - $objectifKg;
@@ -333,52 +423,35 @@ class ProgrammeController extends BaseController
             $poidsCible = $this->calculerPoidsIdeal($tailleCm);
         }
 
-        $db = \Config\Database::connect();
-        $db->transBegin();
+        // Vérifier le solde
+        $soldeActuel = (float) $client['wallet'];
+        $soldeInsuffisant = $soldeActuel < $prixFinal;
 
-        try {
-            $transactionId = $this->transactionModel->createDebit(
-                (int) $client['id'],
-                $prixFinal
-            );
-
-            $this->infoClientsModel->update((int) $client['id'], [
-                'wallet' => (float) $client['wallet'] - $prixFinal,
-            ]);
-
-            $programmeId = $this->programmeModel->insert([
-                'objectif_id' => $objectifId,
-                'objectif_kg' => $objectifKg,
-                'duree_semaine' => $dureeFacturee,
-                'prix_total' => $prixFinal,
-                'poids_initial' => $poidsInitial,
-                'poids_cible' => $poidsCible,
-                'imc_initial' => $imcInitial,
-                'transaction_id' => $transactionId,
-                'client_id' => $client['id'],
-                'regime_id' => $regimeId,
-            ], true);
-
-            $this->programmeSportModel->insert([
-                'programme_id' => $programmeId,
-                'sport_id' => $sportId,
-            ]);
-
-            $db->transCommit();
-
-            return redirect()
-                ->to('/programme/detail/' . $programmeId)
-                ->with('success', 'Merci de votre confiance. Nous vous encourageons dans votre quête.');
-        } catch (\Throwable $e) {
-            $db->transRollback();
-
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Erreur lors de la création du programme : ' . $e->getMessage());
-        }
+        return view('programmes/apercu-achat', [
+            'title' => 'Aperçu du programme - NutriFit',
+            'regime' => $regime,
+            'sports' => $sports,
+            'sport_ids' => $sportIds,
+            'objectif' => $objectif,
+            'objectif_id' => $objectifId,
+            'objectif_kg' => $objectifKg,
+            'duree_facturee' => $dureeFacturee,
+            'prix_base' => $prixBase,
+            'prix_final' => $prixFinal,
+            'poids_initial' => $poidsInitial,
+            'poids_cible' => $poidsCible,
+            'imc_initial' => $imcInitial,
+            'solde_actuel' => $soldeActuel,
+            'solde_insuffisant' => $soldeInsuffisant,
+            'variation_totale' => $variationTotale,
+            'regime_id' => $regimeId,
+            'prix_regime_id' => $prixRegimeId,
+            'source' => $source,
+            ...$this->profileData(),
+        ]);
     }
 
-    public function confirmerDepuisCatalogue()
+    public function acheterProgramme()
     {
         $userId = session()->get('user_id');
 
@@ -388,123 +461,70 @@ class ProgrammeController extends BaseController
 
         $client = $this->infoClientsModel->getByUserId($userId);
 
-        if (!$client || $client['poids'] === null || $client['taille'] === null) {
+        if (!$client) {
             return redirect()->to('/profil')
-                ->with('error', 'Veuillez compléter votre profil avant de continuer');
+                ->with('error', 'Profil client introuvable.');
         }
 
+        // Récupérer les paramètres POST
+        $objectifId = (int) $this->request->getPost('objectif_id');
         $regimeId = (int) $this->request->getPost('regime_id');
-        $sportId = (int) $this->request->getPost('sport_id');
-        $prixRegimeId = (int) $this->request->getPost('prix_regime_id');
 
-        if ($regimeId <= 0 || $sportId <= 0 || $prixRegimeId <= 0) {
-            return redirect()->back()
+        $sportIds = $this->request->getPost('sport_ids') ?? [];
+
+        if (!is_array($sportIds)) {
+            $sportIds = [$sportIds];
+        }
+
+        $sportIds = array_values(array_filter(array_map('intval', $sportIds)));
+
+        $objectifKg = (float) $this->request->getPost('objectif_kg');
+        $prixFinal = (float) $this->request->getPost('prix_final');
+        $dureeFacturee = (int) $this->request->getPost('duree_facturee');
+        $poidsInitial = (float) $this->request->getPost('poids_initial');
+        $poidsCible = (float) $this->request->getPost('poids_cible');
+        $imcInitial = (float) $this->request->getPost('imc_initial');
+
+        // Vérifications
+        if ($regimeId <= 0 || empty($sportIds) || $prixFinal < 0 || $dureeFacturee <= 0) {
+            return redirect()->to('/programme')
                 ->with('error', 'Données invalides.');
         }
 
-        $regime = $this->regimeModel->find($regimeId);
-
-        if (!$regime) {
-            return redirect()->back()
-                ->with('error', 'Régime introuvable.');
-        }
-
-        if (!$this->regimeSportModel->verifyAssociation($regimeId, $sportId)) {
-            return redirect()->back()
-                ->with('error', 'Ce sport n’est pas compatible avec ce régime.');
-        }
-
-        $sportsCompatibles = $this->regimeSportModel->getSportsByRegimeId($regimeId);
-
-        $sport = null;
-
-        foreach ($sportsCompatibles as $item) {
-            if ((int) $item['id'] === $sportId) {
-                $sport = $item;
-                break;
-            }
-        }
-
-        if (!$sport) {
-            return redirect()->back()
-                ->with('error', 'Sport introuvable.');
-        }
-
-        $prixRegime = $this->prixRegimeModel->find($prixRegimeId);
-
-        if (
-            !$prixRegime ||
-            (int) $prixRegime['regime_id'] !== $regimeId
-        ) {
-            return redirect()->back()
-                ->with('error', 'Tarif invalide pour ce régime.');
-        }
-
-        $dureeSemaine = (int) $prixRegime['duree_semaine'];
-        $prixBase = (float) $prixRegime['prix'];
-        $prixFinal = $this->calculerPrixFinal($prixBase, (bool) $client['is_gold']);
-
-        $variationRegime = (float) $regime['variation_poids_semaine'];
-        $variationSport = (float) $sport['variation_poids_semaine'];
-        $variationTotale = $variationRegime + $variationSport;
-
-        if ($variationTotale == 0) {
-            return redirect()->back()
-                ->with('error', 'La variation totale est nulle. Impossible de créer un programme.');
-        }
-
-        $objectifKg = abs($variationTotale * $dureeSemaine);
-
-        $objectif = null;
-
-        if ($variationTotale < 0) {
-            $objectif = $this->objectifModel
-                ->like('name', 'Réduire')
-                ->orLike('name', 'Reduire')
-                ->first();
-        } else {
-            $objectif = $this->objectifModel
-                ->like('name', 'Augmenter')
-                ->first();
-        }
-
-        if (!$objectif) {
-            return redirect()->back()
-                ->with('error', 'Objectif correspondant introuvable.');
-        }
-
-        $poidsInitial = (float) $client['poids'];
-        $tailleCm = (float) $client['taille'];
-        $imcInitial = $this->calculerImc($poidsInitial, $tailleCm);
-
-        if ($variationTotale < 0) {
-            $poidsCible = $poidsInitial - $objectifKg;
-        } else {
-            $poidsCible = $poidsInitial + $objectifKg;
-        }
-
+        // Vérifier que le solde est suffisant
         if ((float) $client['wallet'] < $prixFinal) {
-            return redirect()->back()
+            return redirect()->to('/programme')
                 ->with('error', 'Solde insuffisant pour acheter ce programme.');
+        }
+
+        // Vérifier la compatibilité du sport et régime
+        foreach ($sportIds as $sportId) {
+            if (!$this->regimeSportModel->verifyAssociation($regimeId, $sportId)) {
+                return redirect()->to('/programme')
+                    ->with('error', 'Un des sports choisis n’est pas compatible avec le régime.');
+            }
         }
 
         $db = \Config\Database::connect();
         $db->transBegin();
 
         try {
+            // Créer la transaction de débit
             $transactionId = $this->transactionModel->createDebit(
                 (int) $client['id'],
                 $prixFinal
             );
 
+            // Mettre à jour le wallet
             $this->infoClientsModel->update((int) $client['id'], [
                 'wallet' => (float) $client['wallet'] - $prixFinal,
             ]);
 
+            // Insérer le programme
             $programmeId = $this->programmeModel->insert([
-                'objectif_id' => (int) $objectif['id'],
+                'objectif_id' => $objectifId,
                 'objectif_kg' => $objectifKg,
-                'duree_semaine' => $dureeSemaine,
+                'duree_semaine' => $dureeFacturee,
                 'prix_total' => $prixFinal,
                 'poids_initial' => $poidsInitial,
                 'poids_cible' => $poidsCible,
@@ -514,10 +534,19 @@ class ProgrammeController extends BaseController
                 'regime_id' => $regimeId,
             ], true);
 
-            $this->programmeSportModel->insert([
-                'programme_id' => $programmeId,
-                'sport_id' => $sportId,
-            ]);
+            // Associer le sport au programme
+            foreach ($sportIds as $sportId) {
+                $this->programmeSportModel->insert([
+                    'programme_id' => $programmeId,
+                    'sport_id' => $sportId,
+                ]);
+            }
+
+            if ($db->transStatus() === false) {
+                $db->transRollback();
+                return redirect()->to('/programme')
+                    ->with('error', 'Erreur lors de la création du programme.');
+            }
 
             $db->transCommit();
 
@@ -527,9 +556,51 @@ class ProgrammeController extends BaseController
         } catch (\Throwable $e) {
             $db->transRollback();
 
-            return redirect()->back()
-                ->with('error', 'Erreur lors de l’achat du programme : ' . $e->getMessage());
+            return redirect()->to('/programme')
+                ->with('error', 'Erreur lors de l\'achat du programme : ' . $e->getMessage());
         }
+    }
+
+    public function confirmer()
+    {
+        // Rétrocompatibilité : rediriger vers la preview
+        return redirect()->to(
+            '/programme/apercu-achat?'
+                . 'objectif_id=' . (int) $this->request->getPost('objectif_id')
+                . '&regime_id=' . (int) $this->request->getPost('regime_id')
+                . '&sport_id=' . (int) $this->request->getPost('sport_id')
+                . '&objectif_kg=' . (float) $this->request->getPost('objectif_kg')
+                . '&source=suggestion'
+        );
+    }
+
+    public function confirmerDepuisCatalogue()
+    {
+        $regimeId = (int) $this->request->getPost('regime_id');
+        $prixRegimeId = (int) $this->request->getPost('prix_regime_id');
+        $sportIds = $this->request->getPost('sport_ids') ?? [];
+
+        if ($regimeId <= 0 || $prixRegimeId <= 0 || empty($sportIds)) {
+            return redirect()->to('/programme/catalogue')
+                ->with('error', 'Veuillez choisir une durée et au moins un sport.');
+        }
+
+        $sportIds = array_map('intval', $sportIds);
+        $sportIds = array_values(array_filter($sportIds, fn($id) => $id > 0));
+
+        if (empty($sportIds)) {
+            return redirect()->to('/programme/catalogue')
+                ->with('error', 'Veuillez choisir au moins un sport valide.');
+        }
+
+        return redirect()->to('/programme/apercu-achat?' . http_build_query([
+            'objectif_id' => 0,
+            'regime_id' => $regimeId,
+            'prix_regime_id' => $prixRegimeId,
+            'sport_ids' => $sportIds,
+            'objectif_kg' => 0,
+            'source' => 'catalogue'
+        ]));
     }
 
     public function mesProgrammes()
@@ -549,9 +620,10 @@ class ProgrammeController extends BaseController
 
         $programmes = $this->programmeModel->getProgrammesByClientId((int) $client['id']);
 
-        return view('programme/mes_programmes', [
-            'client' => $client,
+        return view('programmes/mes_programmes', [
+            'title' => 'Mes programmes - NutriFit',
             'programmes' => $programmes,
+            ...$this->profileData(),
         ]);
     }
 
@@ -591,9 +663,10 @@ class ProgrammeController extends BaseController
         $programme['sports'] = $this->programmeSportModel
             ->getSportsByProgrammeId((int) $programme['id']);
 
-        return view('programme/detail', [
-            'client' => $client,
+        return view('programmes/detail', [
+            'title' => 'Détail programme - NutriFit',
             'programme' => $programme,
+            ...$this->profileData(),
         ]);
     }
 

@@ -26,7 +26,7 @@ class ParametreController extends BaseController
         }
 
         if (!$this->userModel->isAdmin((int) $userId)) {
-            return redirect()->to('/acceuil')
+            return redirect()->to('/accueil')
                 ->with('error', 'Accès réservé à l’administrateur.');
         }
 
@@ -43,7 +43,8 @@ class ParametreController extends BaseController
             ->orderBy('cle', 'ASC')
             ->findAll();
 
-        return view('parametre/index', [
+        return view('admin/parametres/index', [
+            'title' => 'Paramètres - NutriFit',
             'parametres' => $parametres,
         ]);
     }
@@ -54,8 +55,8 @@ class ParametreController extends BaseController
             return $redirect;
         }
 
-        return view('parametre/form', [
-            'parametre' => null,
+        return view('admin/parametres/form', [
+            'title' => 'Créer un paramètre - NutriFit',
         ]);
     }
 
@@ -100,7 +101,8 @@ class ParametreController extends BaseController
                 ->with('error', 'Paramètre introuvable.');
         }
 
-        return view('parametre/form', [
+        return view('admin/parametres/form', [
+            'title' => 'Modifier un paramètre - NutriFit',
             'parametre' => $parametre,
         ]);
     }

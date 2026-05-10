@@ -12,6 +12,7 @@ class InfoClientsModel extends Model
     protected $useAutoIncrement = true;
     protected $allowedFields = [
         'user_id',
+        'name',
         'phone',
         'genre',
         'date_naissance',
@@ -24,6 +25,7 @@ class InfoClientsModel extends Model
 
     protected $validationRules = [
         'user_id' => 'required|integer|is_unique[infos_clients.user_id,id,{id}]',
+        'name' => 'required|max_length[100]|is_unique[infos_clients.name,id,{id}]',
         'phone'   => 'permit_empty|max_length[30]',
         'genre'   => 'required|in_list[H,F]',
         'date_naissance' => 'required|valid_date[Y-m-d]',
@@ -43,6 +45,11 @@ class InfoClientsModel extends Model
         'genre' => [
             'required' => 'Le genre est obligatoire.',
             'in_list'  => 'Le genre doit etre H ou F.',
+        ],
+        'name' => [
+            'required' => 'Le nom d utilisateur est obligatoire.',
+            'max_length' => 'Le nom d utilisateur ne doit pas depasser 100 caracteres.',
+            'is_unique' => 'Ce nom d utilisateur existe deja.',
         ],
         'date_naissance' => [
             'required'   => 'La date de naissance est obligatoire.',

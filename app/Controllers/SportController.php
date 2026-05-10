@@ -23,14 +23,17 @@ class SportController extends BaseController
     {
         $sports = $this->sportModel->findAll();
 
-        return view('sport/list', [
-            'sports' => $sports
+        return view('admin/sport/index', [
+            'title' => 'Gestion des sports - NutriFit',
+            'sports' => $sports,
         ]);
     }
 
     public function showForm()
     {
-        return view('sport/form');
+        return view('admin/sport/form', [
+            'title' => 'Créer un sport - NutriFit',
+        ]);
     }
 
     public function saveSport()
@@ -58,10 +61,13 @@ class SportController extends BaseController
             throw new \Exception("Cette activité n'existe pas");
         }
 
-        return view('sport/form', ['sport' => $sport]);
+        return view('admin/sport/form', [
+            'title' => 'Modifier un sport - NutriFit',
+            'sport' => $sport,
+        ]);
     }
 
-    public function updateSport($id)
+    public function update($id)
     {
         $sport = $this->sportModel->find($id);
 
@@ -75,7 +81,7 @@ class SportController extends BaseController
             'variation_poids_semaine' => $this->request->getPost('variation_poids_semaine')
         ];
 
-        if ($this->sportModel->update($id, $sportData)) {
+        if (!$this->sportModel->update($id, $sportData)) {
             throw new \Exception("Impossible de mettre à jour cette activité sportive");
         }
 
@@ -107,7 +113,10 @@ class SportController extends BaseController
             throw new \Exception("Cette activité n'existe pas");
         }
 
-        return view('sport/detail', ['sport' => $sport]);
+        return view('admin/sport/detail', [
+            'title' => 'Détail sport - NutriFit',
+            'sport' => $sport,
+        ]);
     }
 
     public function regimesAssocies(int $sportId)
@@ -122,10 +131,11 @@ class SportController extends BaseController
 
         $regimesLies = $this->regimeSportModel->getRegimesBySportId($sportId);
 
-        return view('sport/regimes', [
+        return view('admin/sport/regimes_associes', [
+            'title' => 'Régimes associés - NutriFit',
             'sport' => $sport,
             'regimes' => $regimes,
-            'regimes_lies' => $regimesLies
+            'regimes_lies' => $regimesLies,
         ]);
     }
 
