@@ -7,7 +7,7 @@
         <div data-animate="hero-left">
             <span class="badge" data-animate="slide-right" data-delay="80"><i class="fa-solid fa-bolt"></i> Programme nutritionnel international</span>
             <h1 data-animate="slide-left-to-right" data-delay="180">Mangez mieux. <span>Progressez simplement.</span></h1>
-            <p data-animate="slide-right" data-delay="280">Template professionnel complet pour un service de repas équilibrés : menus, programmes, inscription en deux étapes, connexion, profil client et parcours “commencer”.</p>
+            <p data-animate="slide-right" data-delay="280">Suivez nos programmes enrichis pour atteindre votre poids idéal. Profitez de coaching gratuit sur des activités sportives pour booster vos résultats.</p>
             <div class="hero-actions" data-animate="slide-right" data-delay="380">
                 <a class="btn btn-primary" href="<?= session('user_id') ? site_url('programme') : site_url('login') ?>">
                     Commencer maintenant
