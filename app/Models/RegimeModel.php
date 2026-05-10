@@ -66,7 +66,13 @@ class RegimeModel extends Model
             return null;
         }
 
-        $regime['compositions'] = (new VCompositionRegimeModel())->getCompositionRegimeByRegimeId($id);
+        $regime['compositions'] = $this->db->table('composition_regimes cr')
+            ->select('cr.regime_id, cr.ingredient_id, i.name AS ingredient_name, cr.pourcentage')
+            ->join('ingredients i', 'i.id = cr.ingredient_id')
+            ->where('cr.regime_id', $id)
+            ->orderBy('i.name', 'ASC')
+            ->get()
+            ->getResultArray();
         $regime['prix'] = (new PrixRegimeModel())->getPrixByRegimeId($id);
 
         $regime['sport_associe'] = (new RegimeSportModel())->getSportsByRegimeId($id);

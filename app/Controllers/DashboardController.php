@@ -52,10 +52,34 @@ class DashboardController extends BaseController
             ->getResultArray();
         $latestRegimes = $regimeModel->orderBy('id', 'DESC')->findAll(8);
         $latestTransactions = $transactionModel->getAllMouvements();
+        $db = \Config\Database::connect();
+        $txByTypeRows = $db->table('transactions')
+            ->select('type, COUNT(*) AS total')
+            ->groupBy('type')
+            ->get()
+            ->getResultArray();
+        $txByType = ['C' => 0, 'D' => 0];
+        foreach ($txByTypeRows as $row) {
+            $type = (string) ($row['type'] ?? '');
+            $txByType[$type] = (int) ($row['total'] ?? 0);
+        }
+
+        $usersByRoleRows = $db->table('user')
+            ->select('role, COUNT(*) AS total')
+            ->groupBy('role')
+            ->get()
+            ->getResultArray();
+        $usersByRole = ['admin' => 0, 'client' => 0];
+        foreach ($usersByRoleRows as $row) {
+            $role = (string) ($row['role'] ?? '');
+            $usersByRole[$role] = (int) ($row['total'] ?? 0);
+        }
 
         return view('template/healthy_food_international_landing_template(5)', [
             'admin_view' => 'admin-dashboard',
             'stats' => $stats,
+            'tx_by_type' => $txByType,
+            'users_by_role' => $usersByRole,
             'latest_users' => $latestUsers,
             'latest_regimes' => $latestRegimes,
             'latest_transactions' => array_slice($latestTransactions, 0, 8),

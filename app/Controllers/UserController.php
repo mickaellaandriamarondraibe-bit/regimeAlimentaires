@@ -5,16 +5,23 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\InfoClientsModel;
 use App\Models\RegimeModel;
+use App\Models\ParametreModel;
+use App\Models\TransactionModel;
+use App\Models\ObjectifModel;
 
 class UserController extends BaseController
 {
     private $userModel;
     private $infoClientModel;
+    private $parametreModel;
+    private $transactionModel;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->infoClientModel = new InfoClientsModel();
+        $this->parametreModel = new ParametreModel();
+        $this->transactionModel = new TransactionModel();
     }
 
     public function login()
@@ -76,6 +83,7 @@ class UserController extends BaseController
             'email' => $this->request->getPost('email') ?: $session->get('email'),
             'name'  => $this->request->getPost('name') ?: $session->get('name'),
             'pwd'   => $this->request->getPost('pwd') ?: $session->get('pwd'),
+            'genre' => $this->request->getPost('genre') ?: $session->get('genre'),
         ]);
 
         return view('template/healthy_food_international_landing_template(5)');
@@ -196,6 +204,9 @@ class UserController extends BaseController
             'user' => $user,
             'client' => $client,
             'regimes' => (new RegimeModel())->findAll(),
+            'objectifs' => (new ObjectifModel())->getAllObjectifs(),
+            'gold_prix' => $this->parametreModel->getFloatValeur('gold_prix'),
+            'gold_reduction' => $this->parametreModel->getFloatValeur('reduction_gold'),
         ]);
     }
     
@@ -225,6 +236,8 @@ class UserController extends BaseController
     return view('template/healthy_food_international_landing_template(5)', [
         'user' => $user,
         'client' => $client,
+        'gold_prix' => $this->parametreModel->getFloatValeur('gold_prix'),
+        'gold_reduction' => $this->parametreModel->getFloatValeur('reduction_gold'),
     ]);
 }
     
@@ -253,9 +266,54 @@ class UserController extends BaseController
         'username' => trim((string) $this->request->getPost('username')),
     ]);
 
-    return redirect()->to('/profil')
+        return redirect()->to('/profil')
         ->with('success', 'Profil modifié avec succès.');
 }
+
+    public function activerGold()
+    {
+        $userId = (int) session()->get('user_id');
+        if ($userId <= 0) {
+            return redirect()->to('/login');
+        }
+
+        $client = $this->infoClientModel->getByUserId($userId);
+        if (!$client) {
+            return redirect()->to('/profil')->with('error', 'Profil client introuvable.');
+        }
+
+        if (!empty($client['is_gold'])) {
+            return redirect()->to('/profil')->with('success', 'Option Gold déjà active.');
+        }
+
+        $prixGold = (float) $this->parametreModel->getFloatValeur('gold_prix');
+        if ($prixGold <= 0) {
+            $prixGold = 50000;
+        }
+
+        $wallet = (float) ($client['wallet'] ?? 0);
+        if ($wallet < $prixGold) {
+            return redirect()->to('/profil')->with('error', 'Solde insuffisant pour activer Gold.');
+        }
+
+        $db = \Config\Database::connect();
+        $db->transBegin();
+
+        try {
+            $this->transactionModel->createDebit((int) $client['id'], $prixGold);
+
+            $this->infoClientModel->update((int) $client['id'], [
+                'is_gold' => 1,
+                'wallet' => $wallet - $prixGold,
+            ]);
+
+            $db->transCommit();
+            return redirect()->to('/profil')->with('success', 'Option Gold activée avec succès.');
+        } catch (\Throwable $e) {
+            $db->transRollback();
+            return redirect()->to('/profil')->with('error', 'Erreur lors de l’activation Gold.');
+        }
+    }
 
 
 }

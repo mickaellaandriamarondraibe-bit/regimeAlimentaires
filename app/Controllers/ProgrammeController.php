@@ -26,6 +26,15 @@ class ProgrammeController extends BaseController
     private TransactionModel $transactionModel;
     private ProgrammeSportModel $programmeSportModel;
 
+    private function profileData(): array
+    {
+        $userId = (int) session()->get('user_id');
+        $user = (new \App\Models\UserModel())->find($userId);
+        $client = $this->infoClientsModel->getByUserId($userId);
+
+        return ['user' => $user, 'client' => $client];
+    }
+
     public function __construct()
     {
         $this->infoClientsModel = new InfoClientsModel();
@@ -59,7 +68,13 @@ class ProgrammeController extends BaseController
 
         $imc = $this->calculerIMC($client['poids'], $client['taille']);
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'objectifs' => $objectifs,
+            'imc' => $imc,
+            'suggestions' => [],
+            'programme_view' => 'programs',
+            ...$this->profileData(),
+        ]);
     }
 
     public function suggestion()
@@ -98,30 +113,50 @@ class ProgrammeController extends BaseController
         $tailleCm = (float) $client['taille'];
         $imc = $this->calculerIMC($poidsActuel, $tailleCm);
 
-        $nomObjectif = $objectif['name'];
-
         $objectifKg = 0.0;
         $poidsCible = 0.0;
         $sensObjectif = null;
         $regimes = [];
 
-        if (str_contains($nomObjectif, 'reduire') || str_contains($nomObjectif, 'réduire')) {
-            $objectifKg = $this->request->getPost('objectif_kg');
+        $nomObjectif = strtolower((string) ($objectif['name'] ?? ''));
+        $isReduce = ((int) $objectifId === 1)
+            || str_contains($nomObjectif, 'reduire')
+            || str_contains($nomObjectif, 'réduire');
+        $isGain = ((int) $objectifId === 2)
+            || str_contains($nomObjectif, 'augmenter');
+        $isImc = ((int) $objectifId === 3)
+            || str_contains($nomObjectif, 'imc');
+
+        if ($isReduce) {
+            $objectifKg = (float) $this->request->getPost('objectif_kg');
+            if ($objectifKg <= 0) {
+                return redirect()->back()->withInput()->with('error', 'Veuillez saisir un objectif KG valide.');
+            }
             $poidsCible = $poidsActuel - $objectifKg;
             $sensObjectif = 'perte';
             $regimes = $this->regimeModel->getNegativeRegimes();
-        } elseif (str_contains($nomObjectif, 'augmenter')) {
-            $objectifKg = $this->request->getPost('objectif_kg');
+        } elseif ($isGain) {
+            $objectifKg = (float) $this->request->getPost('objectif_kg');
+            if ($objectifKg <= 0) {
+                return redirect()->back()->withInput()->with('error', 'Veuillez saisir un objectif KG valide.');
+            }
             $poidsCible = $poidsActuel + $objectifKg;
             $sensObjectif = 'gain';
             $regimes = $this->regimeModel->getPoitiveRegimes();
-        } elseif (str_contains($nomObjectif, 'imc')) {
+        } elseif ($isImc) {
             $poidsCible = $this->calculerPoidsIdeal($tailleCm);
             $objectifKg = abs($poidsActuel - $poidsCible);
 
             if ($objectifKg <= 0.1) {
-                return redirect()->back()
-                    ->with('success', 'Votre IMC actuel est déjà très proche de l\'IMC ideal. Continuez sur cette voie.');
+                return view('template/healthy_food_international_landing_template(5)', [
+                    'objectifs' => $this->objectifModel->getAllObjectifs(),
+                    'imc' => $imc,
+                    'objectif_selectionne' => (int) $objectifId,
+                    'objectif_kg_saisi' => 0,
+                    'suggestions' => [],
+                    'programme_view' => 'programs',
+                    ...$this->profileData(),
+                ]);
             }
 
             if ($poidsActuel > $poidsCible) {
@@ -192,8 +227,23 @@ class ProgrammeController extends BaseController
             }
         }
 
-        return view('template/healthy_food_international_landing_template(5)');
-    }
+        // Garder une trace simple du dernier diagnostic pour l'afficher sur le profil
+        session()->set([
+            'last_objectif_name' => $objectif['name'] ?? '',
+            'last_objectif_kg' => (float) $objectifKg,
+            'last_objectif_sens' => (string) $sensObjectif,
+        ]);
+
+        return view('template/healthy_food_international_landing_template(5)', [
+            'objectifs' => $this->objectifModel->getAllObjectifs(),
+            'imc' => $imc,
+            'objectif_selectionne' => (int) $objectifId,
+            'objectif_kg_saisi' => (float) $objectifKg,
+            'suggestions' => $suggestions,
+            'programme_view' => 'programs',
+            ...$this->profileData(),
+        ]);
+        }
 
     public function catalogue()
     {

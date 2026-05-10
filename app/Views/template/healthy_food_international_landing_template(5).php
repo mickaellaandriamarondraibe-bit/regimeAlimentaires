@@ -666,7 +666,7 @@
   </style>
 </head>
 <body>
- 
+  <?php $isLoggedIn = (bool) session()->get('user_id'); ?>
   <header class="navbar">
     <div class="container nav-inner">
       <button class="logo" onclick="showPage('home')">
@@ -685,8 +685,10 @@
 
       <div class="nav-icons">
         <button onclick="showPage('profile')"><i class="fa-regular fa-circle-user"></i><span>Mon compte</span></button>
-        <button onclick="showPage('login')"><i class="fa-solid fa-right-to-bracket"></i><span>Login</span></button>
-        <?php if (session()->get('user_id')): ?>
+        <?php if (!$isLoggedIn): ?>
+          <button onclick="showPage('login')"><i class="fa-solid fa-right-to-bracket"></i><span>Login</span></button>
+        <?php endif; ?>
+        <?php if ($isLoggedIn): ?>
           <button onclick="window.location.href='<?= site_url('logout') ?>'"><i class="fa-solid fa-power-off"></i><span>Logout</span></button>
         <?php endif; ?>
       </div>
@@ -717,7 +719,7 @@
             <h1>Mangez mieux. <span>Progressez simplement.</span></h1>
             <p>Template professionnel complet pour un service de repas équilibrés : menus, programmes, inscription en deux étapes, connexion, profil client et parcours “commencer”.</p>
             <div class="hero-actions">
-              <button class="btn btn-primary" onclick="showPage('signup1')">Commencer maintenant <i class="fa-solid fa-arrow-right"></i></button>
+              <button class="btn btn-primary" onclick="showPage('<?= $isLoggedIn ? 'profile' : 'signup1' ?>')">Commencer maintenant <i class="fa-solid fa-arrow-right"></i></button>
               <button class="btn btn-light" onclick="showPage('menus')">Voir les menus</button>
             </div>
           </div>
@@ -746,22 +748,25 @@
 
               <div class="input-group">
                 <label>Objectif</label>
-                <select class="select">
-                  <option>Perte de poids</option>
-                  <option>Équilibre alimentaire</option>
-                  <option>Programme sportif</option>
-                  <option>Rééquilibrage complet</option>
+                <select class="select" id="quickObjective">
+                  <option value="reduire">Réduire son poids</option>
+                  <option value="augmenter">Augmenter son poids</option>
+                  <option value="imc">Atteindre son IMC idéal</option>
                 </select>
               </div>
-
               <div class="input-group">
-                <label>Email</label>
-                <input class="input" type="email" placeholder="votre@email.com">
+                <label>Combien de kg ? (pour augmenter/réduire)</label>
+                <input class="input" type="number" id="quickObjectifKgInput" step="0.1" min="0.1" value="3">
               </div>
 
-              <button class="btn btn-green full" onclick="showPage('signup1')">
+              <button class="btn btn-green full" onclick="startQuickDiagnostic()">
                 Démarrer mon diagnostic <i class="fa-solid fa-arrow-right"></i>
               </button>
+              <form id="quickDiagnosticForm" method="post" action="<?= site_url('programme/suggestion') ?>" style="display:none;">
+                <?= csrf_field() ?>
+                <input type="hidden" name="objectif_id" id="quickObjectifId">
+                <input type="hidden" name="objectif_kg" id="quickObjectifKg" value="3">
+              </form>
             </article>
 
             <article class="action-card code-card reveal">
@@ -846,25 +851,97 @@
         <div class="container page-head-row">
           <div>
             <span class="badge"><i class="fa-solid fa-chart-line"></i> Programmes</span>
-            <h1>Programmes de perte de poids</h1>
+            <h1>Suggestions selon votre objectif</h1>
           </div>
-          <button class="btn btn-primary" onclick="showPage('signup1')">Commencer</button>
+          <?php if (!$isLoggedIn): ?>
+            <button class="btn btn-primary" onclick="showPage('signup1')">Commencer</button>
+          <?php endif; ?>
         </div>
       </div>
       <section class="section">
-        <div class="container programs-grid">
-          <article class="card reveal">
-            <div class="program-img" style="background-image:url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=900&q=85')"></div>
-            <div class="pad"><h3>Starter Fit</h3><p>Pour démarrer une routine simple avec menus guidés.</p><ul class="list"><li><i class="fa-solid fa-check"></i> 4 repas par jour</li><li><i class="fa-solid fa-check"></i> Menus équilibrés</li><li><i class="fa-solid fa-check"></i> Livraison hebdomadaire</li></ul><button class="btn btn-light full" onclick="showPage('signup1')">Choisir</button></div>
-          </article>
-          <article class="card reveal">
-            <div class="program-img" style="background-image:url('https://images.unsplash.com/photo-1494390248081-4e521a5940db?auto=format&fit=crop&w=900&q=85')"></div>
-            <div class="pad"><h3>Premium Coach</h3><p>Le programme le plus complet avec accompagnement.</p><ul class="list"><li><i class="fa-solid fa-check"></i> Coach dédié</li><li><i class="fa-solid fa-check"></i> Suivi profil</li><li><i class="fa-solid fa-check"></i> Ajustement mensuel</li></ul><button class="btn btn-primary full" onclick="showPage('signup1')">Le plus demandé</button></div>
-          </article>
-          <article class="card reveal">
-            <div class="program-img" style="background-image:url('https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&w=900&q=85')"></div>
-            <div class="pad"><h3>Active Protein</h3><p>Pour les personnes actives qui veulent garder une alimentation structurée.</p><ul class="list"><li><i class="fa-solid fa-check"></i> Plats protéinés</li><li><i class="fa-solid fa-check"></i> Collations</li><li><i class="fa-solid fa-check"></i> Plan sportif doux</li></ul><button class="btn btn-light full" onclick="showPage('signup1')">Découvrir</button></div>
-          </article>
+        <div class="container">
+          <?php if ($isLoggedIn): ?>
+            <article class="card pad reveal" style="margin-bottom:14px;">
+              <h3>Choisir un objectif</h3>
+              <?php
+                $imcValue = $imc ?? null;
+                if ($imcValue === null && !empty($client['poids']) && !empty($client['taille'])) {
+                  $tailleM = ((float) $client['taille']) / 100;
+                  if ($tailleM > 0) {
+                    $imcValue = round(((float) $client['poids']) / ($tailleM * $tailleM), 2);
+                  }
+                }
+                $objectifsList = $objectifs ?? [];
+                if (empty($objectifsList)) {
+                  $objectifsList = [
+                    ['id' => 1, 'name' => 'Réduire le poids'],
+                    ['id' => 2, 'name' => 'Augmenter le poids'],
+                    ['id' => 3, 'name' => 'Atteinte de l\'IMC idéal'],
+                  ];
+                }
+              ?>
+              <p style="margin-top:0;">Votre IMC actuel: <strong><?= esc((string) ($imcValue ?? '-')) ?></strong></p>
+              <form method="post" action="<?= site_url('programme/suggestion') ?>" class="row">
+                <?= csrf_field() ?>
+                <div class="input-group">
+                  <label>Objectif</label>
+                  <select class="select" name="objectif_id" required>
+                    <option value="">Choisir</option>
+                    <?php foreach ($objectifsList as $o): ?>
+                      <option value="<?= esc($o['id']) ?>" <?= ((int) ($objectif_selectionne ?? 0) === (int) $o['id']) ? 'selected' : '' ?>>
+                        <?= esc($o['name']) ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label>Objectif en KG (combien perdre/gagner)</label>
+                  <input class="input" type="number" step="0.01" min="0.1" name="objectif_kg" value="<?= esc((string) ($objectif_kg_saisi ?? '')) ?>">
+                </div>
+                <div class="actions" style="align-items:end;">
+                  <button class="btn btn-primary" type="submit">Afficher les régimes correspondants</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="card pad reveal">
+              <h3>Régimes suggérés</h3>
+              <?php if (empty($suggestions ?? [])): ?>
+                <p>Aucune suggestion pour le moment. Choisissez un objectif puis cliquez sur le bouton.</p>
+              <?php else: ?>
+                <div class="programs-grid">
+                  <?php foreach (($suggestions ?? []) as $s): ?>
+                    <article class="card reveal">
+                      <div class="pad">
+                        <h3 style="margin-top:0;"><?= esc($s['regime']['name'] ?? '-') ?></h3>
+                        <p style="margin:0 0 8px;"><strong>Sport associé:</strong> <?= esc($s['sport']['name'] ?? '-') ?></p>
+                        <p style="margin:0 0 8px;"><strong>Durée:</strong> <?= esc((string) ($s['duree_facturee'] ?? '-')) ?> semaine(s)</p>
+                        <p style="margin:0 0 8px;"><strong>Variation totale/semaine:</strong> <?= esc((string) ($s['variation_totale'] ?? '-')) ?> kg</p>
+                        <p style="margin:0 0 8px;"><strong>Prix:</strong> <?= esc(number_format((float) ($s['prix_final'] ?? 0), 0, ',', ' ')) ?> Ar</p>
+                        <form method="post" action="<?= site_url('programme/confirmer') ?>">
+                          <?= csrf_field() ?>
+                          <input type="hidden" name="objectif_id" value="<?= esc((string) ($objectif_selectionne ?? 0)) ?>">
+                          <input type="hidden" name="objectif_kg" value="<?= esc((string) ($objectif_kg_saisi ?? 1)) ?>">
+                          <input type="hidden" name="regime_id" value="<?= esc((string) ($s['regime']['id'] ?? 0)) ?>">
+                          <input type="hidden" name="sport_id" value="<?= esc((string) ($s['sport']['id'] ?? 0)) ?>">
+                          <button class="btn btn-primary full" type="submit">Choisir ce régime</button>
+                        </form>
+                      </div>
+                    </article>
+                  <?php endforeach; ?>
+                </div>
+              <?php endif; ?>
+            </article>
+          <?php else: ?>
+            <article class="card pad reveal">
+              <h3>Connexion requise</h3>
+              <p>Connectez-vous pour choisir votre objectif et obtenir les régimes correspondants.</p>
+              <div class="actions">
+                <button class="btn btn-primary" onclick="showPage('login')">Se connecter</button>
+                <button class="btn btn-light" onclick="showPage('signup1')">Créer un compte</button>
+              </div>
+            </article>
+          <?php endif; ?>
         </div>
       </section>
     </section>
@@ -904,9 +981,16 @@
               <div class="input-group"><label>Nom d'utilisateur</label><input class="input" type="text" name="name" placeholder="Rakoto" value="<?= esc((string) session('name')) ?>" required></div>
               <div class="input-group"><label>Email</label><input class="input" type="email" name="email" placeholder="votre@email.com" value="<?= esc((string) session('email')) ?>" required></div>
             </div>
+            <div class="input-group">
+              <label>Genre</label>
+              <select class="select" name="genre" required>
+                <option value="">Choisir</option>
+                <option value="H" <?= (session('genre') === 'H') ? 'selected' : '' ?>>Homme</option>
+                <option value="F" <?= (session('genre') === 'F') ? 'selected' : '' ?>>Femme</option>
+              </select>
+            </div>
             <div class="input-group"><label>Mot de passe</label><input class="input" type="password" name="pwd" placeholder="Créer un mot de passe" required></div>
             <input type="hidden" name="phone" value="<?= esc((string) session('phone')) ?>">
-            <input type="hidden" name="genre" value="<?= esc((string) session('genre')) ?>">
             <input type="hidden" name="date_naissance" value="<?= esc((string) session('date_naissance')) ?>">
             <input type="hidden" name="age" value="<?= esc((string) session('age')) ?>">
             <input type="hidden" name="taille" value="<?= esc((string) session('taille')) ?>">
@@ -970,7 +1054,10 @@
               · Wallet : <?= esc($client['wallet'] ?? '0') ?> Ar
             </p>
           </div>
-          <button class="btn btn-primary" onclick="showPage('menus')">Voir mes menus</button>
+          <div class="actions">
+            <button class="btn btn-primary" onclick="showPage('menus')">Voir mes menus</button>
+            <button class="btn btn-light" type="button" onclick="exportProfilePdf()">Exporter PDF</button>
+          </div>
         </div>
       </div>
       <div class="container profile-grid">
@@ -1007,10 +1094,27 @@
           </form>
         </article>
         <article class="card pad reveal">
+          <h3>Option Gold</h3>
+          <p style="margin-top:0;">
+            Prix unique: <strong><?= esc((string) ((int)($gold_prix ?? 50000))) ?> Ar</strong>.
+            Remise sur les régimes: <strong><?= esc((string) ((int)($gold_reduction ?? 15))) ?>%</strong>.
+          </p>
+          <?php if (empty($client['is_gold'])): ?>
+            <form method="post" action="<?= site_url('profil/gold') ?>" style="margin-bottom:14px;">
+              <?= csrf_field() ?>
+              <button class="btn btn-green" type="submit">Activer Gold maintenant</button>
+            </form>
+          <?php else: ?>
+            <p style="color:#129a57;font-weight:700;">Votre option Gold est active.</p>
+          <?php endif; ?>
+        </article>
+        <article class="card pad reveal">
           <h3>Détails client</h3>
           <div class="timeline">
             <div class="timeline-item"><i class="fa-solid fa-phone"></i><div><strong>Téléphone</strong><span><?= esc($client['phone'] ?? '-') ?></span></div></div>
             <div class="timeline-item"><i class="fa-solid fa-calendar-days"></i><div><strong>Date de naissance</strong><span><?= esc($client['date_naissance'] ?? '-') ?></span></div></div>
+            <div class="timeline-item"><i class="fa-solid fa-bullseye"></i><div><strong>Dernier objectif</strong><span><?= esc((string) (session('last_objectif_name') ?? '-')) ?></span></div></div>
+            <div class="timeline-item"><i class="fa-solid fa-weight-scale"></i><div><strong>Objectif KG</strong><span><?= esc((string) (session('last_objectif_kg') ?? '-')) ?></span></div></div>
             <div class="timeline-item"><i class="fa-solid fa-crown"></i><div><strong>Statut Gold</strong><span><?= !empty($client['is_gold']) ? 'Oui' : 'Non' ?></span></div></div>
           </div>
         </article>
@@ -1038,6 +1142,19 @@
             <a class="btn btn-light" href="<?= site_url('regime/list') ?>">Liste régimes</a>
             <a class="btn btn-light" href="<?= site_url('admin/transactions') ?>">Transactions</a>
             <a class="btn btn-light" href="<?= site_url('parametres') ?>">Paramètres</a>
+          </div>
+        </article>
+        <article class="card pad reveal" style="margin-top:14px;">
+          <h3>Graphes rapides</h3>
+          <div class="form-grid">
+            <div>
+              <h4 style="margin:0 0 8px;">Transactions (Crédit/Débit)</h4>
+              <canvas id="txTypeChart" height="170"></canvas>
+            </div>
+            <div>
+              <h4 style="margin:0 0 8px;">Utilisateurs par rôle</h4>
+              <canvas id="usersRoleChart" height="170"></canvas>
+            </div>
           </div>
         </article>
 
@@ -1182,14 +1299,17 @@
         <h3 id="modalTitle">Titre du plat</h3>
         <p id="modalText">Description du plat.</p>
         <div class="modal-actions">
-          <button class="btn btn-primary" onclick="showPage('signup1'); closeModal();">Ajouter à mon programme</button>
+          <button class="btn btn-primary" onclick="showPage('<?= $isLoggedIn ? 'profile' : 'signup1' ?>'); closeModal();">Ajouter à mon programme</button>
           <button class="btn btn-light" onclick="closeModal()">Fermer</button>
         </div>
       </div>
     </div>
   </div>
 
+  <script src="/assets/js/plugin/chart.js/chart.min.js"></script>
   <script>
+    const isLoggedIn = <?= $isLoggedIn ? 'true' : 'false' ?>;
+    const objectifsData = <?= json_encode($objectifs ?? [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
     const pages = ['home', 'menus', 'programs', 'login', 'signup1', 'signup2', 'profile', 'admin-dashboard', 'admin-ingredient', 'admin-regime-list', 'admin-regime-form', 'admin-regime-detail'];
     const navMenu = document.getElementById('navMenu');
     const mobileBtn = document.getElementById('mobileBtn');
@@ -1283,6 +1403,7 @@
       document.getElementById('dishModal').classList.add('active');
     }
     function closeModal() { document.getElementById('dishModal').classList.remove('active'); }
+    function exportProfilePdf() { window.print(); }
 
     function addAdminWeekRow() {
       const z = document.getElementById('prix-zone');
@@ -1336,6 +1457,83 @@
         alert('Code non reconnu. Exemple de code test : NUTRI2026');
       }
     }
+
+    function findObjectifId(kind) {
+      const list = Array.isArray(objectifsData) ? objectifsData : [];
+      const normalized = (s) => (s || '').toLowerCase();
+      if (kind === 'reduire') {
+        const o = list.find(x => normalized(x.name).includes('reduire') || normalized(x.name).includes('réduire'));
+        return o ? Number(o.id) : 1;
+      }
+      if (kind === 'augmenter') {
+        const o = list.find(x => normalized(x.name).includes('augmenter'));
+        return o ? Number(o.id) : 2;
+      }
+      const o = list.find(x => normalized(x.name).includes('imc'));
+      return o ? Number(o.id) : 3;
+    }
+
+    function startQuickDiagnostic() {
+      if (!isLoggedIn) {
+        showPage('signup1');
+        return;
+      }
+
+      const objective = document.getElementById('quickObjective');
+      const kgInput = document.getElementById('quickObjectifKgInput');
+      const kind = objective ? objective.value : 'reduire';
+      const kgValue = kgInput ? Number(kgInput.value) : 3;
+      const objectifId = findObjectifId(kind);
+      if (!objectifId) {
+        alert('Objectif introuvable. Vérifiez la table objectif.');
+        return;
+      }
+      if (kind !== 'imc' && (!kgValue || kgValue <= 0)) {
+        alert('Veuillez saisir un nombre de kg valide.');
+        return;
+      }
+
+      document.getElementById('quickObjectifId').value = String(objectifId);
+      document.getElementById('quickObjectifKg').value = (kind === 'imc') ? '1' : String(kgValue);
+      document.getElementById('quickDiagnosticForm').submit();
+    }
+    function drawSimpleCharts() {
+      if (typeof Chart === 'undefined') return;
+
+      const txCanvas = document.getElementById('txTypeChart');
+      const usersCanvas = document.getElementById('usersRoleChart');
+      const txData = <?= json_encode($tx_by_type ?? ['C' => 0, 'D' => 0]) ?>;
+      const usersData = <?= json_encode($users_by_role ?? ['admin' => 0, 'client' => 0]) ?>;
+
+      if (txCanvas) {
+        new Chart(txCanvas, {
+          type: 'bar',
+          data: {
+            labels: ['Crédits', 'Débits'],
+            datasets: [{
+              label: 'Transactions',
+              data: [Number(txData.C || 0), Number(txData.D || 0)],
+              backgroundColor: ['#1f9d75', '#ef4444']
+            }]
+          },
+          options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+      }
+
+      if (usersCanvas) {
+        new Chart(usersCanvas, {
+          type: 'pie',
+          data: {
+            labels: ['Admins', 'Clients'],
+            datasets: [{
+              data: [Number(usersData.admin || 0), Number(usersData.client || 0)],
+              backgroundColor: ['#4f46e5', '#f59e0b']
+            }]
+          },
+          options: { responsive: true }
+        });
+      }
+    }
     document.getElementById('dishModal').addEventListener('click', e => { if (e.target.id === 'dishModal') closeModal(); });
 
     const observer = new IntersectionObserver((entries) => {
@@ -1353,7 +1551,11 @@
       $last = end($parts) ?: '';
       $initialPage = 'home';
 
-      if (!empty($admin_view)) {
+      if (session()->getFlashdata('error') && str_contains(strtolower((string) session()->getFlashdata('error')), 'objectif')) {
+          $initialPage = 'programs';
+      } elseif (!empty($programme_view)) {
+          $initialPage = 'programs';
+      } elseif (!empty($admin_view)) {
           $initialPage = $admin_view;
       } elseif ($last === 'login') {
           $initialPage = 'login';
@@ -1363,8 +1565,14 @@
           $initialPage = 'signup2';
       } elseif ($last === 'profil') {
           $initialPage = 'profile';
+      } elseif ($last === 'programme' || $last === 'suggestion') {
+          $initialPage = 'programs';
       } elseif ($last === 'dashboard') {
           $initialPage = 'admin-dashboard';
+      } elseif ($last === 'list' && (($parts[count($parts)-2] ?? '') === 'regime')) {
+          $initialPage = 'admin-regime-list';
+      } elseif ($last === 'transactions') {
+          $initialPage = ((session('role') ?? '') === 'admin') ? 'admin-dashboard' : 'profile';
       } elseif ($last === 'ingredient') {
           $initialPage = 'admin-ingredient';
       }
@@ -1373,6 +1581,7 @@
 
     renderDishes();
     revealVisible();
+    drawSimpleCharts();
   </script>
 </body>
 </html>

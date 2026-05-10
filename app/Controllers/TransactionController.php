@@ -51,8 +51,20 @@ class TransactionController extends BaseController
         }
 
         $transactions = $this->transactionModel->getAllMouvements();
+        $stats = [
+            'users' => (new UserModel())->countAllResults(),
+            'regimes' => (new \App\Models\RegimeModel())->countAllResults(),
+            'ingredients' => (new \App\Models\IngredientModel())->countAllResults(),
+            'montant_total' => (float) (\Config\Database::connect()->table('transactions')->selectSum('montant')->get()->getRowArray()['montant'] ?? 0),
+        ];
 
-        return view('template/healthy_food_international_landing_template(5)');
+        return view('template/healthy_food_international_landing_template(5)', [
+            'admin_view' => 'admin-dashboard',
+            'stats' => $stats,
+            'latest_transactions' => $transactions,
+            'latest_users' => [],
+            'latest_regimes' => [],
+        ]);
     }
 
     public function transaction(){

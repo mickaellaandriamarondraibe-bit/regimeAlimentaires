@@ -28,7 +28,8 @@ INSERT INTO user (id, email, role, password) VALUES
 (1, 'admin@nutrifit.mg', 'admin', '$2y$10$0558a2CACKvqrAtal95cE.5T1ekkzC70pT.3YzEE.y2XmwLjrOHWe'),
 (2, 'alice@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'),
 (3, 'bob@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'),
-(4, 'clara@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2');
+(4, 'clara@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'),
+(5, 'dina@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2');
 
 INSERT INTO infos_clients (
     id, user_id, username, phone, date_naissance, genre, taille, poids, age, is_gold, wallet
@@ -36,7 +37,8 @@ INSERT INTO infos_clients (
 (1, 1, 'admin', '0340000001', '1990-01-01', 'H', 175.00, 78.00, 36, 1, 150000.00),
 (2, 2, 'alice', '0340000002', '1999-05-10', 'F', 162.00, 71.50, 27, 0, 120000.00),
 (3, 3, 'bob', '0340000003', '1996-11-15', 'H', 178.00, 64.00, 29, 1, 95000.00),
-(4, 4, 'clara', '0340000004', '2001-02-21', 'F', 168.00, 59.00, 25, 0, 60000.00);
+(4, 4, 'clara', '0340000004', '2001-02-21', 'F', 168.00, 59.00, 25, 0, 60000.00),
+(5, 5, 'dina', '0340000005', '1998-08-08', 'F', 165.00, 67.00, 28, 0, 85000.00);
 
 /* =========================
    OBJECTIFS
@@ -64,7 +66,8 @@ INSERT INTO regimes (id, name, description, variation_poids_semaine) VALUES
 (1, 'Regime Lean Cut', 'Regime hypocalorique riche en proteines maigres.', -0.80),
 (2, 'Regime Equilibre Plus', 'Regime modere pour stabilisation et progression douce.', -0.30),
 (3, 'Regime Mass Gain', 'Regime hypercalorique pour prise de masse.', 0.65),
-(4, 'Regime Active Boost', 'Regime energique pour profils tres actifs.', 0.45);
+(4, 'Regime Active Boost', 'Regime energique pour profils tres actifs.', 0.45),
+(5, 'Regime Balance Smart', 'Regime progressif pour retrouver un IMC stable.', -0.20);
 
 /* =========================
    COMPOSITION REGIMES
@@ -73,7 +76,8 @@ INSERT INTO composition_regimes (regime_id, ingredient_id, pourcentage) VALUES
 (1, 1, 30.00), (1, 3, 30.00), (1, 4, 25.00), (1, 5, 15.00),
 (2, 1, 20.00), (2, 2, 15.00), (2, 3, 20.00), (2, 4, 25.00), (2, 5, 10.00), (2, 6, 10.00),
 (3, 2, 30.00), (3, 3, 20.00), (3, 6, 35.00), (3, 5, 15.00),
-(4, 1, 25.00), (4, 2, 20.00), (4, 4, 20.00), (4, 6, 35.00);
+(4, 1, 25.00), (4, 2, 20.00), (4, 4, 20.00), (4, 6, 35.00),
+(5, 1, 20.00), (5, 3, 20.00), (5, 4, 35.00), (5, 5, 25.00);
 
 /* =========================
    PRIX REGIMES
@@ -82,7 +86,8 @@ INSERT INTO prix_regimes (id, regime_id, duree_semaine, prix) VALUES
 (1, 1, 4, 80000.00), (2, 1, 8, 150000.00), (3, 1, 12, 210000.00),
 (4, 2, 4, 70000.00), (5, 2, 8, 130000.00), (6, 2, 12, 185000.00),
 (7, 3, 4, 90000.00), (8, 3, 8, 170000.00), (9, 3, 12, 240000.00),
-(10, 4, 4, 85000.00), (11, 4, 8, 160000.00), (12, 4, 12, 225000.00);
+(10, 4, 4, 85000.00), (11, 4, 8, 160000.00), (12, 4, 12, 225000.00),
+(13, 5, 4, 76000.00), (14, 5, 8, 142000.00), (15, 5, 12, 198000.00);
 
 /* =========================
    SPORTS
@@ -101,7 +106,8 @@ INSERT INTO regime_sports (regime_id, sport_id) VALUES
 (1, 1), (1, 2), (1, 4),
 (2, 1), (2, 4), (2, 5),
 (3, 3), (3, 5),
-(4, 3), (4, 5), (4, 1);
+(4, 3), (4, 5), (4, 1),
+(5, 1), (5, 4), (5, 2);
 
 /* =========================
    CODES + DEMANDES CODES
@@ -109,7 +115,19 @@ INSERT INTO regime_sports (regime_id, sport_id) VALUES
 INSERT INTO code (id, code, montant) VALUES
 (1, 'WELCOME-10K', 10000.00),
 (2, 'GOLD-25K', 25000.00),
-(3, 'BOOST-50K', 50000.00);
+(3, 'BOOST-50K', 50000.00),
+(4, 'FIT-05K', 5000.00),
+(5, 'FIT-07K', 7000.00),
+(6, 'FIT-08K', 8000.00),
+(7, 'FIT-09K', 9000.00),
+(8, 'FIT-11K', 11000.00),
+(9, 'FIT-12K', 12000.00),
+(10, 'FIT-13K', 13000.00),
+(11, 'FIT-14K', 14000.00),
+(12, 'FIT-15K', 15000.00),
+(13, 'FIT-20K', 20000.00),
+(14, 'FIT-30K', 30000.00),
+(15, 'FIT-40K', 40000.00);
 
 INSERT INTO demande_code (id, code_id, statut, client_id, validated_by, validated_at) VALUES
 (1, 1, 'valide', 2, 1, '2026-04-10 10:30:00'),
@@ -148,11 +166,13 @@ INSERT INTO programme_sport (programme_id, sport_id) VALUES
 ========================= */
 INSERT INTO parametres (id, cle, valeur, description) VALUES
 (1, 'imc_ideal', '22', 'Valeur IMC cible utilisee pour les suggestions.'),
-(2, 'reduction_gold', '5', 'Reduction en pourcentage appliquee aux clients Gold.');
+(2, 'reduction_gold', '15', 'Reduction en pourcentage appliquee aux clients Gold.'),
+(3, 'gold_prix', '50000', 'Prix unique pour activer l option Gold.');
 
 /* Comptes de test:
    admin@nutrifit.mg / admin123
    alice@nutrifit.mg / client123
    bob@nutrifit.mg   / client123
    clara@nutrifit.mg / client123
+   dina@nutrifit.mg  / client123
 */
