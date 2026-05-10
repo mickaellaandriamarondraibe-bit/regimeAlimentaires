@@ -31,6 +31,18 @@
     </div>
 </section>
 
+<section class="catalogue-cover" data-animate="fade-up">
+    <div class="container">
+        <div class="catalogue-cover-media">
+            <img src="<?= base_url('assets/img/food_sport.png') ?>" alt="Nutrition et sport">
+            <div class="catalogue-cover-overlay">
+                <span class="badge"><i class="fa-solid fa-fire"></i> Motivation</span>
+                <h2>Mange bien. Bouge fort. Reste régulier.</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="section">
 
     <div class="container">

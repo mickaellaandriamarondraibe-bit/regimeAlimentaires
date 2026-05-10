@@ -33,6 +33,7 @@ $routes->group('', ['filter' => 'auth'], static function ($routes): void {
 
     // Programmes
     $routes->get('/programme', 'ProgrammeController::index');
+    $routes->get('/programme/suggestion', 'ProgrammeController::index');
     $routes->post('/programme/suggestion', 'ProgrammeController::suggestion');
     $routes->post('/programme/confirmer', 'ProgrammeController::confirmer');
     $routes->post('/programme/confirmer-catalogue', 'ProgrammeController::confirmerDepuisCatalogue');

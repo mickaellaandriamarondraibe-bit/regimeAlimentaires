@@ -38,32 +38,42 @@
 <section class="section">
 
     <div class="container">
-
-        <?php if (empty($programmes ?? [])): ?>
-
-            <article class="card pad">
-
-                <h3>Aucun programme</h3>
-
-                <p style="margin-top:10px;color:var(--muted);">
-                    Vous n'avez encore acheté aucun programme.
-                </p>
-
-                <div class="actions" style="margin-top:18px;">
-
-                    <a class="btn btn-primary" href="<?= site_url('programme/catalogue') ?>">
-                        Voir le catalogue
-                    </a>
-
+        <div class="mes-prog-layout">
+            <aside class="mes-prog-side card" data-animate="fade-up">
+                <img src="<?= base_url('assets/img/program.png') ?>" alt="Programme nutrition et sport">
+                <div class="mes-prog-side-overlay">
+                    <span class="badge"><i class="fa-solid fa-dumbbell"></i> Discipline</span>
+                    <h3>Ton progrès se construit chaque semaine.</h3>
                 </div>
+            </aside>
 
-            </article>
+            <div class="mes-prog-main">
 
-        <?php else: ?>
+                <?php if (empty($programmes ?? [])): ?>
 
-            <div class="programs-grid">
+                    <article class="card pad">
 
-                <?php foreach (($programmes ?? []) as $programme): ?>
+                        <h3>Aucun programme</h3>
+
+                        <p style="margin-top:10px;color:var(--muted);">
+                            Vous n'avez encore acheté aucun programme.
+                        </p>
+
+                        <div class="actions" style="margin-top:18px;">
+
+                            <a class="btn btn-primary" href="<?= site_url('programme/catalogue') ?>">
+                                Voir le catalogue
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                <?php else: ?>
+
+                    <div class="programs-grid">
+
+                        <?php foreach (($programmes ?? []) as $programme): ?>
 
                     <?php
                     $regimeName = $programme['regime_name'] ?? '-';
@@ -79,7 +89,7 @@
                     $date = $programme['date_programme'] ?? ($programme['created_at'] ?? '-');
                     ?>
 
-                    <article class="card">
+                            <article class="card">
 
                         <div class="pad">
 
@@ -184,13 +194,15 @@
 
                         </div>
 
-                    </article>
+                            </article>
 
-                <?php endforeach; ?>
+                        <?php endforeach; ?>
 
+                    </div>
+
+                <?php endif; ?>
             </div>
-
-        <?php endif; ?>
+        </div>
 
     </div>
 

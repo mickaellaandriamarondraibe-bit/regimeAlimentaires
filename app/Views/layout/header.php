@@ -1,6 +1,10 @@
 <?php
 $isLoggedIn = (bool) session()->get('user_id');
 $isAdmin = (session('role') ?? '') === 'admin';
+$path = trim((string) service('uri')->getPath(), '/');
+$isActive = static function (string $target) use ($path): bool {
+    return $path === trim($target, '/');
+};
 ?>
 
 <header class="navbar">
@@ -20,12 +24,12 @@ $isAdmin = (session('role') ?? '') === 'admin';
                 <a href="<?= site_url('parametres') ?>">Paramètres</a>
                 <a href="<?= site_url('admin/transactions') ?>">Transactions</a>
             <?php elseif ($isLoggedIn): ?>
-                <a href="<?= site_url('accueil') ?>">Accueil</a>
-                <a href="<?= site_url('programme') ?>">Programme</a>
-                <a href="<?= site_url('programme/catalogue') ?>">Catalogue</a>
-                <a href="<?= site_url('programme/mes-programmes') ?>">Mes programmes</a>
-                <a href="<?= site_url('transactions') ?>">Transactions</a>
-                <a href="<?= site_url('profil') ?>">Profil</a>
+                <a class="<?= $isActive('accueil') ? 'is-active' : '' ?>" href="<?= site_url('accueil') ?>">Accueil</a>
+                <a class="<?= $isActive('programme') ? 'is-active' : '' ?>" href="<?= site_url('programme') ?>">Programme</a>
+                <a class="<?= $isActive('programme/catalogue') ? 'is-active' : '' ?>" href="<?= site_url('programme/catalogue') ?>">Catalogue</a>
+                <a class="<?= $isActive('programme/mes-programmes') ? 'is-active' : '' ?>" href="<?= site_url('programme/mes-programmes') ?>">Mes programmes</a>
+                <a class="<?= $isActive('transactions') ? 'is-active' : '' ?>" href="<?= site_url('transactions') ?>">Transactions</a>
+                <a class="<?= $isActive('profil') ? 'is-active' : '' ?>" href="<?= site_url('profil') ?>">Profil</a>
             <?php else: ?>
                 <a href="<?= site_url('accueil') ?>">Accueil</a>
                 <a href="<?= site_url('programme/catalogue') ?>">Catalogue</a>

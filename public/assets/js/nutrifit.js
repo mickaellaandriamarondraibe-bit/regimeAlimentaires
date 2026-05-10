@@ -21,12 +21,25 @@ function initHomeAnimations() {
         '.page-head-row',
         '.card',
         '.admin-table-wrap',
+        '.badge',
+        '.btn',
+        '.input-group',
+        '.metric',
+        '.status-pill',
+        '.footer-inner > *',
+        'h2',
+        'h3',
+        'p',
     ];
 
     autoTargets.forEach((selector) => {
         document.querySelectorAll(selector).forEach((el) => {
             if (!el.hasAttribute('data-animate')) {
-                el.setAttribute('data-animate', 'fade-up');
+                let type = 'fade-up';
+                if (el.classList.contains('badge')) type = 'fade-left';
+                if (el.classList.contains('btn')) type = 'zoom-in';
+                if (el.classList.contains('card')) type = 'card';
+                el.setAttribute('data-animate', type);
             }
         });
     });
@@ -37,9 +50,13 @@ function initHomeAnimations() {
         return;
     }
 
-    items.forEach((el) => {
+    items.forEach((el, idx) => {
         el.classList.add('anim-ready');
-        el.style.setProperty('--anim-delay', '0ms');
+        const customDelay = Number(el.getAttribute('data-delay') || 0);
+        const delay = Number.isFinite(customDelay) && customDelay > 0
+            ? customDelay
+            : Math.min(idx * 35, 260);
+        el.style.setProperty('--anim-delay', `${delay}ms`);
     });
 
     // Afficher tout de suite les éléments déjà dans le viewport au chargement

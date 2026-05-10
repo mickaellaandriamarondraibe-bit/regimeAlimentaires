@@ -286,8 +286,7 @@ class ProgrammeController extends BaseController
         $objectifKg = (float) $this->request->getPost('objectif_kg');
 
         if ($objectifId <= 0 || $regimeId <= 0 || $sportId <= 0 || $objectifKg <= 0) {
-            return redirect()->back()
-                ->withInput()
+            return redirect()->to('/programme')
                 ->with('error', 'Données du programme invalides.');
         }
 
@@ -295,24 +294,21 @@ class ProgrammeController extends BaseController
         $regime = $this->regimeModel->find($regimeId);
 
         if (!$objectif || !$regime) {
-            return redirect()->back()
-                ->withInput()
+            return redirect()->to('/programme')
                 ->with('error', 'Objectif ou régime introuvable.');
         }
 
         $sportCompatible = $this->regimeSportModel->verifyAssociation($regimeId, $sportId);
 
         if (!$sportCompatible) {
-            return redirect()->back()
-                ->withInput()
+            return redirect()->to('/programme')
                 ->with('error', 'Ce sport n’est pas compatible avec le régime choisi.');
         }
 
         $sport = $this->sportModel->find($sportId);
 
         if (!$sport) {
-            return redirect()->back()
-                ->withInput()
+            return redirect()->to('/programme')
                 ->with('error', 'Sport introuvable.');
         }
 
@@ -320,24 +316,21 @@ class ProgrammeController extends BaseController
             + (float) $sport['variation_poids_semaine'];
 
         if ($variationTotale == 0) {
-            return redirect()->back()
-                ->withInput()
+            return redirect()->to('/programme')
                 ->with('error', 'La variation totale est nulle.');
         }
 
         $dureeCalculee = (int) ceil($objectifKg / abs($variationTotale));
 
         if ($dureeCalculee <= 0) {
-            return redirect()->back()
-                ->withInput()
+            return redirect()->to('/programme')
                 ->with('error', 'Durée calculée invalide.');
         }
 
         $prix = $this->prixRegimeModel->getPrixSelonDuree($regimeId, $dureeCalculee);
 
         if (!$prix) {
-            return redirect()->back()
-                ->withInput()
+            return redirect()->to('/programme')
                 ->with('error', 'Aucun tarif disponible pour cette durée.');
         }
 
@@ -346,8 +339,7 @@ class ProgrammeController extends BaseController
         $prixFinal = $this->calculerPrixFinal($prixBase, (bool) $client['is_gold']);
 
         if ((float) $client['wallet'] < $prixFinal) {
-            return redirect()->back()
-                ->withInput()
+            return redirect()->to('/programme')
                 ->with('error', 'Solde insuffisant pour acheter ce programme.');
         }
 
@@ -404,8 +396,7 @@ class ProgrammeController extends BaseController
         } catch (\Throwable $e) {
             $db->transRollback();
 
-            return redirect()->back()
-                ->withInput()
+            return redirect()->to('/programme')
                 ->with('error', 'Erreur lors de la création du programme : ' . $e->getMessage());
         }
     }
