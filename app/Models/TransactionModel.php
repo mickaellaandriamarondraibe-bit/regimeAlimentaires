@@ -84,6 +84,7 @@ class TransactionModel extends Model
     public function createCredit(int $clientId, float $montant): int
     {
         $this->insert([
+            'date'      => date('Y-m-d H:i:s'),
             'type'      => 'C',
             'client_id' => $clientId,
             'montant'   => $montant,
@@ -95,6 +96,7 @@ class TransactionModel extends Model
     public function createDebit(int $clientId, float $montant): int
     {
         $this->insert([
+            'date'      => date('Y-m-d H:i:s'),
             'type'      => 'D',
             'client_id' => $clientId,
             'montant'   => $montant,
