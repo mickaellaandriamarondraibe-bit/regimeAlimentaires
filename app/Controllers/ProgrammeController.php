@@ -486,7 +486,7 @@ class ProgrammeController extends BaseController
         $imcInitial = (float) $this->request->getPost('imc_initial');
 
         // Vérifications
-        if ($regimeId <= 0 || $sportId <= 0 || $prixFinal < 0 || $dureeFacturee <= 0) {
+        if ($regimeId <= 0 || empty($sportIds) || $prixFinal < 0 || $dureeFacturee <= 0) {
             return redirect()->to('/programme')
                 ->with('error', 'Données invalides.');
         }
