@@ -7,6 +7,8 @@ use \App\Models\RegimeModel;
 use \App\Models\CompositionRegimeModel;
 use \App\Models\ObjectifModel;
 use \App\Models\PrixRegimeModel;
+use \App\Models\SportModel;
+use \App\Models\RegimeSportModel;
 use App\Models\UserModel;
 use App\Models\InfoClientsModel;
 
@@ -153,10 +155,197 @@ class RegimeController extends BaseController
             return redirect()->to('/regime/list')->with('errors', ['Régime introuvable.']);
         }
 
+        $ingredients = (new IngredientModel())->findAll();
+        $allSports = (new SportModel())->findAll();
+
+        $compositionMap = [];
+        foreach (($regime['compositions'] ?? []) as $composition) {
+            $ingredientId = (int) ($composition['ingredient_id'] ?? 0);
+            if ($ingredientId > 0) {
+                $compositionMap[$ingredientId] = (float) ($composition['pourcentage'] ?? 0);
+            }
+        }
+
+        $linkedSportIds = array_map(
+            static fn($value) => (int) $value,
+            array_column($regime['sport_associe'] ?? [], 'id')
+        );
+
         return view('admin/regimes/detail', [
             'title' => 'Détail régime - NutriFit',
             'regime' => $regime,
+            'ingredients' => $ingredients,
+            'composition_map' => $compositionMap,
+            'all_sports' => $allSports,
+            'linked_sport_ids' => $linkedSportIds,
             ...$this->profileData(),
         ]);
+    }
+
+    public function updateGeneral(int $id)
+    {
+        $regimeModel = new RegimeModel();
+        $regime = $regimeModel->find($id);
+
+        if (!$regime) {
+            return redirect()->to('/regime/list')->with('errors', ['Régime introuvable.']);
+        }
+
+        $data = [
+            'name' => trim((string) $this->request->getPost('name')),
+            'description' => trim((string) $this->request->getPost('description')),
+            'variation_poids_semaine' => $this->request->getPost('variation_poids_semaine'),
+        ];
+
+        if (!$regimeModel->update($id, $data)) {
+            return redirect()->back()->withInput()->with('errors', $regimeModel->errors());
+        }
+
+        return redirect()->to('/regime/detail/' . $id)->with('success', 'Informations générales mises à jour.');
+    }
+
+    public function updateComposition(int $id)
+    {
+        $regimeModel = new RegimeModel();
+        $regime = $regimeModel->find($id);
+
+        if (!$regime) {
+            return redirect()->to('/regime/list')->with('errors', ['Régime introuvable.']);
+        }
+
+        $ingredients = (new IngredientModel())->findAll();
+        $compositionModel = new CompositionRegimeModel();
+
+        $db = \Config\Database::connect();
+        $db->transBegin();
+
+        try {
+            $compositionModel->where('regime_id', $id)->delete();
+
+            foreach ($ingredients as $ingredient) {
+                $ingredientId = (int) ($ingredient['id'] ?? 0);
+                if ($ingredientId <= 0) {
+                    continue;
+                }
+
+                $pourcentage = (float) $this->request->getPost('pourcentage_' . $ingredientId);
+
+                if ($pourcentage > 0) {
+                    $compositionModel->insert([
+                        'regime_id' => $id,
+                        'ingredient_id' => $ingredientId,
+                        'pourcentage' => $pourcentage,
+                    ]);
+                }
+            }
+
+            if ($db->transStatus() === false) {
+                $db->transRollback();
+                return redirect()->back()->withInput()->with('errors', ['Erreur lors de la mise à jour de la composition.']);
+            }
+
+            $db->transCommit();
+            return redirect()->to('/regime/detail/' . $id)->with('success', 'Composition mise à jour.');
+        } catch (\Throwable $e) {
+            $db->transRollback();
+            return redirect()->back()->withInput()->with('errors', ['Erreur: ' . $e->getMessage()]);
+        }
+    }
+
+    public function updatePrix(int $id)
+    {
+        $regimeModel = new RegimeModel();
+        $regime = $regimeModel->find($id);
+
+        if (!$regime) {
+            return redirect()->to('/regime/list')->with('errors', ['Régime introuvable.']);
+        }
+
+        $semaines = $this->request->getPost('semaine');
+        $prix = $this->request->getPost('prix');
+
+        if (!is_array($semaines) || !is_array($prix) || count($semaines) !== count($prix)) {
+            return redirect()->back()->withInput()->with('errors', ['Données de tarifs invalides.']);
+        }
+
+        $prixModel = new PrixRegimeModel();
+        $db = \Config\Database::connect();
+        $db->transBegin();
+
+        try {
+            $prixModel->where('regime_id', $id)->delete();
+
+            for ($i = 0; $i < count($semaines); $i++) {
+                $semaine = (int) $semaines[$i];
+                $prixValue = (float) $prix[$i];
+
+                if ($semaine <= 0) {
+                    continue;
+                }
+
+                $prixModel->insert([
+                    'regime_id' => $id,
+                    'duree_semaine' => $semaine,
+                    'prix' => $prixValue,
+                ]);
+            }
+
+            if ($db->transStatus() === false) {
+                $db->transRollback();
+                return redirect()->back()->withInput()->with('errors', ['Erreur lors de la mise à jour des tarifs.']);
+            }
+
+            $db->transCommit();
+            return redirect()->to('/regime/detail/' . $id)->with('success', 'Tarifs mis à jour.');
+        } catch (\Throwable $e) {
+            $db->transRollback();
+            return redirect()->back()->withInput()->with('errors', ['Erreur: ' . $e->getMessage()]);
+        }
+    }
+
+    public function updateSports(int $id)
+    {
+        $regimeModel = new RegimeModel();
+        $regime = $regimeModel->find($id);
+
+        if (!$regime) {
+            return redirect()->to('/regime/list')->with('errors', ['Régime introuvable.']);
+        }
+
+        $sportIds = $this->request->getPost('sport_ids') ?? [];
+        if (!is_array($sportIds)) {
+            return redirect()->back()->withInput()->with('errors', ['Données de sports invalides.']);
+        }
+
+        $regimeSportModel = new RegimeSportModel();
+        $db = \Config\Database::connect();
+        $db->transBegin();
+
+        try {
+            $regimeSportModel->where('regime_id', $id)->delete();
+
+            foreach ($sportIds as $sportId) {
+                $sportId = (int) $sportId;
+                if ($sportId <= 0) {
+                    continue;
+                }
+
+                $regimeSportModel->insert([
+                    'regime_id' => $id,
+                    'sport_id' => $sportId,
+                ]);
+            }
+
+            if ($db->transStatus() === false) {
+                $db->transRollback();
+                return redirect()->back()->withInput()->with('errors', ['Erreur lors de la mise à jour des sports.']);
+            }
+
+            $db->transCommit();
+            return redirect()->to('/regime/detail/' . $id)->with('success', 'Sports mis à jour.');
+        } catch (\Throwable $e) {
+            $db->transRollback();
+            return redirect()->back()->withInput()->with('errors', ['Erreur: ' . $e->getMessage()]);
+        }
     }
 }

@@ -70,6 +70,10 @@ $routes->group('', ['filter' => 'auth'], static function ($routes): void {
         $routes->get('/regime/create', 'RegimeController::showForm');
         $routes->post('/regime/create', 'RegimeController::saveRegime');
         $routes->get('/regime/detail/(:num)', 'RegimeController::detail/$1');
+        $routes->post('/regime/update/(:num)/general', 'RegimeController::updateGeneral/$1');
+        $routes->post('/regime/update/(:num)/composition', 'RegimeController::updateComposition/$1');
+        $routes->post('/regime/update/(:num)/prix', 'RegimeController::updatePrix/$1');
+        $routes->post('/regime/update/(:num)/sports', 'RegimeController::updateSports/$1');
 
         // Sports
         $routes->get('/sport', 'SportController::listSport');
