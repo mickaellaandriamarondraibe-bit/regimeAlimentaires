@@ -32,6 +32,10 @@
                     Se connecter
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
+
+                <button class="btn btn-secondary full admin-connex" data-animate="fade-up" data-delay="500">
+                    Se connecter en tant qu'admin
+                </button>
             </form>
 
             <p data-animate="fade-up" data-delay="580" style="text-align:center;margin-top:18px;">
@@ -43,5 +47,20 @@
         </article>
     </div>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const adminBtn = document.querySelector(".admin-connex");
+    const emailInput = document.querySelector("input[name='email']");
+    const pwdInput = document.querySelector("input[name='pwd']");
+
+    adminBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        emailInput.value = "admin@nutrifit.mg";
+        pwdInput.value = "nutrifit5050admin";
+    });
+});
+</script>
 
 <?= $this->endSection() ?>

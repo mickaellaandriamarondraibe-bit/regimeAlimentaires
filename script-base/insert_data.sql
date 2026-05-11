@@ -25,11 +25,11 @@ SET FOREIGN_KEY_CHECKS = 1;
    USERS + INFOS CLIENTS
 ========================= */
 INSERT INTO user (id, email, role, password) VALUES
-(1, 'admin@nutrifit.mg', 'admin', '$2y$10$0558a2CACKvqrAtal95cE.5T1ekkzC70pT.3YzEE.y2XmwLjrOHWe'),
-(2, 'alice@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'),
-(3, 'bob@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'),
-(4, 'clara@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'),
-(5, 'dina@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2');
+(1, 'admin@nutrifit.mg', 'admin', '$2y$10$eX0BPvWK67nwenFnoN/ZIOuifriYX1VdF3H6bBloQcJXptV59Qhdi'), -- mdp: nutrifit5050admin --
+(2, 'alice@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'), -- mdp: client123 --
+(3, 'bob@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'), -- mdp: client123 --
+(4, 'clara@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'), -- mdp: client123 --
+(5, 'dina@nutrifit.mg', 'client', '$2y$10$URLcUf9IY/AGfqpsvGWQTeZSlQQBKOX.jSjXn7u8cXd3wGtl7L9C2'); -- mdp: client123 --
 
 INSERT INTO infos_clients (
     id, user_id, name, phone, date_naissance, genre, taille, poids, age, is_gold, wallet
@@ -135,33 +135,6 @@ INSERT INTO demande_code (id, code_id, statut, client_id, validated_by, validate
 (3, 3, 'refuse', 4, 1, '2026-04-15 17:00:00');
 
 /* =========================
-   TRANSACTIONS
-========================= */
-INSERT INTO transactions (id, date, type, client_id, montant) VALUES
-(1, '2026-04-10 10:35:00', 'C', 2, 10000.00),
-(2, '2026-04-11 08:40:00', 'D', 2, 80000.00),
-(3, '2026-04-12 12:00:00', 'D', 3, 90000.00),
-(4, '2026-04-14 09:15:00', 'C', 1, 170000.00),
-(5, '2026-04-15 16:10:00', 'D', 4, 70000.00);
-
-/* =========================
-   PROGRAMMES + PROGRAMME SPORT
-========================= */
-INSERT INTO programme (
-    id, objectif_id, objectif_kg, duree_semaine, prix_total,
-    poids_initial, poids_cible, imc_initial, date_programme,
-    transaction_id, client_id, regime_id
-) VALUES
-(1, 1, 5.00, 8, 150000.00, 71.50, 66.50, 27.24, '2026-04-11 08:45:00', 2, 2, 1),
-(2, 2, 4.00, 8, 161500.00, 64.00, 68.00, 20.20, '2026-04-12 12:05:00', 3, 3, 3),
-(3, 1, 3.00, 4, 70000.00, 59.00, 56.00, 20.90, '2026-04-15 16:15:00', 5, 4, 2);
-
-INSERT INTO programme_sport (programme_id, sport_id) VALUES
-(1, 2),
-(2, 3),
-(3, 1);
-
-/* =========================
    PARAMETRES
 ========================= */
 INSERT INTO parametres (id, cle, valeur, description) VALUES
@@ -170,7 +143,7 @@ INSERT INTO parametres (id, cle, valeur, description) VALUES
 (3, 'prix_gold', '50000', 'Prix unique pour activer l option Gold.');
 
 /* Comptes de test:
-   admin@nutrifit.mg / admin123
+   admin@nutrifit.mg / nutrifit5050admin
    alice@nutrifit.mg / client123
    bob@nutrifit.mg   / client123
    clara@nutrifit.mg / client123
