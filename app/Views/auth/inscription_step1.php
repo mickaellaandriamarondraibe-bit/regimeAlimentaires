@@ -10,7 +10,7 @@
                 Étape 1 / 2
             </span>
 
-            <h1 data-animate="slide-right" data-delay="180" style="margin:16px 0;color:var(--purple);">Informations personnelles</h1>
+            <h1 data-animate="slide-right" data-delay="180" style="margin:16px 0;color:var(--purple);">Informations de connexion</h1>
 
             <form method="post" action="<?= site_url('step2') ?>">
                 <?= csrf_field() ?>

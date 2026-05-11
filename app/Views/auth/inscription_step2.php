@@ -10,7 +10,7 @@
                 Étape 2 / 2
             </span>
 
-            <h1 data-animate="slide-right" data-delay="180" style="margin:16px 0;color:var(--purple);">Informations de santé</h1>
+            <h1 data-animate="slide-right" data-delay="180" style="margin:16px 0;color:var(--purple);">Informations personnelles</h1>
 
             <form method="post" action="<?= site_url('register') ?>">
                 <?= csrf_field() ?>
