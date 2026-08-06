@@ -37,7 +37,6 @@ class RegimeController extends BaseController
     {
         $ingredientModel = new IngredientModel();
         $ingredients = $ingredientModel->getAllIngredients();
-
         $objectifModel = new ObjectifModel();
         $objectifs = $objectifModel->getBaseObjectifs();
 

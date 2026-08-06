@@ -9,14 +9,8 @@ use CodeIgniter\Database\Config;
  */
 class Database extends Config
 {
-    /**
-     * The directory that holds the Migrations and Seeds directories.
-     */
     public string $filesPath = APPPATH . 'Database' . DIRECTORY_SEPARATOR;
 
-    /**
-     * Lets you choose which connection group to use if no other is specified.
-     */
     public string $defaultGroup = 'default';
 
     /**
@@ -42,7 +36,7 @@ class Database extends Config
         'compress'     => false,
         'strictOn'     => false,
         'failover'     => [],
-        'port'         => 3306,
+        'port'         => 3308,
         'numberNative' => false,
         'foundRows'    => false,
         'dateFormat'   => [

@@ -13,86 +13,86 @@ class ComposerStaticInitf5cce40800fa5dae1504b9364f585e6a
     );
 
     public static $prefixLengthsPsr4 = array (
-        'T' =>
+        'T' => 
         array (
             'Tests\\Support\\' => 14,
         ),
-        'P' =>
+        'P' => 
         array (
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
             'PhpParser\\' => 10,
         ),
-        'L' =>
+        'L' => 
         array (
             'Laminas\\Escaper\\' => 16,
         ),
-        'F' =>
+        'F' => 
         array (
             'Faker\\' => 6,
         ),
-        'D' =>
+        'D' => 
         array (
             'DeepCopy\\' => 9,
         ),
-        'C' =>
+        'C' => 
         array (
             'Config\\' => 7,
             'CodeIgniter\\' => 12,
         ),
-        'A' =>
+        'A' => 
         array (
             'App\\' => 4,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Tests\\Support\\' =>
+        'Tests\\Support\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests/_support',
         ),
-        'Psr\\Log\\' =>
+        'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'Psr\\Container\\' =>
+        'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'PhpParser\\' =>
+        'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
-        'Laminas\\Escaper\\' =>
+        'Laminas\\Escaper\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-escaper/src',
         ),
-        'Faker\\' =>
+        'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
-        'DeepCopy\\' =>
+        'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
-        'Config\\' =>
+        'Config\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/Config',
         ),
-        'CodeIgniter\\' =>
+        'CodeIgniter\\' => 
         array (
             0 => __DIR__ . '/..' . '/codeigniter4/framework/system',
         ),
-        'App\\' =>
+        'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'o' =>
+        'o' => 
         array (
-            'org\\bovigo\\vfs\\' =>
+            'org\\bovigo\\vfs\\' => 
             array (
                 0 => __DIR__ . '/..' . '/mikey179/vfsstream/src/main/php',
             ),
@@ -101,7 +101,37 @@ class ComposerStaticInitf5cce40800fa5dae1504b9364f585e6a
 
     public static $classMap = array (
         'App\\Controllers\\BaseController' => __DIR__ . '/../..' . '/app/Controllers/BaseController.php',
-        'App\\Controllers\\Home' => __DIR__ . '/../..' . '/app/Controllers/Home.php',
+        'App\\Controllers\\CodeController' => __DIR__ . '/../..' . '/app/Controllers/CodeController.php',
+        'App\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Controllers/DashboardController.php',
+        'App\\Controllers\\InfoClientController' => __DIR__ . '/../..' . '/app/Controllers/InfoClientController.php',
+        'App\\Controllers\\IngredientController' => __DIR__ . '/../..' . '/app/Controllers/IngredientController.php',
+        'App\\Controllers\\ObjectifController' => __DIR__ . '/../..' . '/app/Controllers/ObjectifController.php',
+        'App\\Controllers\\PDFController' => __DIR__ . '/../..' . '/app/Controllers/PDFController.php',
+        'App\\Controllers\\ParametreController' => __DIR__ . '/../..' . '/app/Controllers/ParametreController.php',
+        'App\\Controllers\\ProgrammeController' => __DIR__ . '/../..' . '/app/Controllers/ProgrammeController.php',
+        'App\\Controllers\\RegimeController' => __DIR__ . '/../..' . '/app/Controllers/RegimeController.php',
+        'App\\Controllers\\SportController' => __DIR__ . '/../..' . '/app/Controllers/SportController.php',
+        'App\\Controllers\\TransactionController' => __DIR__ . '/../..' . '/app/Controllers/TransactionController.php',
+        'App\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Controllers/UserController.php',
+        'App\\Filters\\AuthFilter' => __DIR__ . '/../..' . '/app/Filters/AuthFilter.php',
+        'App\\Filters\\RoleFilter' => __DIR__ . '/../..' . '/app/Filters/RoleFilter.php',
+        'App\\Models\\CodeModel' => __DIR__ . '/../..' . '/app/Models/CodeModel.php',
+        'App\\Models\\CompositionRegimeModel' => __DIR__ . '/../..' . '/app/Models/CompositionRegimeModel.php',
+        'App\\Models\\DemandeCode' => __DIR__ . '/../..' . '/app/Models/DemandeCode.php',
+        'App\\Models\\InfoClientsModel' => __DIR__ . '/../..' . '/app/Models/InfoClientsModel.php',
+        'App\\Models\\IngredientModel' => __DIR__ . '/../..' . '/app/Models/IngredientModel.php',
+        'App\\Models\\ObjectifModel' => __DIR__ . '/../..' . '/app/Models/ObjectifModel.php',
+        'App\\Models\\ParametreModel' => __DIR__ . '/../..' . '/app/Models/ParametreModel.php',
+        'App\\Models\\PrixRegimeModel' => __DIR__ . '/../..' . '/app/Models/PrixRegimeModel.php',
+        'App\\Models\\ProgrammeModel' => __DIR__ . '/../..' . '/app/Models/ProgrammeModel.php',
+        'App\\Models\\ProgrammeSportModel' => __DIR__ . '/../..' . '/app/Models/ProgrammeSportModel.php',
+        'App\\Models\\RegimeModel' => __DIR__ . '/../..' . '/app/Models/RegimeModel.php',
+        'App\\Models\\RegimeSportModel' => __DIR__ . '/../..' . '/app/Models/RegimeSportModel.php',
+        'App\\Models\\SportModel' => __DIR__ . '/../..' . '/app/Models/SportModel.php',
+        'App\\Models\\TransactionModel' => __DIR__ . '/../..' . '/app/Models/TransactionModel.php',
+        'App\\Models\\UserModel' => __DIR__ . '/../..' . '/app/Models/UserModel.php',
+        'App\\Models\\VCompositionRegimeModel' => __DIR__ . '/../..' . '/app/Models/VCompositionRegimeModel.php',
+        'App\\ThirdParty\\ExportPDF' => __DIR__ . '/../..' . '/app/ThirdParty/ExportPDF.php',
         'CodeIgniter\\API\\ApiException' => __DIR__ . '/..' . '/codeigniter4/framework/system/API/ApiException.php',
         'CodeIgniter\\API\\BaseTransformer' => __DIR__ . '/..' . '/codeigniter4/framework/system/API/BaseTransformer.php',
         'CodeIgniter\\API\\ResponseTrait' => __DIR__ . '/..' . '/codeigniter4/framework/system/API/ResponseTrait.php',
@@ -2104,6 +2134,7 @@ class ComposerStaticInitf5cce40800fa5dae1504b9364f585e6a
         'PhpParser\\Lexer\\TokenEmulator\\AttributeEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/AttributeEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\EnumTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/EnumTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\ExplicitOctalEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/ExplicitOctalEmulator.php',
+        'PhpParser\\Lexer\\TokenEmulator\\FnTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/FnTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\KeywordEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/KeywordEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\MatchTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/MatchTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\NullsafeTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/NullsafeTokenEmulator.php',

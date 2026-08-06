@@ -41,12 +41,8 @@ class TransactionModel extends Model
 
     public function getAllMouvements(): array
     {
-        return $this->select('
-            transactions.*,
-            infos_clients.phone,
-            infos_clients.name,
-            user.email
-        ')
+        return 
+        $this->select(' transactions.*   infos_clients.phone   infos_clients.name   user.email')
             ->join('infos_clients', 'infos_clients.id = transactions.client_id')
             ->join('user', 'user.id = infos_clients.user_id')
             ->orderBy('transactions.date', 'DESC')
